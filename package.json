@@ -1,9 +1,12 @@
 {
-  "name": "back yard buddy |  modern-landscaping",
+  "homepage": "https://github.com/Wissem7155hack/Luan-Allround-Service",
+  "name": "Luan Allround Service | modern landscaping",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
@@ -22,6 +25,4 @@
     "typescript": "~5.8.2",
     "vite": "^6.2.0"
   }
-
-
 }
