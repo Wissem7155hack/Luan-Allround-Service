@@ -75,27 +75,15 @@ const Footer: React.FC = () => {
                 className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-gold-500 hover:border-gold-500 hover:text-earth-900 transition-all"
               >
                 <Facebook size={18} />
-              </a>
-              <a
-                href="#"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-gold-500 hover:border-gold-500 hover:text-earth-900 transition-all"
-              >
-                <Instagram size={18} />
-              </a>
-              <a
-                href="#"
-                className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-gold-500 hover:border-gold-500 hover:text-earth-900 transition-all"
-              >
-                <Linkedin size={18} />
+              
+               
               </a>
             </div>
           </div>
         </div>
 
         <div className="border-t border-white/5 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center text-gray-500 text-xs">
-          <p>&copy; {new Date().getFullYear()} Premium Sauna. Alle Rechte vorbehalten.</p>
+          <p>&copy; {new Date().getFullYear()} Luan Allround Service. Alle Rechte vorbehalten.</p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <a href="#" className="hover:text-white transition-colors">Datenschutzrichtlinie</a>
             <a href="#" className="hover:text-white transition-colors">Nutzungsbedingungen</a>

@@ -403,28 +403,30 @@ const ContactForm = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
-    const form = e.currentTarget; // Store form reference
+    const form = e.currentTarget;
     const formData = new FormData(form);
 
+    // Web3Forms Access Key
+    formData.append("access_key", "47d58cf4-cf2f-4c87-b933-cbcde2073332");
+
     try {
-      const response = await fetch("https://formsubmit.co/wissemwchtiba@gmail.com", {
+      const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        body: formData,
-        headers: {
-          'Accept': 'application/json'
-        }
+        body: formData
       });
 
-      if (response.ok) {
+      const data = await response.json();
+
+      if (data.success) {
         setShowPopup(true);
-        form.reset(); // Use stored reference
+        form.reset();
       } else {
-        alert("Fehler beim Senden. Der Server hat die Anfrage abgelehnt.");
-        console.error("FormSubmit Error:", response.status, response.statusText);
+        console.error("Web3Forms Error:", data);
+        alert("Fehler beim Senden: " + (data.message || "Unbekannter Fehler"));
       }
     } catch (error) {
       console.error("Submission Error:", error);
-      alert("Ein Netzwerkfehler ist aufgetreten. Bitte prüfen Sie Ihre Verbindung.");
+      alert("Ein Netzwerkfehler ist aufgetreten.");
     } finally {
       setIsSubmitting(false);
     }
@@ -433,16 +435,19 @@ const ContactForm = () => {
   return (
     <>
       <div className="bg-black p-6 md:p-8 rounded-xl shadow-2xl w-full max-w-md mx-auto lg:mx-0">
-        <h3 className="text-2xl md:text-3xl font-black text-white text-center mb-6 md:mb-8 uppercase font-sans">Kostenlose Beratung</h3>
+        <h3 className="text-2xl md:text-3xl font-black text-white text-center mb-6 md:mb-8 uppercase font-sans">
+          Kostenlose Beratung
+        </h3>
+
         <form onSubmit={handleSubmit} className="space-y-4">
 
-          <input type="hidden" name="_captcha" value="false" />
-          <input type="hidden" name="_subject" value="Neue Kontaktanfrage von Luan Allround Service" />
-          <input type="hidden" name="_template" value="table" />
-
+          {/* Name Field */}
           <div>
-            <label className="block text-white font-bold text-sm mb-1">Vollständiger Name *</label>
+            <label htmlFor="name" className="block text-white font-bold text-sm mb-1">
+              Vollständiger Name *
+            </label>
             <input
+              id="name"
               type="text"
               name="name"
               placeholder="Max Mustermann"
@@ -451,81 +456,94 @@ const ContactForm = () => {
             />
           </div>
 
-
-
+          {/* Phone Field */}
           <div>
-            <label className="block text-white font-bold text-sm mb-1">Telefon *</label>
+            <label htmlFor="Telefonnummer" className="block text-white font-bold text-sm mb-1">
+              Telefon *
+            </label>
             <input
+              id="Telefonnummer"
               type="tel"
-              name="phone"
+              name="Telefonnummer"
               placeholder="+49 1234 567890"
               className="w-full p-3 rounded-md text-gray-900 focus:outline-none focus:ring-2 focus:ring-green-500 text-base"
               required
             />
           </div>
 
+          {/* City Field */}
           <div>
-            <label className="block text-white font-bold text-sm mb-1">Deine Stadt *</label>
+            <label htmlFor="Stadt" className="block text-white font-bold text-sm mb-1">
+              Deine Stadt *
+            </label>
             <input
+              id="Stadt"
               type="text"
-              name="city"
+              name="Stadt"
               placeholder="Kuppenheim"
               className="w-full p-3 rounded-md text-gray-900 focus:outline-none focus:ring-2 focus:ring-green-500 text-base"
               required
             />
           </div>
 
+          {/* Message Field */}
           <div>
-            <label className="block text-white font-bold text-sm mb-1">Kurze Beschreibung Ihrer Vorstellungen *</label>
+            <label htmlFor="Nachricht" className="block text-white font-bold text-sm mb-1">
+              Kurze Beschreibung Ihrer Vorstellungen *
+            </label>
             <textarea
-              name="message"
+              id="Nachricht"
+              name="Nachricht"
               placeholder="Ihre Nachricht..."
               rows={3}
-              className="w-full p-3 rounded-md text-gray-900 focus:outline-none focus:ring-2 focus:ring-green-500 text-sm"
+              className="w-full p-3 rounded-md text-gray-900 focus:outline-none focus:ring-2 focus:ring-green-500 text-sm resize-none"
               required
-            ></textarea>
+            />
           </div>
 
-          <div className="flex items-start gap-2">
-            <input type="checkbox" className="mt-1" required />
-            <span className="text-xs text-gray-300">Ich stimme den <a href="#" className="text-green-500 underline">AGB</a> zu und erlaube die Kontaktaufnahme.</span>
-          </div>
-
+         
+          {/* Submit Button */}
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full bg-[#4a7c59] hover:bg-[#3d664a] text-white font-black uppercase py-4 rounded-md text-lg md:text-xl tracking-wide transition-colors mt-2 flex justify-center items-center"
+            className="w-full bg-[#4a7c59] hover:bg-[#3d664a] text-white font-black uppercase py-4 rounded-md text-lg md:text-xl tracking-wide transition-colors duration-300 mt-2 flex justify-center items-center disabled:opacity-70 disabled:cursor-not-allowed"
           >
-            {isSubmitting ? 'Sende...' : 'Anfrage senden'}
+            {isSubmitting ? (
+              <>
+                <Loader2 className="animate-spin mr-2 h-5 w-5" />
+                Sende...
+              </>
+            ) : (
+              'Anfrage senden'
+            )}
           </button>
         </form>
       </div>
 
+      {/* Success Popup */}
       {showPopup && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-[fadeIn_0.3s_ease-out]">
-          <div className="bg-white rounded-2xl p-8 max-w-md w-full text-center shadow-2xl relative">
+          <div className="bg-white rounded-2xl p-8 max-w-md w-full text-center shadow-2xl relative transform transition-all scale-100">
             <button
               onClick={() => setShowPopup(false)}
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
             >
               <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
-            <div className="mx-auto w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mb-6">
-              <svg className="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
+            <div className="mx-auto w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mb-6 shadow-sm">
+              <CheckCircle className="w-10 h-10" />
             </div>
 
-            <h3 className="text-2xl font-bold text-gray-900 mb-2">Vielen Dank!</h3>
-            <p className="text-gray-600 mb-6">
+            <h3 className="text-2xl font-bold text-gray-900 mb-2 font-serif">Vielen Dank!</h3>
+            <p className="text-gray-600 mb-8 leading-relaxed">
               Wir haben Ihre Anfrage erhalten. Unser Team wird sich schnellstmöglich bei Ihnen melden.
             </p>
 
             <button
               onClick={() => setShowPopup(false)}
-              className="w-full bg-[#4a7c59] text-white font-bold py-3 rounded-lg hover:bg-[#3d664a] transition-colors"
+              className="w-full bg-[#4a7c59] text-white font-bold py-3 rounded-lg hover:bg-[#3d664a] transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
             >
               Schließen
             </button>

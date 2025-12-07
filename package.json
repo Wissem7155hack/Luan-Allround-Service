@@ -1,5 +1,5 @@
 {
-  "homepage": "https://wissem7155hack.github.io/Luan-Allround-Service/",
+  "homepage": "https://Wissem7155hack.github.io/Luan-Allround-Service/",
   "name": "Luan Allround Service | modern landscaping",
   "private": true,
   "version": "0.0.0",
@@ -16,7 +16,8 @@
     "lucide-react": "^0.554.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "react-router-dom": "^7.9.6"
+    "react-router-dom": "^7.9.6",
+    "sweetalert2": "^11.26.4"
   },
   "devDependencies": {
     "@types/node": "^22.14.0",
