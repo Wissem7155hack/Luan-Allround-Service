@@ -1,4 +1,23 @@
+# Luan Allround Service - Robots.txt
+# Last Updated: 2025-12-29
+
 User-agent: *
 Allow: /
+Disallow: /api/
+Disallow: /.env
+Disallow: /node_modules/
+Disallow: /*.json$
 
+# Crawl-delay for good citizenship
+Crawl-delay: 1
+
+# Sitemaps
 Sitemap: https://www.luan-allround-service.de/sitemap.xml
+Sitemap: https://www.luan-allround-service.de/sitemap-images.xml
+
+# Specific bots
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
