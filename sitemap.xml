@@ -1,81 +1,143 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  
+  <!-- Homepage -->
   <url>
     <loc>https://www.luan-allround-service.de/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2026-01-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
+  
+  <!-- Main Pages -->
   <url>
     <loc>https://www.luan-allround-service.de/services</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2026-01-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
+  
   <url>
     <loc>https://www.luan-allround-service.de/projects</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2026-01-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
+  
   <url>
     <loc>https://www.luan-allround-service.de/gallery</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2026-01-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
+  
   <url>
     <loc>https://www.luan-allround-service.de/blog</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2026-01-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
+  
   <url>
     <loc>https://www.luan-allround-service.de/about</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2026-01-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+  
   <url>
     <loc>https://www.luan-allround-service.de/contact</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2026-01-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+  
+  <!-- Location Pages (Critical for Local SEO) -->
+  <url>
+    <loc>https://www.luan-allround-service.de/standorte/kuppenheim</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.luan-allround-service.de/standorte/rastatt</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.luan-allround-service.de/standorte/baden-baden</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.luan-allround-service.de/standorte/karlsruhe</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.luan-allround-service.de/standorte/gaggenau</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.luan-allround-service.de/standorte/bischweier</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  
+  <!-- Blog Posts -->
   <url>
     <loc>https://www.luan-allround-service.de/blog/zaunbau-kuppenheim-ratgeber</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2026-01-01</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.7</priority>
   </url>
+  
   <url>
     <loc>https://www.luan-allround-service.de/blog/gartenpflege-landschaftsbau-jahresplan</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2026-01-01</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.7</priority>
   </url>
+  
   <url>
     <loc>https://www.luan-allround-service.de/blog/pflasterarbeiten-terrassenbau-baden</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2026-01-01</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.7</priority>
   </url>
+  
   <url>
     <loc>https://www.luan-allround-service.de/blog/sichtschutz-und-privatsphaere</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2026-01-01</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.7</priority>
   </url>
+  
   <url>
     <loc>https://www.luan-allround-service.de/blog/farbe-form-funktionalitaet-kuppenheim</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2026-01-01</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.7</priority>
   </url>
+  
   <url>
     <loc>https://www.luan-allround-service.de/blog/kuppenheim-stadion-zaun</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2026-01-01</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.7</priority>
   </url>
+  
 </urlset>
