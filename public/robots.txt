@@ -1,0 +1,52 @@
+# Luan Allround Service - Robots.txt
+# Optimiert für bessere Suchmaschinen-Indexierung
+# Last Updated: 2026-01-01
+
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /.env
+Disallow: /node_modules/
+Disallow: /*.json$
+Disallow: /src/
+Disallow: /dist/assets/
+
+# Allow important resources
+Allow: /images/
+Allow: /public/
+Allow: /*.css
+Allow: /*.js
+Allow: /*.jpg
+Allow: /*.jpeg
+Allow: /*.png
+Allow: /*.webp
+Allow: /*.svg
+
+# Crawl-delay for good citizenship (reduced for better indexing)
+Crawl-delay: 0.5
+
+# Sitemaps (Critical for SEO)
+Sitemap: https://www.luan-allround-service.de/sitemap.xml
+Sitemap: https://www.luan-allround-service.de/sitemap-images.xml
+
+# Specific bots optimization
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Googlebot-Image
+Allow: /images/
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Slurp
+Allow: /
+
+# Block bad bots
+User-agent: AhrefsBot
+Crawl-delay: 10
+
+User-agent: SemrushBot
+Crawl-delay: 10

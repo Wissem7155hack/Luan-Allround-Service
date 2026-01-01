@@ -1,7 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { HashRouter as Router, Routes, Route, Link, useLocation, useParams } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, useLocation, useParams, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import LocationPage from './components/LocationPage';
+import SEOHead from './components/SEOHead';
+import { locations, getLocationBySlug } from './data/locations';
+import analytics from './services/analytics';
 import {
   ArrowRight, Leaf, PencilRuler, Shovel, CheckCircle, Play, Loader2, Send, Phone,
   Maximize2, MapPin, Clock, Quote, Star
@@ -123,255 +127,212 @@ const BeforeAfterSlider: React.FC<{ beforeImage: string | Record<string, unknown
 
 // --- Blog Data ---
 const blogPosts: BlogPost[] = [
-
   {
     id: '1',
-    slug: 'rasenpflege gartenpflege in kuppenheim',
-    title: 'Professionelle Rasenpflege & Gartenpflege: Ihr grünes Paradies das ganze Jahr über',
-    image: grassImg,
-    excerpt: 'Bei Luan Allround Service verstehen wir, dass ein makelloser Rasen die Grundlage Ihrer schönen Außenanlage ist. Unser umfassendes wöchentliches Rasenpflege- und Gartenpflegeprogramm umfasst unsere 6-Schritte-Düngung und Unkrautbekämpfung, um sicherzustellen, dass Ihr Rasen und Garten das ganze Jahr über üppig, gesund und perfekt gepflegt bleiben.',
+    slug: 'zaunbau-kuppenheim-ratgeber',
+    title: 'Zaunbau in Kuppenheim: Sicherheit & Ästhetik für Ihren Garten',
+    excerpt: 'Planen Sie einen neuen Zaun in Kuppenheim oder Rastatt? Unser Ratgeber zu Doppelstabmatten, Sichtschutz und modernen Zaunsystemen hilft Ihnen bei der Entscheidung.',
+    date: '2024-03-15',
+    image: img3,
     story: [
-      'Bei Luan Allround Service erkennen wir die Bedeutung eines makellosen Rasens als Fundament Ihrer schönen Außenanlage. Unser umfassendes wöchentliches Rasenpflege- und Gartenpflegeprogramm umfasst unsere bewährte 6-Schritte-Düngung und Unkrautbekämpfungsstrategie, um sicherzustellen, dass Ihr Rasen und Garten das ganze Jahr über üppig, gesund und perfekt gepflegt bleiben.',
-      'Dieses Programm bietet auch eine Auswahl an zwei saisonalen Dienstleistungen – wählen Sie zwischen Winterschnitt, Frühjahrs-Jumpstart, Mulchinstallation, Sommer-Auffrischung oder Herbstreinigung – um die Schönheit und Gesundheit Ihres Gartens mit nachhaltigen Praktiken weiter zu verbessern und zu erhalten.',
-
-      '## Rasenmähen – Das Fundament der Rasenpflege',
-      'Ein gut gemähter Rasen geht über einfache Ästhetik hinaus; er ist entscheidend für die Gesundheit und Vitalität Ihres Grases. Bei Luan Allround Service folgen wir optimalen Mähpraktiken und halten unsere Schnitthöhen zwischen 3 und 5 cm, um einen dichten, robusten Rasen zu fördern.',
-      'Wir verwenden scharfe Klingen für saubere, präzise Schnitte, die Schäden an den Grashalmen verhindern und das Krankheitsrisiko verringern. Unsere Mähmuster werden strategisch variiert, um Bodenverdichtung zu vermeiden und die natürliche Zersetzung von Grasschnitt zu fördern, was Ihren Rasen mit wichtigen Nährstoffen anreichert.',
-      'Zusätzlich sorgt unsere Kantenschnitt-Technik für ein poliertes, gepflegtes Erscheinungsbild, das Ihre Pflanzbeete definiert und die Gesamtschönheit Ihres Gartens hervorhebt.',
-
-      '## Rasenpflege – 6-Schritte-Düngung und Unkrautbekämpfungsprogramm',
-      'Unser umfassendes 6-Schritte-Programm stellt sicher, dass Ihr Rasen die Nährstoffe erhält, die er für robustes Wachstum benötigt. Einschließlich vorbeugender Krabbengraskontrolle und einer Winterdünger-Anwendung ist dieses Programm darauf ausgelegt, Ihren Rasen das ganze Jahr über gesund und unkrautfrei zu halten.',
-      'Wir betonen die Bedeutung richtiger Bewässerungstechniken, um die Wirksamkeit unserer Behandlungen zu maximieren. Unser Programm umfasst:',
-      '• Schritt 1 (Frühjahr): Vorbeugende Krabbengraskontrolle und Frühjahrsdüngung für kräftiges Wachstum',
-      '• Schritt 2 (Spätfrühling): Nachbehandlung gegen Unkraut und ausgewogene Düngung',
-      '• Schritt 3 (Frühsommer): Unkrautbekämpfung und Stickstoffdüngung für sattgrüne Farbe',
-      '• Schritt 4 (Hochsommer): Sommerdüngung mit langsamer Freisetzung für Hitzeresistenz',
-      '• Schritt 5 (Frühherbst): Herbstdüngung zur Wurzelstärkung',
-      '• Schritt 6 (Spätherbst): Winterdüngung zur Vorbereitung auf die kalte Jahreszeit',
-
-      '## Gartenpflege – Mehr als nur Rasen',
-      'Unser wöchentlicher Rasenpflegeservice geht über die reine Rasenpflege hinaus, um Ihren Garten umfassend zu pflegen. Wir jäten sorgfältig von Hand und wenden Herbizide an, um unerwünschte Pflanzen zu kontrollieren, und wir schneiden präzise Baumringe für ein ordentliches Aussehen.',
-      'Unser Team schneidet Rosen zurück und entfernt verblühte Stauden, um gesundes Wachstum und reichliche Blüte zu fördern. Zusätzlich schneiden wir Frühjahrsephemere zum richtigen Zeitpunkt zurück, um sicherzustellen, dass Ihr Garten das ganze Jahr über lebendig und schön gepflegt bleibt.',
-      'Wir kümmern uns auch um Heckenschnitt, Strauchpflege, Beetpflege und die Entfernung von Laub und Gartenabfällen. Jeder Aspekt Ihres Gartens erhält die Aufmerksamkeit, die er verdient.',
-
-      '## Saisonale Service-Optionen',
-      'In unserem umfassenden wöchentlichen Wartungspaket haben Sie die Flexibilität, 2 der folgenden spezialisierten Dienstleistungen auszuwählen, die das ganze Jahr über enthalten sind, um sicherzustellen, dass Ihr Außenbereich nicht nur seine Schönheit bewahrt, sondern in jeder Jahreszeit gedeiht:',
-      '• **Winterschnitt**: Ideal für die Gesundheit und Form Ihrer Pflanzen während der kälteren Monate. Wir schneiden Bäume und Sträucher fachgerecht zurück, wenn sie ruhen.',
-      '• **Frühjahrs-Jumpstart**: Bringen Sie Ihren Garten mit wesentlicher Pflege zu Beginn der Saison in Schwung. Vertikutieren, Düngen und Vorbereitung der Beete.',
-      '• **Mulchinstallation**: Verbessern Sie das Aussehen und die Gesundheit Ihres Gartens mit professioneller Mulchauftragung. Schützt vor Unkraut und hält Feuchtigkeit.',
-      '• **Sommer-Auffrischung und Schnitt**: Aufmerksamkeit fürs Detail zur Mitte der Saison, die Ihre Landschaft optimal aussehen lässt. Formschnitt und Pflege bei voller Vegetation.',
-      '• **Herbstreinigung**: Bereiten Sie Ihren Garten mit einer gründlichen Reinigung auf den Winter vor. Laubentfernung, Rückschnitt und Wintervorbereitung.',
-      'Dieser anpassbare Ansatz ermöglicht es Ihnen, unsere Dienstleistungen auf die spezifischen Bedürfnisse Ihres Gartens abzustimmen und optimale Pflege und Schönheit das ganze Jahr über zu gewährleisten.',
-
-      '## Warum Luan Allround Service für Ihre Rasenpflege wählen',
-      'Wenn Sie Luan Allround Service für Ihre wöchentliche Rasenpflege wählen, erhalten Sie nicht nur einen Service; Sie investieren in die Gesundheit und Schönheit Ihres Außenbereichs. Unser engagiertes Team von Landschaftsbau-Profis ist bestrebt, Ihnen das höchste Maß an Pflege zu bieten und sicherzustellen, dass Ihr Rasen und Garten nicht nur optimal aussehen, sondern auch nachhaltig und umweltfreundlich sind.',
-      'Durch die Partnerschaft mit uns wählen Sie ein Unternehmen, das die Schönheit und Gesundheit Ihres Rasens genauso schätzt wie Sie. Kontaktieren Sie uns noch heute, um mehr über unsere Dienstleistungen zu erfahren und wie wir Ihren Rasen in ein üppiges, lebendiges Außenparadies verwandeln können.'
+      'Ein hochwertiger Zaun ist mehr als nur eine Grundstücksgrenze – er ist die Visitenkarte Ihres Hauses und ein wichtiger Sicherheitsaspekt. Als erfahrener Partner für Zaunbau in Kuppenheim und Umgebung wissen wir, worauf es ankommt.',
+      'In den Neubaugebieten von Kuppenheim und Rastatt sehen wir einen klaren Trend: Moderne Doppelstabmattenzäune in Anthrazit oder Moosgrün sind besonders beliebt. Sie sind langlebig, pflegeleicht und bieten ein hervorragendes Preis-Leistungs-Verhältnis. Aber auch Gabionenwände oder klassische Holzzäune haben ihren Charme und passen perfekt in bestimmte Gartenkonzepte.',
+      'Unser Team von Luan Allround Service berät Sie nicht nur zur Materialwahl, sondern übernimmt auch die fachgerechte Montage. Von der fundamentierung bis zum letzten Handgriff sorgen wir dafür, dass Ihr Zaun jahrzehntelang sicher steht – auch bei badischem Wind und Wetter.'
     ],
     tips: [
-      { title: 'Optimale Schnitthöhe von 3-5 cm', description: 'Wir halten die Schnitthöhe zwischen 3 und 5 cm, um einen dichten, robusten Rasen zu fördern. Dies verhindert Unkrautwachstum, reduziert Wasserbedarf und macht den Rasen widerstandsfähiger gegen Krankheiten und Trockenheit.' },
-      { title: 'Scharfe Klingen für gesunde Schnitte', description: 'Wir verwenden ausschließlich scharfe Mähklingen für saubere, präzise Schnitte. Stumpfe Klingen reißen die Grashalme, was zu braunen Spitzen führt und das Krankheitsrisiko erhöht. Saubere Schnitte fördern schnellere Heilung und gesünderes Wachstum.' },
-      { title: 'Variierende Mähmuster', description: 'Wir ändern strategisch unsere Mähmuster bei jedem Schnitt, um Bodenverdichtung zu vermeiden und gleichmäßiges Wachstum zu fördern. Dies verhindert auch Spurrillen und sorgt für ein professionelles, gepflegtes Erscheinungsbild.' },
-      { title: 'Grasschnitt als natürlicher Dünger', description: 'Wir lassen den Grasschnitt auf dem Rasen liegen (Mulchmähen), wo er sich zersetzt und wichtige Nährstoffe zurück in den Boden gibt. Dies reduziert den Bedarf an zusätzlichem Dünger um bis zu 25% und verbessert die Bodenstruktur.' },
-      { title: 'Professioneller Kantenschnitt', description: 'Unsere präzise Kantenschnitt-Technik definiert Ihre Pflanzbeete, Gehwege und Einfahrten klar und sorgt für ein poliertes, gepflegtes Erscheinungsbild, das die Gesamtschönheit Ihres Gartens hervorhebt.' },
-      { title: '6-Schritte-Düngungsprogramm', description: 'Unser wissenschaftlich entwickeltes 6-Schritte-Programm versorgt Ihren Rasen das ganze Jahr über mit den richtigen Nährstoffen zur richtigen Zeit. Von vorbeugender Unkrautbekämpfung im Frühjahr bis zur Winterdüngung im Herbst.' },
-      { title: 'Richtige Bewässerungstechniken', description: 'Wir beraten Sie über optimale Bewässerung: 2-3 Mal pro Woche gründlich wässern ist besser als täglich oberflächlich. Früh morgens wässern minimiert Verdunstung und Krankheitsrisiko. 2-3 cm Wasser pro Woche sind ideal.' },
-      { title: 'Saisonale Spezialdienste', description: 'Wählen Sie aus unseren saisonalen Optionen: Winterschnitt für Pflanzengesundheit, Frühjahrs-Jumpstart für einen kräftigen Start, Mulchinstallation für Unkrautschutz, Sommer-Auffrischung für Hochsaison-Pflege, oder Herbstreinigung für Wintervorbereitung.' }
+      {
+        title: 'Rechtliche Vorgaben beachten',
+        description: 'Informieren Sie sich vor Baubeginn über den Bebauungsplan in Kuppenheim. Maximale Höhen und Abstände zum Nachbarn sind oft geregelt.'
+      },
+      {
+        title: 'Fundament ist alles',
+        description: 'Ein Zaun steht und fällt mit dem Fundament. Wir betonieren Pfosten frostsicher ein, damit auch im Winter nichts wackelt.'
+      },
+      {
+        title: 'Sichtschutz integrieren',
+        description: 'Doppelstabmatten lassen sich hervorragend mit Flechtstreifen zum Sichtschutz aufrüsten – ideal für mehr Privatsphäre im Garten.'
+      }
     ],
     qa: [
-      { question: 'Wie oft sollte der Rasen gemäht werden?', answer: 'Im Frühjahr und Sommer idealerweise einmal pro Woche, im Herbst alle 10-14 Tage. Wir passen die Intervalle an das Wachstum und Ihre Bedürfnisse an. Die Regel: Nie mehr als ein Drittel der Halmlänge auf einmal abschneiden, um Stress für den Rasen zu vermeiden.' },
-      { question: 'Was umfasst Ihr 6-Schritte-Programm genau?', answer: 'Unser Programm beginnt im Frühjahr mit vorbeugender Krabbengraskontrolle und Frühjahrsdüngung, gefolgt von gezielter Unkrautbekämpfung und ausgewogener Düngung im Spätfrühling. Im Sommer sorgen wir für sattgrüne Farbe und Hitzeresistenz. Im Herbst stärken wir die Wurzeln und bereiten den Rasen mit Winterdüngung auf die kalte Jahreszeit vor.' },
-      { question: 'Welche saisonalen Services kann ich wählen?', answer: 'Sie können 2 aus 5 spezialisierten Services wählen: Winterschnitt für Pflanzengesundheit in kalten Monaten, Frühjahrs-Jumpstart mit Vertikutieren und Vorbereitung, professionelle Mulchinstallation, Sommer-Auffrischung mit Formschnitt, oder gründliche Herbstreinigung mit Laubentfernung und Wintervorbereitung.' },
-      { question: 'Was macht Ihr Gartenpflege-Service besonders?', answer: 'Wir gehen über reines Rasenmähen hinaus: Handarbeit beim Unkrautjäten, präziser Kantenschnitt, fachgerechter Rosenschnitt, Entfernen verblühter Stauden, Heckenpflege und zeitgerechter Rückschnitt von Frühjahrsblühern. Jeder Aspekt Ihres Gartens erhält professionelle Aufmerksamkeit.' },
-      { question: 'Wie funktioniert das wöchentliche Wartungspaket?', answer: 'Unser Paket kombiniert regelmäßiges Rasenmähen mit unserem 6-Schritte-Düngungsprogramm und umfassender Gartenpflege. Sie wählen zusätzlich 2 saisonale Spezialdienste aus 5 Optionen. So erhalten Sie ganzjährig optimale Pflege, die auf die Bedürfnisse jeder Jahreszeit abgestimmt ist.' },
-      { question: 'Warum ist professionelle Rasenpflege wichtig?', answer: 'Ein professionell gepflegter Rasen ist gesünder, widerstandsfähiger gegen Krankheiten und Trockenheit, und sieht das ganze Jahr über perfekt aus. Mit richtiger Schnitthöhe, scharfen Klingen, optimaler Düngung und Unkrautbekämpfung vermeiden Sie teure Sanierungen und genießen einen üppigen, grünen Rasen.' },
-      { question: 'Sind Ihre Methoden umweltfreundlich?', answer: 'Ja! Wir verwenden Mulchmähen, um Grasschnitt als natürlichen Dünger zu nutzen, setzen auf nachhaltige Praktiken, optimieren Bewässerung zur Wasserersparnis, und verwenden gezielte Behandlungen statt Flächenbehandlung. Unsere Methoden sind effektiv und umweltbewusst.' },
-      { question: 'Was kostet das komplette Pflegeprogramm?', answer: 'Die Kosten hängen von der Größe Ihrer Rasenfläche, dem gewählten Leistungsumfang und den ausgewählten saisonalen Services ab. Gerne erstelle ich Ihnen ein individuelles, unverbindliches Angebot. Langfristig sparen Sie mit professioneller Pflege Geld durch Vermeidung teurer Sanierungen.' }
-    ],
+      {
+        question: 'Bauen Sie auch Zäune in Rastatt und Baden-Baden?',
+        answer: 'Ja, unser Einzugsgebiet umfasst Kuppenheim, Rastatt, Baden-Baden, Gaggenau und den gesamten Landkreis Karlsruhe.'
+      },
+      {
+        question: 'Wie lange dauert eine Zaunmontage?',
+        answer: 'Für einen durchschnittlichen Garten in Kuppenheim benötigen wir etwa 2-3 Tage inklusive Beton-Aushärtung.'
+      }
+    ]
   },
-
   {
     id: '2',
-    slug: 'professionelle-zaunmontage',
-    title: 'Von der Baustelle zum Familienparadies: Wie wir mit Zaun, Rasen und natürlicher Pflanzung einen sicheren und lebendigen Garten in Kuppenheim schufen',
-    image: img7,
-    excerpt: 'Entdecken Sie, wie wir einen sicheren Familiengarten mit modernem Maschendrahtzaun, perfektem Rasen und natürlicher Bepflanzung geschaffen haben.',
+    slug: 'gartenpflege-landschaftsbau-jahresplan',
+    title: 'Gartenpflege & Landschaftsbau: Ihr Jahresplan für Kuppenheim',
+    excerpt: 'Wann ist die beste Zeit für den Heckenschnitt? Wie pflegen Sie Ihren Rasen im Rheintal optimal? Profi-Tipps von Ihrem Gärtner vor Ort.',
+    date: '2024-04-02',
+    image: grassImg,
     story: [
-      'Hallo, ich bin Memedali Limani von Luan Allround Service – Ihr Landschaftsgärtner mit Herz, Handwerk und regionaler Expertise für Kuppenheim, Rastatt und Karlsruhe.',
-      'Heute möchte ich Ihnen ein Projekt zeigen, das Familienfreundlichkeit, Sicherheit und natürliche Schönheit in perfekter Harmonie vereint. Dieser Garten ist kein Zufall – er ist das Ergebnis einer sorgfältigen Planung, die genau auf die Bedürfnisse einer jungen Familie abgestimmt war.',
-      'Vor einigen Monaten stand mir ein Kunde gegenüber, der sich Sorgen um die Sicherheit seines Gartens machte. Sein Kind spielte gerne draußen, und er wollte sicherstellen, dass der Bereich abgegrenzt war – aber ohne den Charme des Gartens zu verlieren. Gemeinsam haben wir uns entschieden, einen modernen, robusten Maschendrahtzaun zu installieren, der nicht nur stabil und langlebig ist, sondern auch harmonisch in die Umgebung passt.',
-      'Die Installation war eine Herausforderung, aber genau das macht meine Arbeit so spannend. Wir haben die Pfosten präzise ausgerichtet, die Zaunfelder sorgfältig montiert und darauf geachtet, dass jede Schraube sitzt. Das Ergebnis? Ein Zaun, der nicht nur hält, was er verspricht, sondern auch noch gut aussieht.',
-      'Aber ein Zaun allein macht keinen Garten. Also haben wir den Rasen neu angelegt – mit einer leichten Neigung zur Entwässerung und einem sauberen Rand aus Naturstein. Die Steine dienen nicht nur als dekorativer Abschluss, sondern auch als Wegführung – ideal für barfußlaufen oder beim Gießen.',
-      'Und dann die Pflanzung: Junge Rosenstöcke, Lavendel und niedrige Hecken, die den Zaun sanft umspielen und ihn im Laufe der Zeit noch natürlicher erscheinen lassen. Ein einzelner Stein, eine kleine Skulptur oder ein Blumentopf auf einer Terrasse können den Garten visuell aufwerten – ohne viel Aufwand.'
+      'Ein schöner Garten macht Arbeit – oder er wird von Luan Allround Service gepflegt. Das Klima in der Rheinebene rund um Kuppenheim begünstigt üppiges Wachstum, erfordert aber auch regelmäßige Pflege.',
+      'Besonders im Frühjahr steht viel an: Der Rasen muss vertikutiert und gedüngt werden, um Moos zu verdrängen. Hecken benötigen einen Formschnitt, bevor die Brutzeit der Vögel beginnt (Bundesnaturschutzgesetz beachten!). In Rastatt und Umgebung übernehmen wir diese Arbeiten gerne für Sie, damit Sie Ihren Garten einfach nur genießen können.',
+      'Auch die Gehwegreinigung und Terrassenpflege gehört zu unserem Repertoire. Mit professionellen Hochdruckreinigern befreien wir Ihre Pflastersteine von Algen und Schmutz, sodass Ihre Einfahrt wie neu aussieht.'
     ],
     tips: [
-      { title: 'Wählen Sie den richtigen Zaun', description: 'Ein Maschendrahtzaun wie hier ist modern, elegant und sehr langlebig – besonders wenn er wetterfest imprägniert ist. Alternativen: Metall, Kunststoff oder natürliche Hecken (z.B. Buchsbaum oder Lebensbaum).' },
-      { title: 'Kombinieren Sie harte und weiche Elemente', description: 'Ein reiner Zaun wirkt kalt. Setzen Sie Pflanzen davor oder daneben – Rosen, Lavendel oder kleinwüchsige Sträucher machen den Sichtschutz lebendig und natürlich.' },
-      { title: 'Planen Sie den Rasen von Anfang an', description: 'Ein perfekter Rasen braucht gute Vorbereitung: Bodenaustausch, Drainage und hochwertiges Saatgut. Und: Mähen Sie nicht zu kurz! 3–5 cm sind ideal für eine gesunde Rasenfläche.' },
-      { title: 'Setzen Sie Akzente', description: 'Ein einzelner Stein, eine kleine Skulptur oder ein Blumentopf auf einer Terrasse können den Garten visuell aufwerten – ohne viel Aufwand.' },
-      { title: 'Denken Sie an die Zukunft', description: 'Planen Sie genügend Platz für eventuelle Erweiterungen oder Änderungen im Garten. Ein guter Zaun sollte flexibel sein und sich an Ihre Bedürfnisse anpassen.' }
+      {
+        title: 'Rasenpflege im Frühjahr',
+        description: 'Vertikutieren Sie erst, wenn der Boden trocken ist und das Gras wieder wächst. Wir verwenden speziellen Langzeitdünger für sattes Grün.'
+      },
+      {
+        title: 'Heckenschnitt richtig planen',
+        description: 'Radikale Rückschnitte sind nur von Oktober bis Februar erlaubt. Pflegeschnitte sind jedoch ganzjährig möglich.'
+      }
     ],
     qa: [
-      { question: 'Wie lange hält so ein Maschendrahtzaun?', answer: 'Mit der richtigen Pflege und Wartung kann ein hochwertiger Maschendrahtzaun 20 Jahre und länger halten. Die Pulverbeschichtung schützt vor Korrosion und UV-Strahlung.' },
-      { question: 'Kann ich den Zaun selbst installieren?', answer: 'Theoretisch ja, aber ich rate davon ab. Eine professionelle Installation gewährleistet, dass der Zaun stabil und sicher ist. Zudem übernehme ich die Garantie auf die Arbeit.' },
-      { question: 'Welche Kosten muss ich erwarten?', answer: 'Die Kosten variieren je nach Größe, Material und Komplexität des Projekts. Gerne erstelle ich Ihnen ein unverbindliches Angebot, das genau auf Ihre Bedürfnisse zugeschnitten ist.' },
-      { question: 'Was mache ich, wenn der Zaun beschädigt ist?', answer: 'Bei kleineren Schäden können wir oft direkt vor Ort helfen. Bei größeren Schäden tauschen wir die betroffenen Teile aus – alles im Rahmen unserer Garantie.' },
-      { question: 'Brauche ich eine Genehmigung für den Zaun?', answer: 'In den meisten Fällen nicht – aber ich berate Sie gerne über lokale Bauvorschriften und Grenzabstände. Ein falsch gesetzter Zaun kann Ärger mit Nachbarn oder der Gemeinde bringen – das vermeide ich durch vorausschauende Beratung.' }
+      {
+        question: 'Bieten Sie auch Dauerpflege an?',
+        answer: 'Absolut. Viele Kunden in Kuppenheim nutzen unser "Sorglos-Paket" für regelmäßiges Rasenmähen und Heckenpflege.'
+      },
+      {
+        question: 'Entsorgen Sie den Grünschnitt?',
+        answer: 'Selbstverständlich. Wir nehmen alle Gartenabfälle mit und entsorgen sie fachgerecht.'
+      }
     ]
   },
-
   {
     id: '3',
-    slug: 'sichtschutz-und-privatsphaere',
-    title: 'Der Garten als Rückzugsort: Wie wir Ihren privaten Hinterhof in Kuppenheim mit schwarzem Sichtschutz, perfektem Rasen und cleverer Beleuchtung gestaltet haben',
-    image: img9,
-    excerpt: 'Entdecken Sie, wie wir einen modernen Garten mit schwarzem Sichtschutz, perfektem Rasen und stimmungsvoller Beleuchtung in eine private Wohlfühloase verwandelten.',
+    slug: 'pflasterarbeiten-terrassenbau-baden',
+    title: 'Pflasterarbeiten & Terrassenbau: Gestalten Sie Ihr Outdoor-Wohnzimmer',
+    excerpt: 'Ob Einfahrt oder Terrasse – wir pflastern Ihre Träume. Hochwertige Steinsetzarbeiten in Kuppenheim und Umgebung.',
+    date: '2024-05-10',
+    image: afterImg,
     story: [
-      'Hallo, ich bin Memedali Limani von Luan Allround Service – Ihr Landschaftsgärtner mit Herz, Handwerk und regionaler Expertise für Kuppenheim, Rastatt und Karlsruhe.',
-      'Heute möchte ich Ihnen ein Projekt zeigen, das alles vereint, was einen modernen, gepflegten Garten ausmacht: Privatsphäre, Ästhetik, Funktionalität und Wohlfühlatmosphäre. Dieser Garten ist kein Zufall – er ist das Ergebnis einer sorgfältigen Planung, die genau auf die Wünsche des Kunden abgestimmt war. Und ja, auch hier war ich dabei – von der ersten Beratung bis zur letzten Pflanze.',
-      'Vor einigen Monaten stand mir ein Kunde gegenüber, der sich nach Ruhe und Privatsphäre sehnte. Sein Garten grenzte direkt an Nachbarn, und er wollte einen Ort schaffen, an dem er entspannen, grillen und mit seiner Familie Zeit verbringen konnte – ohne ständige Blicke von außen.',
-      'Gemeinsam haben wir uns für eine kombinierte Lösung aus Sichtschutzzaun und Pflanzung entschieden. Der Zaun ist aus schwarzen, vertikal angeordneten Holzplatten, die nicht nur optisch ansprechend sind, sondern auch eine hohe Sichtdichte bieten. Dazu kamen junge Rosenstöcke und niedrige Hecken, die den Zaun sanft umspielen und ihn im Laufe der Zeit noch natürlicher erscheinen lassen.',
-      'Der Rasen? Ein echter Traum. Wir haben ihn nach Maß angelegt, mit einer leichten Neigung zur Entwässerung und einem sauberen Rand aus Naturstein. Die Steine dienen nicht nur als dekorativer Abschluss, sondern auch als Wegführung – ideal für barfußlaufen oder beim Gießen.',
-      'Und dann die Beleuchtung: Weiße, klassische Gartenlampen entlang des Zauns, die bei Dunkelheit eine warme, einladende Atmosphäre schaffen. Kein grelles Licht – sondern sanfte Akzente, die den Garten zum Leuchten bringen.'
+      'Die Terrasse ist im Sommer das zweite Wohnzimmer. Egal ob Sie Naturstein, Betonwerkstein oder moderne Keramikplatten bevorzugen – wir verlegen Ihren Traumboden in Kuppenheim fachgerecht und dauerhaft.',
+      'Bei Pflasterarbeiten für Einfahrten achten wir besonders auf den Unterbau. In unserer Region kann der Boden stark variieren, daher ist eine solide Schottertragschicht essenziell, um Absackungen zu vermeiden. Wir sanieren auch alte Pflasterflächen und bringen sie wieder auf Vordermann.',
+      'Lassen Sie sich von uns beraten, welche Steine am besten zu Ihrem Hausstil passen. Von mediterranem Flair bis zu modernem Minimalismus setzen wir Ihre Wünsche in Stein um.'
     ],
     tips: [
-      { title: 'Wählen Sie den richtigen Sichtschutz', description: 'Schwarze Holzplatten wie hier sind modern, elegant und sehr langlebig – besonders wenn sie wetterfest imprägniert sind. Alternativen: Metall, Kunststoff oder natürliche Hecken (z.B. Buchsbaum oder Lebensbaum).' },
-      { title: 'Kombinieren Sie harte und weiche Elemente', description: 'Ein reiner Zaun wirkt kalt. Setzen Sie Pflanzen davor oder daneben – Rosen, Lavendel oder kleinwüchsige Sträucher machen den Sichtschutz lebendig und natürlich.' },
-      { title: 'Planen Sie die Beleuchtung von Anfang an', description: 'Gartenspotlights oder Lampen entlang des Weges schaffen nicht nur Sicherheit, sondern auch Stimmung. Achten Sie auf energiesparende LED-Lampen mit warmweißem Licht.' },
-      { title: 'Denken Sie an den Rasen', description: 'Ein perfekter Rasen braucht gute Vorbereitung: Bodenaustausch, Drainage und hochwertiges Saatgut. Und: Mähen Sie nicht zu kurz! 3–5 cm sind ideal für eine gesunde Rasenfläche.' },
-      { title: 'Setzen Sie Akzente', description: 'Ein einzelner Stein, eine kleine Skulptur oder ein Blumentopf auf einer Terrasse können den Garten visuell aufwerten – ohne viel Aufwand.' }
+      {
+        title: 'Wasserdurchlässigkeit beachten',
+        description: 'Ökopflaster spart Abwassergebühren. Wir beraten Sie zu versickerungsfähigen Belägen.'
+      },
+      {
+        title: 'Fugenpflege',
+        description: 'Feste Fugenmörtel verhindern Unkrautdurchwuchs und sind besonders pflegeleicht.'
+      }
     ],
     qa: [
-      { question: 'Wie lange hält so ein schwarzer Holzsichtschutz?', answer: 'Bei professioneller Verarbeitung und regelmäßiger Pflege (z.B. alle 2–3 Jahre neu imprägnieren) hält er 10–15 Jahre. Wir verwenden nur hochwertiges Holz, das gegen Feuchtigkeit und UV-Strahlung beständig ist.' },
-      { question: 'Kann man den Zaun später erweitern oder umbauen?', answer: 'Ja, absolut! Unser System ist modular und lässt sich problemlos anpassen. Ob Sie einen Torbereich hinzufügen oder den Zaun verlängern möchten – wir kümmern uns darum.' },
-      { question: 'Was kostet so ein komplettes Gartenprojekt?', answer: 'Je nach Größe, Material und Komplexität. Gerne erstelle ich Ihnen ein unverbindliches Angebot, das genau auf Ihre Bedürfnisse zugeschnitten ist. Oft lohnt es sich, schon in der Planungsphase mit uns zu sprechen – so sparen Sie langfristig Kosten.' },
-      { question: 'Brauche ich eine Genehmigung für den Zaun?', answer: 'In den meisten Fällen nicht – aber ich berate Sie gerne über lokale Bauvorschriften und Grenzabstände. Ein falsch gesetzter Zaun kann Ärger mit Nachbarn oder der Gemeinde bringen – das vermeide ich durch vorausschauende Beratung.' },
-      { question: 'Wie pflege ich den Rasen richtig?', answer: 'Regelmäßiges Mähen (nicht zu kurz!), Düngen im Frühjahr und Herbst, sowie gezieltes Bewässern bei Trockenheit. Und: Vermeiden Sie das Laufen auf nassem Rasen – das beschädigt die Halme.' }
+      {
+        question: 'Können Sie auch Treppenanlagen bauen?',
+        answer: 'Ja, wir bauen Gartentreppen, Mauern und Einfassungen passend zu Ihrer Pflasterung.'
+      },
+      {
+        question: 'Wie schnell bekomme ich einen Termin?',
+        answer: 'Rufen Sie uns an! Wir versuchen, Besichtigungen in Kuppenheim und Rastatt kurzfristig zu ermöglichen.'
+      }
     ]
   },
-
   {
     id: '4',
-    slug: 'farbe-form-funktionalitaet-kuppenheim',
-    title: 'Farbe, Form & Funktionalität: Wie wir mit Mulch, Hecken und blühenden Azaleen einen Garten in Kuppenheim zum Leuchten bringen',
-    image: img10,
-    excerpt: 'Entdecken Sie, wie eine perfekt gestaltete Beetanlage mit Mulch, blühenden Azaleen und strukturierten Hecken einen Garten in eine leuchtende Oase der Ruhe verwandelt.',
+    slug: 'sichtschutz-und-privatsphaere',
+    title: 'Der Garten als Rückzugsort: Sichtschutz & Privatsphäre in Kuppenheim',
+    excerpt: 'Entdecken Sie, wie wir einen modernen Garten mit schwarzem Sichtschutz, perfektem Rasen und stimmungsvoller Beleuchtung in eine private Wohlfühloase verwandelten.',
+    date: '2024-06-15',
+    image: img9,
     story: [
-      'Hallo, ich bin Memedali Limani von Luan Allround Service – Ihr Landschaftsgärtner mit Herz, Handwerk und regionaler Expertise für Kuppenheim, Rastatt und Karlsruhe.',
-      'Heute möchte ich Ihnen ein Projekt zeigen, das **die Kraft der Farbe, die Schönheit der Form und die Wichtigkeit der Pflege** in einem einzigen Bild vereint: eine **perfekt gestaltete Beetanlage mit Mulch, blühenden Azaleen und strukturierten Hecken**.',
-      'Dieser Garten ist kein Zufall – er ist das Ergebnis einer sorgfältigen Planung, die genau auf die Wünsche des Kunden abgestimmt war. Und ja, auch hier war ich dabei – von der ersten Beratung bis zur letzten Pflanze.',
-
-      '## Die Geschichte hinter dem Bild',
-      'Vor einigen Monaten stand mir ein Kunde gegenüber, der sich nach Ruhe und Privatsphäre sehnte. Sein Garten grenzte direkt an Nachbarn, und er wollte einen Ort schaffen, an dem er entspannen, grillen und mit seiner Familie Zeit verbringen konnte – ohne ständige Blicke von außen.',
-      'Gemeinsam haben wir uns für eine **kombinierte Lösung aus Sichtschutzzaun und Pflanzung** entschieden. Der Zaun ist aus **schwarzen, vertikal angeordneten Holzplatten**, die nicht nur optisch ansprechend sind, sondern auch eine hohe Sichtdichte bieten. Dazu kamen **junge Rosenstöcke und niedrige Hecken**, die den Zaun sanft umspielen und ihn im Laufe der Zeit noch natürlicher erscheinen lassen.',
-      'Der Rasen? Ein echter Traum. Wir haben ihn **nach Maß angelegt**, mit einer leichten Neigung zur Entwässerung und einem sauberen Rand aus Naturstein. Die Steine dienen nicht nur als dekorativer Abschluss, sondern auch als Wegführung – ideal für barfußlaufen oder beim Gießen.',
-      'Und dann die Beleuchtung: **Weiße, klassische Gartenlampen** entlang des Zauns, die bei Dunkelheit eine warme, einladende Atmosphäre schaffen. Kein grelles Licht – sondern sanfte Akzente, die den Garten zum Leuchten bringen.',
-
-      '## Warum ein Landschaftsgärtner mehr als nur „Gras mähen" kann',
-      'Viele denken, ein Gärtner macht nur Rasen und Hecken. Aber bei Luan Allround Service verstehen wir unter „Landschaftsbau" **die ganzheitliche Gestaltung Ihres Außenraums** – von der Bodenplanung über die Pflanzung bis hin zur Beleuchtung und Sichtschutzlösung.',
-
-      '**Unsere Leistungen:**',
-      '✅ Garten- & Landschaftsbau',
-      '✅ Sichtschutz- und Zaunbau (auch modernes Design)',
-      '✅ Rasen- und Beetanlage',
-      '✅ Beleuchtung & Wegeplanung',
-      '✅ Pflege & Wartung',
-
-      'Ein gut geplanter Garten ist wie ein Wohnzimmer im Freien – er soll funktionieren, schön sein und vor allem: **Ihnen Freude bereiten.**',
-
-      '## Fazit',
-      'Ein Garten ist mehr als nur Grünfläche – er ist **Ihr privater Rückzugsort, Ihr Erholungsraum, Ihr Wohlfühlort**. Und genau dafür stehe ich mit meiner Erfahrung, Zuverlässigkeit und Liebe zum Detail bereit. Ob Sie einen Sichtschutz wollen, einen perfekten Rasen oder eine romantische Beleuchtung – ich mache Ihren Garten zu Ihrem persönlichen Paradies.'
+      'Privatsphäre ist im eigenen Garten ein hohes Gut. Besonders in dichter bebauten Gebieten von Kuppenheim und Rastatt ist der Wunsch nach einem geschützten Rückzugsort groß. Bei diesem Projekt zeigen wir, wie man Sichtschutz effektiv und ästhetisch ansprechend gestaltet.',
+      'Wir haben uns für eine Kombination aus schwarzem, modernem Holzsichtschutz und lebendiger Bepflanzung entschieden. Die dunklen Elemente bilden einen edlen Kontrast zum satten Grün des Rasens und der Pflanzen. Durch die Integration von Beleuchtungselementen entsteht am Abend eine gemütliche Lounge-Atmosphäre.',
+      'Ein wichtiger Aspekt war die Langlebigkeit. Wir verwenden ausschließlich wetterfeste Materialien und sorgen durch fachgerechte Montage für Stabilität auch bei Sturm. Der Sichtschutz dient dabei nicht nur der Abgrenzung, sondern auch als Gestaltungselement, das dem Garten Struktur verleiht.'
     ],
     tips: [
-      { title: 'Wählen Sie den richtigen Mulch', description: 'Holzmulch wie hier ist nicht nur dekorativ, sondern auch funktional. Er hält die Feuchtigkeit im Boden, hemmt Unkraut und schützt die Wurzeln vor Hitze und Kälte.' },
-      { title: 'Kombinieren Sie Farben und Formen', description: 'Rosa und rote Azaleen wie hier erzeugen einen farblichen Kontrast, der den Blick sofort auf sich zieht. Setzen Sie dazu grüne Hecken oder Sträucher, um die Farben zu betonen.' },
-      { title: 'Planen Sie die Pflanzung von Anfang an', description: 'Achten Sie darauf, dass die Pflanzen genug Platz haben, um zu wachsen. Eine zu dichte Pflanzung führt zu Schatten und Krankheiten.' },
-      { title: 'Setzen Sie Akzente', description: 'Ein einzelner Stein, eine kleine Skulptur oder ein Blumentopf auf einer Terrasse können den Garten visuell aufwerten – ohne viel Aufwand.' },
-      { title: 'Denken Sie an die Zukunft', description: 'Planen Sie genügend Platz für eventuelle Erweiterungen oder Änderungen im Garten. Ein guter Zaun sollte flexibel sein und sich an Ihre Bedürfnisse anpassen.' }
+      {
+        title: 'Materialwahl ist entscheidend',
+        description: 'Dunkle Hölzer oder WPC liegen im Trend, benötigen aber Pflege oder hochwertige Qualität, um nicht auszubleichen.'
+      },
+      {
+        title: 'Höhe beachten',
+        description: 'In Baden-Württemberg gelten für Sichtschutzzäune an der Grenze oft maximale Höhen von 1,80m. Wir kennen die lokalen Vorschriften.'
+      },
+      {
+        title: 'Bepflanzung auflockern',
+        description: 'Vermeiden Sie eine "Wand". Pflanzen Sie Gräser oder Bambus vor den Sichtschutz, um die Fläche optisch aufzubrechen.'
+      }
     ],
     qa: [
-      { question: 'Wie lange hält so ein Mulch?', answer: 'Mit der richtigen Pflege und Wartung kann ein hochwertiger Holzmulch 2–3 Jahre halten. Danach sollte er erneuert werden, um die Funktionen zu erhalten.' },
-      { question: 'Kann ich den Mulch selbst verteilen?', answer: 'Theoretisch ja, aber ich rate davon ab. Eine professionelle Verteilung gewährleistet, dass der Mulch gleichmäßig ist und keine Lücken entstehen. Zudem übernehme ich die Garantie auf die Arbeit.' },
-      { question: 'Welche Kosten muss ich erwarten?', answer: 'Die Kosten variieren je nach Größe, Material und Komplexität des Projekts. Gerne erstelle ich Ihnen ein unverbindliches Angebot, das genau auf Ihre Bedürfnisse zugeschnitten ist.' },
-      { question: 'Was mache ich, wenn der Mulch beschädigt ist?', answer: 'Bei kleineren Schäden können wir oft direkt vor Ort helfen. Bei größeren Schäden tauschen wir die betroffenen Teile aus – alles im Rahmen unserer Garantie.' },
-      { question: 'Brauche ich eine Genehmigung für den Mulch?', answer: 'In den meisten Fällen nicht – aber ich berate Sie gerne über lokale Bauvorschriften und Grenzabstände. Ein falsch gesetzter Zaun kann Ärger mit Nachbarn oder der Gemeinde bringen – das vermeide ich durch vorausschauende Beratung.' }
+      {
+        question: 'Bieten Sie auch Lärmschutz an?',
+        answer: 'Ja, spezielle Gabionen oder Massivholzzäune können auch den Straßenlärm deutlich reduzieren.'
+      },
+      {
+        question: 'Kann man Beleuchtung nachrüsten?',
+        answer: 'Absolut. Wir planen Kabelkanäle gleich mit ein oder nutzen hochwertige Solar-Lösungen.'
+      }
     ]
   },
-
-
   {
     id: '5',
-    slug: 'kuppenheim-stadion-zaun',
-    title: 'Kuppenheims Stadion in seiner neuen Form',
-    image: img18,
-    excerpt: 'Entdecken Sie, wie wir nicht nur Privatgärten, sondern auch öffentliche Räume wie Sport- und Spielgelände sicher und einladend gestalten. Ein grüner Maschendrahtzaun, der Sicherheit und Natur harmonisch vereint.',
+    slug: 'farbe-form-funktionalitaet-kuppenheim',
+    title: 'Farbe, Form & Funktionalität: Gartengestaltung mit Azaleen & Mulch',
+    excerpt: 'Wie man mit einfachen Mitteln wie Rindenmulch, farbenfrohen Azaleen und Formschnitt-Hecken große Wirkung erzielt. Ein Praxisbeispiel.',
+    date: '2024-07-20',
+    image: img10,
     story: [
-      'Hallo, ich bin Memedali Limani von Luan Allround Service – Ihr Landschaftsgärtner mit Herz, Handwerk und regionaler Expertise für Kuppenheim, Rastatt und Karlsruhe.',
-      'Heute möchte ich Ihnen ein Projekt zeigen, das nicht nur Privatgärten, sondern auch öffentliche Räume sicher und einladend macht: den Zaun um ein Sport- und Spielgelände. Ja, Sie haben richtig gelesen – wir bauen nicht nur Zäune für private Gärten, sondern auch für Schulen, Vereine, Spielplätze und Sportanlagen.',
-      'Dieser Zaun ist kein gewöhnlicher Zaun. Er ist funktionell, robust und gleichzeitig harmonisch in die Umgebung eingebettet. Die grüne Pulverbeschichtung passt perfekt zur Wiese und den Bäumen – ein Zeichen dafür, dass Sicherheit und Natur nicht Gegensätze sein müssen.',
-
-      '## Die Geschichte hinter dem Bild',
-      'Vor einigen Wochen stand mir der Vorstand eines lokalen Sportvereins gegenüber. Sie wollten ihren Platz sichern – nicht nur vor unbefugtem Zugang, sondern auch vor Bällen, die über die Grenzen flogen. Gleichzeitig sollte der Zaun kindersicher, wetterfest und langlebig sein.',
-      'Gemeinsam haben wir uns für einen grünen Maschendrahtzaun mit stabilen Pfosten entschieden. Die Höhe ist so gewählt, dass sie ausreicht, um den Ballflug zu stoppen, aber nicht so hoch, dass sie den Blick auf das Geschehen versperrt. Die Farbe Grün wurde bewusst gewählt, um den Zaun optisch in die Natur zu integrieren – er soll nicht stören, sondern ergänzen.',
-      'Die Installation war eine Herausforderung, aber genau das macht meine Arbeit so spannend. Wir haben die Pfosten präzise ausgerichtet, die Zaunfelder sorgfältig montiert und darauf geachtet, dass jede Schraube sitzt. Das Ergebnis? Ein Zaun, der nicht nur hält, was er verspricht, sondern auch noch gut aussieht.',
-
-      '## Warum ein Landschaftsgärtner mehr als nur „Gras mähen" kann',
-      'Viele denken, ein Gärtner macht nur Rasen und Hecken. Aber bei Luan Allround Service verstehen wir unter „Landschaftsbau" die ganzheitliche Gestaltung Ihres Außenraums – von der Bodenplanung über die Pflanzung bis hin zur Beleuchtung und Sichtschutzlösung.',
-
-      '**Unsere Leistungen:**',
-      '✅ Garten- & Landschaftsbau',
-      '✅ Sichtschutz- und Zaunbau (auch modernes Design)',
-      '✅ Rasen- und Beetanlage',
-      '✅ Beleuchtung & Wegeplanung',
-      '✅ Pflege & Wartung',
-
-      'Ein gut geplanter Garten ist wie ein Wohnzimmer im Freien – er soll funktionieren, schön sein und vor allem: Ihnen Freude bereiten.',
-
-      '## Fazit',
-      'Ein Garten ist mehr als nur Grünfläche – er ist Ihr privater Rückzugsort, Ihr Erholungsraum, Ihr Wohlfühlort. Und genau dafür stehe ich mit meiner Erfahrung, Zuverlässigkeit und Liebe zum Detail bereit. Ob Sie einen Sichtschutz wollen, einen perfekten Rasen oder eine romantische Beleuchtung – ich mache Ihren Garten zu Ihrem persönlichen Paradies.'
+      'Ein Garten lebt von Kontrasten. In diesem Projekt in der Nähe von Kuppenheim haben wir gezeigt, wie man mit Farbe und Form spielt. Die leuchtenden Blüten der Azaleen stehen im wunderschönen Kontrast zum tiefen Grün der Hecken und dem natürlichen Braun des Rindenmulchs.',
+      'Rindenmulch ist dabei weit mehr als nur Dekoration. Er hält die Feuchtigkeit im Boden – gerade im heißen Oberrheingraben ein wichtiger Faktor für die Pflanzengesundheit. Zudem unterdrückt er Unkrautwuchs auf natürliche Weise und spart Ihnen so wertvolle Zeit bei der Gartenpflege.',
+      'Die strukturierte Anordnung der Beete sorgt für Ruhe und Ordnung, während die Pflanzen selbst für Lebendigkeit sorgen. Ein pflegeleichtes Konzept, das das ganze Jahr über gut aussieht.'
     ],
     tips: [
-      { title: 'Wählen Sie den richtigen Zaun', description: 'Ein Maschendrahtzaun wie hier ist modern, elegant und sehr langlebig – besonders wenn er wetterfest imprägniert ist. Alternativen: Metall, Kunststoff oder natürliche Hecken (z.B. Buchsbaum oder Lebensbaum).' },
-      { title: 'Kombinieren Sie harte und weiche Elemente', description: 'Ein reiner Zaun wirkt kalt. Setzen Sie Pflanzen davor oder daneben – Rosen, Lavendel oder kleinwüchsige Sträucher machen den Sichtschutz lebendig und natürlich.' },
-      { title: 'Planen Sie den Rasen von Anfang an', description: 'Ein perfekter Rasen braucht gute Vorbereitung: Bodenaustausch, Drainage und hochwertiges Saatgut. Und: Mähen Sie nicht zu kurz! 3–5 cm sind ideal für eine gesunde Rasenfläche.' },
-      { title: 'Setzen Sie Akzente', description: 'Ein einzelner Stein, eine kleine Skulptur oder ein Blumentopf auf einer Terrasse können den Garten visuell aufwerten – ohne viel Aufwand.' },
-      { title: 'Denken Sie an die Zukunft', description: 'Planen Sie genügend Platz für eventuelle Erweiterungen oder Änderungen im Garten. Ein guter Zaun sollte flexibel sein und sich an Ihre Bedürfnisse anpassen.' }
+      {
+        title: 'Rindenmulch richtig auftragen',
+        description: 'Eine Schicht von 5-7 cm ist ideal. Vorher den Boden gut lockern und düngen, da Mulch dem Boden Stickstoff entziehen kann.'
+      },
+      {
+        title: 'Azaleen Standort',
+        description: 'Sie lieben sauren Boden (Rhododendron-Erde) und halbschattige Plätze. Perfekt unter Bäumen.'
+      }
     ],
     qa: [
-      { question: 'Wie lange hält so ein Maschendrahtzaun?', answer: 'Mit der richtigen Pflege und Wartung kann ein hochwertiger Maschendrahtzaun 20 Jahre und länger halten. Die Pulverbeschichtung schützt vor Korrosion und UV-Strahlung.' },
-      { question: 'Kann ich den Zaun selbst installieren?', answer: 'Theoretisch ja, aber ich rate davon ab. Eine professionelle Installation gewährleistet, dass der Zaun stabil und sicher ist. Zudem übernehme ich die Garantie auf die Arbeit.' },
-      { question: 'Welche Kosten muss ich erwarten?', answer: 'Die Kosten variieren je nach Größe, Material und Komplexität des Projekts. Gerne erstelle ich Ihnen ein unverbindliches Angebot, das genau auf Ihre Bedürfnisse zugeschnitten ist.' },
-      { question: 'Was mache ich, wenn der Zaun beschädigt ist?', answer: 'Bei kleineren Schäden können wir oft direkt vor Ort helfen. Bei größeren Schäden tauschen wir die betroffenen Teile aus – alles im Rahmen unserer Garantie.' },
-      { question: 'Brauche ich eine Genehmigung für den Zaun?', answer: 'In den meisten Fällen nicht – aber ich berate Sie gerne über lokale Bauvorschriften und Grenzabstände. Ein falsch gesetzter Zaun kann Ärger mit Nachbarn oder der Gemeinde bringen – das vermeide ich durch vorausschauende Beratung.' }
+      {
+        question: 'Muss Mulch erneuert werden?',
+        answer: 'Ja, er verrottet mit der Zeit. Wir empfehlen, alle 1-2 Jahre eine frische Schicht aufzutragen.'
+      },
+      {
+        question: 'Welche Alternative gibt es zu Rindenmulch?',
+        answer: 'Lavabulch oder Kies sind langlebiger, wirken aber optisch kühler. Pinienrinde ist eine edlere Variante.'
+      }
     ]
   },
   {
     id: '6',
-    slug: 'vorher-nachher-garten-transformation',
-    title: 'Von kahlem Boden zu grünem Paradies: Die magische Verwandlung eines Gartens in Kuppenheim – von der Erde zum perfekten Rasen',
-    image: afterImg,
-    excerpt: 'Erleben Sie die dramatische Transformation eines kahlen, staubigen Bodens in einen lebendigen, grünen Rückzugsort. Diese Vorher-Nachher-Geschichte zeigt, wie wir aus nackter Erde einen perfekten, dichten Rasen geschaffen haben.',
+    slug: 'kuppenheim-stadion-zaun',
+    title: 'Objekteschutz für Vereine: Der neue Stadionzaun in Kuppenheim',
+    excerpt: 'Sicherheit für Sport und Spiel: Installation eines robusten grünen Maschendrahtzauns für die lokale Sportanlage. Funktional und langlebig.',
+    date: '2024-08-01',
+    image: img18,
     story: [
-      'Servus! Memedali Limani hier. Heute möchte ich Ihnen ein Projekt vorstellen, das zeigt, was echte Premium-Qualität bedeutet: ein Metallzaun, der nicht nur funktional ist, sondern auch ein echtes Statement setzt.',
-      'Ein Unternehmer aus Rastatt wollte sein Firmengelände absichern – aber nicht mit irgendeinem Zaun. Er wollte etwas Besonderes, etwas, das Qualität und Professionalität ausstrahlt. Nach einem ausführlichen Beratungsgespräch haben wir uns für einen hochwertigen Metallzaun mit Sonderanfertigung entschieden.',
-      'Die Herausforderung? Das Gelände war uneben, und wir mussten den Zaun an die Topografie anpassen. Aber genau solche Herausforderungen liebe ich. Wir haben jeden Pfosten individuell angepasst, jedes Zaunfeld perfekt ausgerichtet.',
-      'Das Ergebnis ist ein Zaun, der nicht nur sicher ist, sondern auch beeindruckt. Der Kunde war so zufrieden, dass er uns bereits für weitere Projekte gebucht hat.'
+      'Nicht nur Privatgärten, auch öffentliche Einrichtungen vertrauen auf Luan Allround Service. Für das Sportgelände in Kuppenheim durften wir einen neuen Ballfang- und Begrenzungszaun installieren. Hier standen Sicherheit und Robustheit an erster Stelle.',
+      'Wir haben uns für einen klassischen, grünen Maschendrahtzaun mit verstärkten Pfosten entschieden. Diese Lösung ist kosteneffizient, extrem langlebig und fügt sich durch die grüne Farbe harmonisch in die Umgebung ein. Der Zaun hält auch harten Ballkontakten stand und sichert das Gelände zuverlässig ab.',
+      'Besondere Herausforderung war die Montage im Gefälle und die Integration von Toren für die Pflegefahrzeuge. Dank unserer Erfahrung im Zaunbau konnten wir das Projekt fristgerecht vor Saisonbeginn fertigstellen.'
     ],
     tips: [
-      { title: 'Investieren Sie in Qualität', description: 'Ein Premium-Zaun kostet mehr, hält aber auch deutlich länger. Langfristig sparen Sie Geld und Ärger.' },
-      { title: 'Individuelle Anpassung', description: 'Jedes Grundstück ist anders. Wir passen den Zaun exakt an Ihre Bedürfnisse und die Gegebenheiten vor Ort an.' },
-      { title: 'Wartungsarm, aber nicht wartungsfrei', description: 'Auch ein Premium-Zaun braucht gelegentliche Pflege. Einmal jährlich reinigen und kontrollieren reicht meist aus.' },
-      { title: 'Sicherheit geht vor', description: 'Ein hochwertiger Zaun bietet nicht nur Privatsphäre, sondern auch Sicherheit. Investieren Sie in Ihr Wohlbefinden.' },
-      { title: 'Ästhetik und Funktion vereinen', description: 'Ein guter Zaun ist beides: schön und funktional. Wir achten auf jedes Detail, um das perfekte Ergebnis zu erzielen.' }
+      {
+        title: 'Ballfangzäune Höhe',
+        description: 'Hinter Toren empfehlen wir mindestens 4 bis 6 Meter Höhe. Normale Begrenzungszäune sind meist 2 Meter hoch.'
+      },
+      {
+        title: 'Stabilität',
+        description: 'Bei Sportplätzen müssen Pfosten tiefer einbetoniert werden als im Privatgarten, um der Belastung standzuhalten.'
+      }
     ],
     qa: [
-      { question: 'Was macht einen Premium-Zaun aus?', answer: 'Hochwertige Materialien, präzise Verarbeitung, individuelle Anpassung und eine umfassende Garantie. Das ist Premium-Qualität.' },
-      { question: 'Wie lange hält ein Metallzaun?', answer: 'Mit der richtigen Pflege 30 Jahre und länger. Unsere Zäune sind auf Langlebigkeit ausgelegt.' },
-      { question: 'Kann ich den Zaun individuell gestalten?', answer: 'Absolut! Wir bieten zahlreiche Gestaltungsmöglichkeiten: Farbe, Höhe, Design – alles nach Ihren Wünschen.' },
-      { question: 'Was kostet ein Premium-Zaun?', answer: 'Die Kosten variieren je nach Größe, Material und Ausstattung. Gerne erstelle ich Ihnen ein individuelles Angebot.' },
-      { question: 'Gibt es eine Garantie?', answer: 'Ja, wir bieten eine umfassende Garantie auf Material und Arbeit. Ihre Zufriedenheit ist uns wichtig.' }
+      {
+        question: 'Bieten Sie auch Reparaturen für Vereinszäune an?',
+        answer: 'Ja, wir reparieren Löcher im Maschendraht oder tauschen verbogene Pfosten kurzfristig aus.'
+      },
+      {
+        question: 'Machen Sie auch Pflasterarbeiten für Wege?',
+        answer: 'Selbstverständlich. Wir pflastern Zuwege, Zuschauerbereiche und Parkplätze passend zur Anlage.'
+      }
     ]
-  },
-
+  }
 ];
 
 
@@ -615,17 +576,17 @@ const Hero = () => (
         <div className="max-w-2xl text-center lg:text-left">
           <div className="overflow-hidden mb-2">
             <p className="text-gold-500 font-bold tracking-[0.3em] uppercase text-xs md:text-sm animate-[fadeInUp_1s_ease-out_forwards]">
-              Garten- & Landschaftsbau
+              Ihr Gärtner in Kuppenheim & Umgebung
             </p>
           </div>
           <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-serif text-white leading-[1.1] drop-shadow-2xl mb-6 md:mb-8 animate-[fadeInUp_1.2s_ease-out_forwards]">
-            Umweltprojekte
+            Gartenbau
             <br />
-            <span className="italic font-light text-gold-400">harmonisch</span>
+            <span className="italic font-light text-gold-400">mit Leidenschaft</span>
           </h1>
 
           <p className="text-lg md:text-xl text-gray-200 font-light max-w-2xl border-l-2 border-gold-500 pl-4 md:pl-6 mb-8 md:mb-10 animate-[fadeInUp_1.4s_ease-out_forwards] mx-auto lg:mx-0">
-            Professionelle Gartenarbeiten: Zaunmontage, Gartenpflege, Reinigung und Allround-Service. Kontaktieren Sie uns für ein unverbindliches Angebot.
+            Professioneller Zaunbau, Rasenpflege & Gartengestaltung in Kuppenheim, Rastatt und Karlsruhe. Qualität, die man sieht.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 md:gap-5 animate-[fadeInUp_1.6s_ease-out_forwards] justify-center lg:justify-start">
@@ -792,17 +753,6 @@ const AboutPreview = () => (
 );
 
 const ProjectsGallery = () => {
-  const [images] = useState<ProjectImage[]>([
-    { id: '1', url: grassImg, title: 'Professionelle Rasenpflege' },
-    { id: '2', url: img7, title: 'Das Gartenparadies Ihrer Familie' },
-    { id: '3', url: img9, title: '' },
-    { id: '4', url: img10, title: ' ' },
-    { id: '5', url: img18, title: 'Der perfekte Zaun' },
-    { id: '6', url: afterImg, title: 'vorher vs nachher' },
-
-
-  ]);
-
   return (
     <section className="py-16 md:py-24 bg-[#F5F5F0] relative overflow-hidden">
       {/* Topographic Background Pattern */}
@@ -816,14 +766,14 @@ const ProjectsGallery = () => {
         </RevealOnScroll>
 
         {/* Galerie Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-1 mt-8 md:mt-12">
-          {images.map((img, index) => (
-            <RevealOnScroll key={img.id} delay={index * 50}>
-              <Link to={`/blog/${blogPosts[index].slug}`} className="block">
-                <div className="group relative overflow-hidden aspect-[4/3] cursor-pointer shadow-md hover:shadow-xl transition-all duration-500">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 mt-8 md:mt-12">
+          {blogPosts.map((post, index) => (
+            <RevealOnScroll key={post.id} delay={index * 50}>
+              <Link to={`/blog/${post.slug}`} className="block h-full">
+                <div className="group relative overflow-hidden aspect-[4/3] cursor-pointer shadow-md hover:shadow-xl transition-all duration-500 h-full">
                   <img
-                    src={String(img.url)}
-                    alt={blogPosts[index].title}
+                    src={String(post.image)}
+                    alt={post.title}
                     className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-earth-900/70 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col items-center justify-center p-4 md:p-6 text-center">
@@ -831,7 +781,7 @@ const ProjectsGallery = () => {
                       Blog-Beitrag lesen
                     </span>
                     <h4 className="text-lg md:text-2xl font-serif text-white mb-3 md:mb-4 translate-y-4 group-hover:translate-y-0 transition-transform duration-500 line-clamp-2">
-                      {blogPosts[index].title}
+                      {post.title}
                     </h4>
                     <button className="text-white border-b border-white pb-1 hover:text-gold-500 hover:border-gold-500 transition-colors text-sm uppercase tracking-widest">
                       Mehr erfahren
@@ -1037,6 +987,11 @@ const PageHeader: React.FC<{ title: string; subtitle: string; image: string }> =
 
 const HomePage = () => (
   <>
+    <SEOHead
+      title="Luan Allround Service – Gartenbau, Zaunbau & Landschaftspflege in Kuppenheim"
+      description="Ihr Experte für Garten- und Landschaftsbau in Kuppenheim, Rastatt & Karlsruhe. Professioneller Zaunbau, Rasenpflege, Heckenschnitt und Gartenpflege. ✓ Kostenlose Beratung ✓ Faire Preise ✓ Schnelle Umsetzung. Jetzt Angebot anfordern!"
+      keywords="Gartenbau Kuppenheim, Landschaftsbau Kuppenheim, Zaunbau Kuppenheim, Gärtner Rastatt, Rasenpflege Kuppenheim, Heckenschnitt Kuppenheim, Gartenpflege Baden-Baden, Pflasterarbeiten Karlsruhe, Luan Allround Service, Gartenbau Rastatt, Zaunmontage Baden-Württemberg"
+    />
     <Hero />
     <ServicesSection />
     <AboutPreview />
@@ -1048,6 +1003,11 @@ const HomePage = () => (
 
 const ServicesPage = () => (
   <>
+    <SEOHead
+      title="Unsere Leistungen – Zaunbau, Gartenpflege & Reinigung in Kuppenheim | Luan Allround Service"
+      description="Professionelle Garten- und Landschaftsbau Dienstleistungen in Kuppenheim: ✓ Zaunmontage ✓ Rasenpflege ✓ Heckenschnitt ✓ Terrassenreinigung ✓ Pflasterarbeiten. Faire Preise, schnelle Umsetzung. Jetzt anfragen!"
+      keywords="Zaunbau Kuppenheim, Gartenpflege Kuppenheim, Rasenmähen Rastatt, Heckenschnitt Baden-Baden, Terrassenreinigung Karlsruhe, Pflasterarbeiten Kuppenheim, Hochdruckreinigung, Gartenbau Dienstleistungen"
+    />
     <PageHeader
       title="Unsere Leistungen"
       subtitle="Handwerkskunst & Qualität"
@@ -1069,6 +1029,11 @@ const ServicesPage = () => (
 
 const ProjectsPage = () => (
   <>
+    <SEOHead
+      title="Projekte & Referenzen – Garten- & Zaunbau in Kuppenheim | Luan Allround Service"
+      description="Entdecken Sie unsere erfolgreich abgeschlossenen Gartenbau-Projekte in Kuppenheim, Rastatt und Baden-Baden. ✓ Vorher-Nachher-Vergleiche ✓ Zaunbau ✓ Gartenanlagen ✓ Pflasterarbeiten. Überzeugen Sie sich von unserer Qualität!"
+      keywords="Gartenbau Projekte Kuppenheim, Zaunbau Referenzen, Landschaftsbau Beispiele, Vorher Nachher Garten, Gartenprojekte Rastatt, Referenzen Gartenbau Baden-Baden"
+    />
     <PageHeader
       title="Projekte"
       subtitle="Inspirationen & Realisierungen"
@@ -1085,6 +1050,11 @@ const ProjectsPage = () => (
 
 const AboutPage = () => (
   <>
+    <SEOHead
+      title="Über Uns – Ihr Landschaftsgärtner in Kuppenheim | Memedali Limani | Luan Allround Service"
+      description="Erfahren Sie mehr über Luan Allround Service. Ihr zuverlässiger Partner für Gartenbau in Kuppenheim mit über 5 Jahren Erfahrung, 100+ realisierten Projekten und 100% Kundenzufriedenheit. Professionell, pünktlich, fair."
+      keywords="Landschaftsgärtner Kuppenheim, Memedali Limani, Luan Allround Service Team, Gartenbau Erfahrung, Gärtner Rastatt, Landschaftsbau Firma Baden-Württemberg"
+    />
     <PageHeader
       title="Über Uns"
       subtitle="Unsere Geschichte"
@@ -1148,7 +1118,7 @@ const AboutPage = () => (
               </div>
               <div>
                 <Send className="w-6 h-6 text-gold-500 mx-auto mb-2" />
-                <a href="mailto:info@luan-limani.de" className="text-earth-900 hover:text-gold-500 transition-colors">info@luan-limani.de</a>
+                <a href="mailto:luanallroundservice@gmail.com" className="text-earth-900 hover:text-gold-500 transition-colors">luanallroundservice@gmail.com</a>
               </div>
             </div>
           </div>
@@ -1161,6 +1131,10 @@ const AboutPage = () => (
 
 const ContactPage = () => (
   <>
+    <PageMeta
+      title="Kontakt & Kostenloses Angebot – Luan Allround Service"
+      description="Kontaktieren Sie uns für ein unverbindliches Angebot! Telefon: 0176 47999118. Wir beraten Sie gerne zu Ihrem Gartenprojekt in Kuppenheim & Umgebung."
+    />
     <PageHeader
       title="Kontakt"
       subtitle="Beratung & Anfragen"
@@ -1199,7 +1173,7 @@ const ContactPage = () => (
                 <Send className="text-gold-500 mt-1 mr-4 shrink-0" size={24} />
                 <div>
                   <h4 className="font-serif text-lg text-earth-900 mb-2">Email</h4>
-                  <a href="mailto:info@luan-limani.de" className="text-earth-900 hover:text-gold-500 transition-colors">info@luan-limani.de</a>
+                  <a href="mailto:luanallroundservice@gmail.com" className="text-earth-900 hover:text-gold-500 transition-colors">luanallroundservice@gmail.com</a>
                 </div>
               </div>
 
@@ -1240,6 +1214,11 @@ const ContactPage = () => (
 // Blog List Page
 const BlogListPage = () => (
   <>
+    <SEOHead
+      title="Garten-Ratgeber & Blog – Tipps vom Profi | Luan Allround Service Kuppenheim"
+      description="Wertvolle Tipps zur Gartenpflege, Zaunbau-Ratgeber und Einblicke in unsere tägliche Arbeit in Kuppenheim. ✓ Praktische Anleitungen ✓ Vorher-Nachher-Projekte ✓ Expertenwissen. Bleiben Sie informiert!"
+      keywords="Gartenpflege Tipps, Zaunbau Ratgeber, Gartenbau Blog, Landschaftsbau Tipps Kuppenheim, Rasen pflegen, Hecke schneiden Anleitung, Garten Ratgeber Baden-Württemberg"
+    />
     <PageHeader
       title="Blog & Ratgeber"
       subtitle="Tipps & Erfahrungen"
@@ -1320,6 +1299,32 @@ const BlogPostPage = () => {
 
   return (
     <>
+      <SEOHead
+        title={`${post.title} – Gartenbau Blog | Luan Allround Service`}
+        description={post.excerpt}
+        keywords={`${post.title}, Gartenbau Kuppenheim, Landschaftsbau Tipps, ${post.slug}`}
+        ogImage={`https://www.luan-allround-service.de${post.image}`}
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "BlogPosting",
+          "headline": post.title,
+          "description": post.excerpt,
+          "image": `https://www.luan-allround-service.de${post.image}`,
+          "datePublished": post.date,
+          "author": {
+            "@type": "Organization",
+            "name": "Luan Allround Service"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "Luan Allround Service",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://www.luan-allround-service.de/images/logo.png"
+            }
+          }
+        }}
+      />
       {/* Hero Section */}
       <div className="relative h-[50vh] md:h-[60vh] min-h-[400px] w-full overflow-hidden">
         <div
@@ -1485,6 +1490,13 @@ const BlogPostPage = () => {
 const FullGalleryPage = () => {
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
   const [isExpanded, setIsExpanded] = useState(false);
+
+  // SEO effect
+  useEffect(() => {
+    document.title = "Galerie – Unsere Arbeit in Bildern | Luan Allround Service";
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.setAttribute('content', "Stöbern Sie durch unsere Bildergalerie: Zaunbau, Gartengestaltung, Vorher-Nachher Bilder und mehr aus Kuppenheim und Umgebung.");
+  }, []);
 
   const allGalleryImages: ProjectImage[] = [
     { id: '1', url: img1, title: '' },
@@ -1709,7 +1721,46 @@ const ScrollToTop = () => {
   return null;
 };
 
+// Component for SEO Metadata
+const PageMeta: React.FC<{ title: string; description: string }> = ({ title, description }) => {
+  useEffect(() => {
+    document.title = title;
+    let metaDescription = document.querySelector('meta[name="description"]');
+    if (!metaDescription) {
+      metaDescription = document.createElement('meta');
+      metaDescription.setAttribute('name', 'description');
+      document.head.appendChild(metaDescription);
+    }
+    metaDescription.setAttribute('content', description);
+  }, [title, description]);
+  return null;
+};
+
+// Location Page Router Component
+const LocationPageRouter = () => {
+  const { citySlug } = useParams<{ citySlug: string }>();
+  const location = getLocationBySlug(citySlug || '');
+
+  // Track location page view
+  useEffect(() => {
+    if (location) {
+      analytics.trackLocationView(location.city);
+    }
+  }, [location]);
+
+  if (!location) {
+    return <Navigate to="/" replace />;
+  }
+
+  return <LocationPage location={location} />;
+};
+
 const App = () => {
+  // Initialize analytics on app mount
+  useEffect(() => {
+    analytics.init();
+  }, []);
+
   return (
     <Router>
       <ScrollToTop />
@@ -1726,6 +1777,8 @@ const App = () => {
             <Route path="/blog/:slug" element={<BlogPostPage />} />
             <Route path={NavigationLinks.ABOUT} element={<AboutPage />} />
             <Route path={NavigationLinks.CONTACT} element={<ContactPage />} />
+            {/* Location-specific landing pages for SEO */}
+            <Route path="/standorte/:citySlug" element={<LocationPageRouter />} />
           </Routes>
         </main>
         <Footer />

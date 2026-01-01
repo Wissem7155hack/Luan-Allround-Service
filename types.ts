@@ -28,6 +28,7 @@ export interface BlogPost {
   title: string;
   image: string | Record<string, any>;
   excerpt: string;
+  date?: string;
   story: string[];
   tips: { title: string; description: string }[];
   qa: { question: string; answer: string }[];
