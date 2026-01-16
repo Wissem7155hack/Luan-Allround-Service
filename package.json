@@ -6,16 +6,18 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "build:gh": "vite build", 
+    "build:gh": "vite build",
     "preview": "vite preview",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@google/genai": "^1.30.0",
+    "@types/react-helmet": "^6.1.11",
     "lucide-react": "^0.554.0",
     "react": "^19.2.1",
     "react-dom": "^19.2.1",
+    "react-helmet": "^6.1.0",
     "react-router-dom": "^7.9.6",
     "sweetalert2": "^11.26.4"
   },

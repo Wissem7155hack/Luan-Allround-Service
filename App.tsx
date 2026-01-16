@@ -32,8 +32,17 @@ import img17 from './images/17.jpeg';
 import img18 from './images/18.jpeg';
 import img19 from './images/19.jpeg';
 import img20 from './images/logo_resized.png';
+
+import img21 from './images/arrows.png';
+import img22 from './images/grasshero2.png';
+
 import beforeImg from './images/before.jpeg';
 import afterImg from './images/after.jpeg';
+import { url } from 'inspector';
+
+
+
+
 
 // BeforeAfterSlider Component
 const BeforeAfterSlider: React.FC<{ beforeImage: string | Record<string, unknown>; afterImage: string | Record<string, unknown>; }> = ({ beforeImage, afterImage }) => {
@@ -557,74 +566,267 @@ const ContactForm = () => {
   );
 };
 
+// Mobile-specific Contact Form (Styles matching reference photo)
+const ContactFormMobile = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    formData.append("access_key", "675b6a89-4977-4eeb-9177-759897523b65");
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData
+      });
+      const data = await response.json();
+      if (data.success) {
+        setShowPopup(true);
+        form.reset();
+      }
+    } catch (error) {
+      console.error("Submission Error:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <div className="w-full">
+      <form onSubmit={handleSubmit} className="space-y-4 text-left">
+        <div>
+          <label className="block text-[#1a1c1d] font-bold text-xs mb-2 pl-1">Vollständiger Name *</label>
+          <input
+            type="text"
+            name="name"
+            placeholder="Max Mustermann"
+            className="w-full px-4 py-4 rounded-xl bg-[#f8f9fa] border-none text-[#1a1c1d] placeholder:text-gray-400 focus:ring-2 focus:ring-[#4a7c59] text-sm font-medium"
+            required
+          />
+        </div>
+
+        <div>
+          <label className="block text-[#1a1c1d] font-bold text-xs mb-2 pl-1">Telefon *</label>
+          <input
+            type="tel"
+            name="phone"
+            placeholder="+49 1234 567890"
+            className="w-full px-4 py-4 rounded-xl bg-[#f8f9fa] border-none text-[#1a1c1d] placeholder:text-gray-400 focus:ring-2 focus:ring-[#4a7c59] text-sm font-medium"
+            required
+          />
+        </div>
+
+        <div>
+          <label className="block text-[#1a1c1d] font-bold text-xs mb-2 pl-1">Deine Stadt *</label>
+          <input
+            type="text"
+            name="city"
+            placeholder="Kuppenheim"
+            className="w-full px-4 py-4 rounded-xl bg-[#f8f9fa] border-none text-[#1a1c1d] placeholder:text-gray-400 focus:ring-2 focus:ring-[#4a7c59] text-sm font-medium"
+            required
+          />
+        </div>
+
+        <div>
+          <label className="block text-[#1a1c1d] font-bold text-xs mb-2 pl-1">Kurze Beschreibung Ihrer Vorstellungen *</label>
+          <textarea
+            name="message"
+            placeholder="Ihre Nachricht..."
+            rows={4}
+            className="w-full px-4 py-4 rounded-xl bg-[#f8f9fa] border-none text-[#1a1c1d] placeholder:text-gray-400 focus:ring-2 focus:ring-[#4a7c59] text-sm resize-none font-medium"
+            required
+          />
+        </div>
+
+        <div className="flex items-start gap-3 mt-4 px-1">
+          <input type="checkbox" className="mt-1 accent-[#4a7c59] w-4 h-4" required id="agb-mob-inner" />
+          <label htmlFor="agb-mob-inner" className="text-[11px] text-gray-500 leading-normal">
+            Ich stimme den <a href="/agb" className="text-[#4a7c59] font-bold underline">AGB</a> zu und erlaube die Kontaktaufnahme.
+          </label>
+        </div>
+
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className="w-full bg-[#4a7c59] text-white font-black py-4 rounded-xl uppercase tracking-wider shadow-xl shadow-green-900/10 active:scale-[0.98] transition-all disabled:opacity-50 mt-6 text-base"
+        >
+          {isSubmitting ? 'SENDE...' : 'ANFRAGE SENDEN'}
+        </button>
+      </form>
+
+      {/* Success Popup (Same as global) */}
+      {showPopup && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+          <div className="bg-white rounded-2xl p-8 max-w-md w-full text-center shadow-2xl relative">
+            <div className="mx-auto w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mb-6">
+              <CheckCircle className="w-8 h-8" />
+            </div>
+            <h3 className="text-xl font-bold text-gray-900 mb-2">Vielen Dank!</h3>
+            <p className="text-gray-600 mb-8 text-sm">Wir haben Ihre Anfrage erhalten und melden uns kurzfristig.</p>
+            <button
+              onClick={() => setShowPopup(false)}
+              className="w-full bg-[#4a7c59] text-white font-bold py-3 rounded-lg"
+            >
+              Schließen
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
 // --- Hauptabschnitte ---
 
-const Hero = () => (
-  <div className="relative min-h-screen w-full overflow-visible pb-12">
-    {/* Hintergrundbild mit langsamer Zoom-Effekt */}
-    <div
-      className="absolute inset-0 bg-cover bg-center animate-slow-zoom"
-      style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1723208757257-3e71cf4c5040?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")' }}
-    >
-      <div className="absolute inset-0 bg-black/40"></div>
-      <div className="absolute inset-0 bg-gradient-to-t from-earth-900/80 via-transparent to-black/20"></div>
-    </div>
+const Hero = () => {
+  return (
+    <>
+      {/* Mobile-Only Hero Layout (Visible on lg:hidden) */}
+      <div className="lg:hidden flex flex-col bg-stone-100">
+        <div className="relative h-screen w-full flex flex-col justify-center items-center px-6 overflow-hidden">
+          {/* Background Image - img22 (grasshero2.png) */}
+          <div
+            className="absolute inset-0 bg-cover bg-center animate-slow-zoom"
+            style={{
+              backgroundImage: `url(${img22})`,
+              backgroundPosition: 'center',
+              backgroundSize: 'cover'
+            }}
+          >
+            {/* Subtle Overlay */}
+            <div className="absolute inset-0 bg-black/50"></div>
+          </div>
 
-    {/* Inhalt */}
-    <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center z-10 pt-20 lg:pt-10">
-      <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12">
-        <div className="max-w-2xl text-center lg:text-left">
-          <div className="overflow-hidden mb-2">
-            <p className="text-gold-500 font-bold tracking-[0.3em] uppercase text-xs md:text-sm animate-[fadeInUp_1s_ease-out_forwards]">
+          {/* Content */}
+          <div className="relative z-10 text-center flex flex-col items-center top-[-40px]">
+            <span className="text-[#c5a26a] font-bold tracking-[0.4em] text-[10px] uppercase mb-4 animate-[fadeInUp_0.8s_ease-out]">
               Ihr Gärtner in Kuppenheim & Umgebung
+            </span>
+            <h1 className="text-6xl font-serif text-white leading-[1.1] animate-[fadeInUp_1s_ease-out] drop-shadow-lg">
+              Gartenbau <br />
+              <span className="text-[#c5a26a] italic font-light block mt-2">mit Leidenschaft</span>
+            </h1>
+
+
+            <p className="text-white text-lg leading-relaxed max-w-[340px] mx-auto my-8 animate-[fadeInUp_1.3s_ease-out] font-medium drop-shadow-md">
+              Professioneller Zaunbau, Rasenpflege & Gartengestaltung in Kuppenheim, Rastatt und Karlsruhe. Qualität, die man sieht.
             </p>
-          </div>
-          <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-serif text-white leading-[1.1] drop-shadow-2xl mb-6 md:mb-8 animate-[fadeInUp_1.2s_ease-out_forwards]">
-            Gartenbau
-            <br />
-            <span className="italic font-light text-gold-400">mit Leidenschaft</span>
-          </h1>
 
-          <p className="text-lg md:text-xl text-gray-200 font-light max-w-2xl border-l-2 border-gold-500 pl-4 md:pl-6 mb-8 md:mb-10 animate-[fadeInUp_1.4s_ease-out_forwards] mx-auto lg:mx-0">
-            Professioneller Zaunbau, Rasenpflege & Gartengestaltung in Kuppenheim, Rastatt und Karlsruhe. Qualität, die man sieht.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 md:gap-5 animate-[fadeInUp_1.6s_ease-out_forwards] justify-center lg:justify-start">
-            <Link
-              to={NavigationLinks.SERVICES}
-              className="px-6 md:px-10 py-3 md:py-4 bg-gold-500 hover:bg-gold-600 text-white font-bold tracking-widest uppercase transition-all duration-300 text-center shadow-xl hover:-translate-y-1 text-sm md:text-base"
-            >
-              Unsere Leistungen
-            </Link>
-            <Link
-              to={NavigationLinks.PROJECTS}
-              className="px-6 md:px-10 py-3 md:py-4 bg-transparent hover:bg-white/10 text-white border border-white/30 font-bold tracking-widest uppercase transition-all duration-300 text-center backdrop-blur-sm hover:-translate-y-1 text-sm md:text-base"
-            >
-              Projekte ansehen
-            </Link>
+            {/* Action Buttons */}
+            <div className="flex flex-col gap-4 w-full max-w-[280px] animate-[fadeInUp_1.4s_ease-out]">
+              <Link
+                to={NavigationLinks.SERVICES}
+                className="bg-[#c5a26a] text-white py-4 px-8 font-bold text-xs uppercase tracking-[0.2em] shadow-lg active:scale-95 transition-transform"
+              >
+                Unsere Leistungen
+              </Link>
+              <Link
+                to={NavigationLinks.PROJECTS}
+                className="border border-white/50 bg-white/5 backdrop-blur-sm text-white py-4 px-8 font-bold text-xs uppercase tracking-[0.2em] active:scale-95 transition-transform hover:bg-white/10"
+              >
+                Projekte ansehen
+              </Link>
+            </div>
           </div>
-          {/* Mobiles Kontaktformular direkt unter den Buttons */}
-          <div className="lg:hidden mt-6 animate-[fadeInUp_1.6s_ease-out_forwards] px-4">
-            <ContactForm />
+
+          {/* Scroll Arrows - img21 */}
+ 
+          <div className=" bottom-10 left-1/.5 -translate-x-1/.5 ">
+            <img
+              src={img21}
+              alt="Scroll down"
+              className="w-44 h-auto opacity-100 drop-shadow-xl"
+            />
           </div>
         </div>
 
-        {/* Kontaktformular rechts - für Desktop sichtbar */}
-        <div className="hidden lg:block animate-[fadeInUp_1.6s_ease-out_forwards]">
-          <ContactForm />
+        {/* Mobile Contact Form Section (Card style under hero) */}
+        <div className="relative z-30 -mt-8 bg-white rounded-t-[40px] px-6 pt-16 pb-16 shadow-[0_-10px_40px_rgba(0,0,0,0.1)]">
+          {/* Circular Logo Indicator */}
+          <div className="absolute -top-12 left-1/2 -translate-x-1/2 bg-white rounded-full p-3 shadow-xl">
+            <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center p-1">
+              <img src={img20} alt="Luan Logo" className="w-full h-full object-contain" />
+              
+            </div>
+          </div>
+
+          <div className="text-center">
+            <h2 className="text-2xl md:text-3xl font-black ${textColor} text-center mb-6 md:mb-8 uppercase font-sans">
+              KOSTENLOSE BERATUNG
+            </h2>
+            <ContactFormMobile />
+          </div>
         </div>
       </div>
-    </div>
 
-    {/* Scroll-Indikator */}
-    <div className="absolute bottom-6 md:bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-white/50">
-      <div className="flex flex-col items-center">
-        <span className="text-[10px] tracking-widest uppercase mb-2">Scrollen</span>
-        <div className="w-px h-8 md:h-12 bg-white/50"></div>
+      {/* Desktop-Only Hero Layout (Visible on hidden lg:block) */}
+      <div className="hidden lg:block relative min-h-screen w-full overflow-visible pb-12">
+        {/* Hintergrundbild mit langsamer Zoom-Effekt */}
+        <div
+          className="absolute inset-0 bg-cover bg-center animate-slow-zoom"
+          style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1723208757257-3e71cf4c5040?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")' }}
+        >
+          <div className="absolute inset-0 bg-black/40"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-earth-900/80 via-transparent to-black/20"></div>
+        </div>
+
+        {/* Inhalt */}
+        <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center z-10 pt-20 lg:pt-10">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12">
+            <div className="max-w-2xl text-center lg:text-left">
+              <div className="overflow-hidden mb-2">
+                <p className="text-gold-500 font-bold tracking-[0.3em] uppercase text-xs md:text-sm animate-[fadeInUp_1s_ease-out_forwards]">
+                  Ihr Gärtner in Kuppenheim & Umgebung
+                </p>
+              </div>
+              <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-serif text-white leading-[1.1] drop-shadow-2xl mb-6 md:mb-8 animate-[fadeInUp_1.2s_ease-out_forwards]">
+                Gartenbau
+                <br />
+                <span className="italic font-light text-gold-400">mit Leidenschaft</span>
+              </h1>
+
+              <p className="text-lg md:text-xl text-gray-200 font-light max-w-2xl border-l-2 border-gold-500 pl-4 md:pl-6 mb-8 md:mb-10 animate-[fadeInUp_1.4s_ease-out_forwards] mx-auto lg:mx-0">
+                Professioneller Zaunbau, Rasenpflege & Gartengestaltung in Kuppenheim, Rastatt und Karlsruhe. Qualität, die man sieht.
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-4 md:gap-5 animate-[fadeInUp_1.6s_ease-out_forwards] justify-center lg:justify-start">
+                <Link
+                  to={NavigationLinks.SERVICES}
+                  className="px-6 md:px-10 py-3 md:py-4 bg-gold-500 hover:bg-gold-600 text-white font-bold tracking-widest uppercase transition-all duration-300 text-center shadow-xl hover:-translate-y-1 text-sm md:text-base"
+                >
+                  Unsere Leistungen
+                </Link>
+                <Link
+                  to={NavigationLinks.PROJECTS}
+                  className="px-6 md:px-10 py-3 md:py-4 bg-transparent hover:bg-white/10 text-white border border-white/30 font-bold tracking-widest uppercase transition-all duration-300 text-center backdrop-blur-sm hover:-translate-y-1 text-sm md:text-base"
+                >
+                  Projekte ansehen
+                </Link>
+              </div>
+            </div>
+
+            {/* Kontaktformular rechts - für Desktop sichtbar */}
+            <div className="animate-[fadeInUp_1.6s_ease-out_forwards]">
+              <ContactForm />
+            </div>
+          </div>
+        </div>
+
+        {/* Scroll-Indikator */}
+        <div className="absolute bottom-6 md:bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-white/50">
+          <div className="flex flex-col items-center">
+            <span className="text-[10px] tracking-widest uppercase mb-2">Scrollen</span>
+            <div className="w-px h-8 md:h-12 bg-white/50"></div>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-);
+    </>
+  );
+};
 
 const ServicesSection = () => {
   const services = [
