@@ -1,50 +1,36 @@
-# Luan Allround Service - Robots.txt
-# Optimiert für bessere Suchmaschinen-Indexierung
-# Last Updated: 2026-01-01
+# Robots.txt for Luan Allround Service
+# Optimized for Google, Bing, and other search engines
+# Last updated: 2026-01-15
 
-User-agent: *
-Allow: /
-Disallow: /api/
-Disallow: /.env
-Disallow: /node_modules/
-Disallow: /*.json$
-Disallow: /src/
-Disallow: /dist/assets/
-
-# Allow important resources
-Allow: /images/
-Allow: /public/
-Allow: /*.css
-Allow: /*.js
-Allow: /*.jpg
-Allow: /*.jpeg
-Allow: /*.png
-Allow: /*.webp
-Allow: /*.svg
-
-# Crawl-delay for good citizenship (reduced for better indexing)
-Crawl-delay: 0.5
-
-# Sitemaps (Critical for SEO)
-Sitemap: https://www.luan-allround-service.de/sitemap.xml
-Sitemap: https://www.luan-allround-service.de/sitemap-images.xml
-
-# Specific bots optimization
+# Allow Google to crawl everything with maximum speed
 User-agent: Googlebot
-Allow: /
 Crawl-delay: 0
+Allow: /
 
-User-agent: Googlebot-Image
-Allow: /images/
-
+# Allow Bing to crawl everything with maximum speed
 User-agent: Bingbot
-Allow: /
 Crawl-delay: 0
-
-User-agent: Slurp
 Allow: /
 
-# Block bad bots
+# Allow all other good bots with minimal delay
+User-agent: *
+Crawl-delay: 0.5
+Allow: /
+Allow: /images/
+Allow: /public/images/
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.webp$
+Allow: /*.jpg$
+Allow: /*.png$
+Allow: /*.svg$
+Disallow: /node_modules/
+Disallow: /.git/
+Disallow: /dist/
+Disallow: /.env
+Disallow: /*.json$
+
+# Block bad bots and scrapers
 User-agent: AhrefsBot
 Crawl-delay: 10
 
