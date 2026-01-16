@@ -707,6 +707,18 @@
       }
     });
   </script>
+  <script>
+    // Protect Source Code (Disable Right-Click & DevTools Shortcuts)
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.addEventListener('keydown', e => {
+      const key = e.key.toUpperCase();
+      if (key === 'F12' ||
+        (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(key)) ||
+        (e.ctrlKey && key === 'U')) {
+        e.preventDefault();
+      }
+    });
+  </script>
 </body>
 
 </html>
