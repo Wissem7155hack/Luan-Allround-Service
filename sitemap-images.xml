@@ -1,141 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-  
+
   <!-- Homepage Images -->
   <url>
     <loc>https://www.luan-allround-service.de/</loc>
     <image:image>
       <image:loc>https://www.luan-allround-service.de/images/logo.png</image:loc>
       <image:title>Luan Allround Service Logo</image:title>
-      <image:caption>Professioneller Garten- und Landschaftsbau in Kuppenheim</image:caption>
+      <image:caption>Ihr Partner für Garten- und Landschaftsbau in Kuppenheim</image:caption>
     </image:image>
-  </url>
-
-  <!-- Blog Post: Zaunbau -->
-  <url>
-    <loc>https://www.luan-allround-service.de/blog/zaunbau-kuppenheim-ratgeber</loc>
     <image:image>
-      <image:loc>https://www.luan-allround-service.de/images/3.jpeg</image:loc>
-      <image:title>Zaunbau in Kuppenheim</image:title>
-      <image:caption>Professionelle Zaunmontage mit Doppelstabmatten</image:caption>
-      <image:geo_location>Kuppenheim, Deutschland</image:geo_location>
+      <image:loc>https://www.luan-allround-service.de/images/logo_resized.png</image:loc>
+      <image:title>Luan Allround Service</image:title>
     </image:image>
-  </url>
-
-  <!-- Blog Post: Gartenpflege -->
-  <url>
-    <loc>https://www.luan-allround-service.de/blog/gartenpflege-landschaftsbau-jahresplan</loc>
-    <image:image>
-      <image:loc>https://www.luan-allround-service.de/images/grass.jpg</image:loc>
-      <image:title>Gartenpflege und Rasenpflege</image:title>
-      <image:caption>Professionelle Rasenpflege und Heckenschnitt in Kuppenheim</image:caption>
-      <image:geo_location>Kuppenheim, Deutschland</image:geo_location>
-    </image:image>
-  </url>
-
-  <!-- Blog Post: Pflasterarbeiten -->
-  <url>
-    <loc>https://www.luan-allround-service.de/blog/pflasterarbeiten-terrassenbau-baden</loc>
-    <image:image>
-      <image:loc>https://www.luan-allround-service.de/images/after.jpeg</image:loc>
-      <image:title>Pflasterarbeiten und Terrassenbau</image:title>
-      <image:caption>Hochwertige Terrassenbau und Pflasterarbeiten</image:caption>
-      <image:geo_location>Kuppenheim, Deutschland</image:geo_location>
-    </image:image>
-  </url>
-
-  <!-- Blog Post: Sichtschutz -->
-  <url>
-    <loc>https://www.luan-allround-service.de/blog/sichtschutz-und-privatsphaere</loc>
-    <image:image>
-      <image:loc>https://www.luan-allround-service.de/images/9.jpeg</image:loc>
-      <image:title>Moderner Sichtschutz für Gärten</image:title>
-      <image:caption>Schwarzer moderner Sichtschutz mit Beleuchtung</image:caption>
-      <image:geo_location>Kuppenheim, Deutschland</image:geo_location>
-    </image:image>
-  </url>
-
-  <!-- Blog Post: Azaleen und Mulch -->
-  <url>
-    <loc>https://www.luan-allround-service.de/blog/farbe-form-funktionalitaet-kuppenheim</loc>
     <image:image>
       <image:loc>https://www.luan-allround-service.de/images/10.jpeg</image:loc>
-      <image:title>Gartengestaltung mit Azaleen</image:title>
-      <image:caption>Farbenprächtige Azaleen mit Rindenmulch und Formhecken</image:caption>
-      <image:geo_location>Kuppenheim, Deutschland</image:geo_location>
+      <image:title>Zaunbau Referenzprojekt</image:title>
+      <image:caption>Professionelle Zaunmontage mit Sichtschutz</image:caption>
     </image:image>
   </url>
-
-  <!-- Blog Post: Stadion Zaun -->
-  <url>
-    <loc>https://www.luan-allround-service.de/blog/kuppenheim-stadion-zaun</loc>
-    <image:image>
-      <image:loc>https://www.luan-allround-service.de/images/18.jpeg</image:loc>
-      <image:title>Stadionzaun Kuppenheim</image:title>
-      <image:caption>Robuster Maschendrahtzaun für Sportanlagen</image:caption>
-      <image:geo_location>Kuppenheim, Deutschland</image:geo_location>
-    </image:image>
-  </url>
-
-  <!-- Gallery Images -->
+  
+  <!-- Gallery / Projects Images -->
   <url>
     <loc>https://www.luan-allround-service.de/gallery</loc>
     <image:image>
       <image:loc>https://www.luan-allround-service.de/images/1.jpeg</image:loc>
-      <image:title>Gartenprojekt 1</image:title>
+      <image:title>Gartenneuanlage Kuppenheim</image:title>
     </image:image>
     <image:image>
       <image:loc>https://www.luan-allround-service.de/images/2.jpeg</image:loc>
-      <image:title>Gartenprojekt 2</image:title>
+      <image:title>Pflasterarbeiten Einfahrt</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://www.luan-allround-service.de/images/4.jpeg</image:loc>
-      <image:title>Gartenprojekt 4</image:title>
-    </image:image>
-    <image:image>
-      <image:loc>https://www.luan-allround-service.de/images/5.jpeg</image:loc>
-      <image:title>Gartenprojekt 5</image:title>
+      <image:loc>https://www.luan-allround-service.de/images/3.jpeg</image:loc>
+      <image:title>Terrassenbau Naturstein</image:title>
     </image:image>
     <image:image>
       <image:loc>https://www.luan-allround-service.de/images/6.jpeg</image:loc>
-      <image:title>Gartenprojekt 6</image:title>
-    </image:image>
-    <image:image>
-      <image:loc>https://www.luan-allround-service.de/images/7.jpeg</image:loc>
-      <image:title>Gartenprojekt 7</image:title>
+      <image:title>Doppelstabmattenzaun Anthrazit</image:title>
     </image:image>
     <image:image>
       <image:loc>https://www.luan-allround-service.de/images/8.jpeg</image:loc>
-      <image:title>Gartenprojekt 8</image:title>
-    </image:image>
-    <image:image>
-      <image:loc>https://www.luan-allround-service.de/images/11.jpeg</image:loc>
-      <image:title>Gartenprojekt 11</image:title>
+      <image:title>Sichtschutzzaun Montage</image:title>
     </image:image>
     <image:image>
       <image:loc>https://www.luan-allround-service.de/images/12.jpeg</image:loc>
-      <image:title>Gartenprojekt 12</image:title>
+      <image:title>Gartenpflege Rasenschnitt</image:title>
     </image:image>
     <image:image>
       <image:loc>https://www.luan-allround-service.de/images/15.jpeg</image:loc>
-      <image:title>Gartenprojekt 15</image:title>
-    </image:image>
-    <image:image>
-      <image:loc>https://www.luan-allround-service.de/images/16.jpeg</image:loc>
-      <image:title>Gartenprojekt 16</image:title>
-    </image:image>
-    <image:image>
-      <image:loc>https://www.luan-allround-service.de/images/17.jpeg</image:loc>
-      <image:title>Gartenprojekt 17</image:title>
-    </image:image>
-    <image:image>
-      <image:loc>https://www.luan-allround-service.de/images/19.jpeg</image:loc>
-      <image:title>Gartenprojekt 19</image:title>
-    </image:image>
-    <image:image>
-      <image:loc>https://www.luan-allround-service.de/images/before.jpeg</image:loc>
-      <image:title>Vorher-Bild Gartenumgestaltung</image:title>
+      <image:title>Heckenschnitt Formgehölz</image:title>
     </image:image>
   </url>
 

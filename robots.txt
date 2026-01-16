@@ -36,3 +36,10 @@ Crawl-delay: 10
 
 User-agent: SemrushBot
 Crawl-delay: 10
+
+# Sitemaps - Essential for indexing
+Sitemap: https://www.luan-allround-service.de/sitemap.xml
+Sitemap: https://www.luan-allround-service.de/sitemap-images.xml
+
+# Host directive
+Host: https://www.luan-allround-service.de
