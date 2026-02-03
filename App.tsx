@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
+import Lenis from 'lenis';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation, useParams, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import LocationPage from './components/LocationPage';
 import SEOHead from './components/SEOHead';
+import SnowEffect from './components/SnowEffect';
 import { locations, getLocationBySlug } from './data/locations';
 import analytics from './services/analytics';
 import {
@@ -35,6 +37,7 @@ import img20 from './images/logo_resized.png';
 
 import img21 from './images/arrows.png';
 import img22 from './images/grasshero2.png';
+import img23 from './images/beautifully-maintained-green-lawn.jpg';
 
 import beforeImg from './images/before.jpeg';
 import afterImg from './images/after.jpeg';
@@ -140,13 +143,15 @@ const blogPosts: BlogPost[] = [
     id: '1',
     slug: 'zaunbau-kuppenheim-ratgeber',
     title: 'Zaunbau in Kuppenheim: Sicherheit & Ästhetik für Ihren Garten',
-    excerpt: 'Planen Sie einen neuen Zaun in Kuppenheim oder Rastatt? Unser Ratgeber zu Doppelstabmatten, Sichtschutz und modernen Zaunsystemen hilft Ihnen bei der Entscheidung.',
+    excerpt: 'Planen Sie einen neuen Zaun in Kuppenheim oder Rastatt? Unser umfassender Ratgeber zu Doppelstabmattenzäunen, Sichtschutzlösungen und modernen Zaunsystemen hilft Ihnen bei der richtigen Entscheidung. Erfahren Sie alles über Kosten, Materialien und fachgerechte Montage in Baden-Württemberg.',
     date: '2024-03-15',
     image: img3,
     story: [
-      'Ein hochwertiger Zaun ist mehr als nur eine Grundstücksgrenze – er ist die Visitenkarte Ihres Hauses und ein wichtiger Sicherheitsaspekt. Als erfahrener Partner für Zaunbau in Kuppenheim und Umgebung wissen wir, worauf es ankommt.',
-      'In den Neubaugebieten von Kuppenheim und Rastatt sehen wir einen klaren Trend: Moderne Doppelstabmattenzäune in Anthrazit oder Moosgrün sind besonders beliebt. Sie sind langlebig, pflegeleicht und bieten ein hervorragendes Preis-Leistungs-Verhältnis. Aber auch Gabionenwände oder klassische Holzzäune haben ihren Charme und passen perfekt in bestimmte Gartenkonzepte.',
-      'Unser Team von Luan Allround Service berät Sie nicht nur zur Materialwahl, sondern übernimmt auch die fachgerechte Montage. Von der fundamentierung bis zum letzten Handgriff sorgen wir dafür, dass Ihr Zaun jahrzehntelang sicher steht – auch bei badischem Wind und Wetter.'
+      'Ein Zaun macht mehr als Grundstücksgrenzen sichtbar – er schützt, verschönert und wertet Ihr Grundstück auf. Als erfahrener Partner für Zaunbau in Kuppenheim und Umgebung wissen wir, worauf es ankommt. Ob Doppelstabmattenzaun, Maschendrahtzaun oder exklusive Gabionenwand – die richtige Wahl hängt von Ihren individuellen Anforderungen, dem Budget und den örtlichen Gegebenheiten ab.',
+      'In den Neubaugebieten von Kuppenheim und Rastatt sehen wir einen klaren Trend: Moderne Doppelstabmattenzäune in Anthrazit RAL 7016 oder Moosgrün sind besonders beliebt. Sie sind langlebig, pflegeleicht und bieten ein hervorragendes Preis-Leistungs-Verhältnis. Die Qualitätsunterschiede liegen vor allem in der Drahtstärke: Ein 8/6/8 Doppelstabmattenzaun (8mm horizontale Drähte, 6mm vertikale Drähte) ist deutlich stabiler als die Standard-Variante 6/5/6 und eignet sich besonders für höhere Zäune ab 1,60 Meter oder windexponierte Lagen.',
+      'Bei der Oberflächenbehandlung empfehlen wir feuerverzinkte und pulverbeschichtete Zäune für maximale Langlebigkeit. Diese Kombination schützt vor Rost und Witterungseinflüssen über Jahrzehnte hinweg. Rein verzinkte Zäune sind günstiger, entwickeln aber mit der Zeit eine charakteristische Patina. Für Sichtschutz lassen sich Doppelstabmatten hervorragend mit PVC-Sichtschutzstreifen in verschiedenen Farben oder mit Holzelementen kombinieren.',
+      'Die Kosten für einen Doppelstabmattenzaun in Kuppenheim liegen je nach Höhe, Qualität und Bodenbeschaffenheit zwischen 50€ und 120€ pro laufendem Meter inklusive fachgerechter Montage. Gabionenzäune beginnen bei etwa 80€ pro Meter, während hochwertige Holzsichtschutzzäune aus Lärche oder WPC zwischen 100€ und 180€ pro Meter kosten. Diese Preise beinhalten bereits die Pfosten, Betonfundamente und die komplette Installation durch unser erfahrenes Team.',
+      'Unser Team von Luan Allround Service berät Sie nicht nur zur Materialwahl, sondern übernimmt auch die fachgerechte Montage. Von der Fundamentierung mit frostsicheren Betonfundamenten (mindestens 80cm Tiefe) bis zum letzten Handgriff sorgen wir dafür, dass Ihr Zaun jahrzehntelang sicher steht – auch bei badischem Wind und Wetter. Wir kennen die lokalen Bauvorschriften in Kuppenheim, Rastatt und Baden-Baden und beraten Sie zu Grenzabständen und maximalen Zaunhöhen gemäß der Landesbauordnung Baden-Württemberg.'
     ],
     tips: [
       {
@@ -177,13 +182,14 @@ const blogPosts: BlogPost[] = [
     id: '2',
     slug: 'gartenpflege-landschaftsbau-jahresplan',
     title: 'Gartenpflege & Landschaftsbau: Ihr Jahresplan für Kuppenheim',
-    excerpt: 'Wann ist die beste Zeit für den Heckenschnitt? Wie pflegen Sie Ihren Rasen im Rheintal optimal? Profi-Tipps von Ihrem Gärtner vor Ort.',
+    excerpt: 'Wann ist die beste Zeit für den Heckenschnitt? Wie pflegen Sie Ihren Rasen im Rheintal optimal? Entdecken Sie unseren saisonalen Jahresplan für Gartenpflege in Kuppenheim mit Profi-Tipps zu Vertikutieren, Düngen, Rollrasen verlegen und Winterdienst von Ihrem erfahrenen Gärtner vor Ort.',
     date: '2024-04-02',
     image: grassImg,
     story: [
-      'Ein schöner Garten macht Arbeit – oder er wird von Luan Allround Service gepflegt. Das Klima in der Rheinebene rund um Kuppenheim begünstigt üppiges Wachstum, erfordert aber auch regelmäßige Pflege.',
-      'Besonders im Frühjahr steht viel an: Der Rasen muss vertikutiert und gedüngt werden, um Moos zu verdrängen. Hecken benötigen einen Formschnitt, bevor die Brutzeit der Vögel beginnt (Bundesnaturschutzgesetz beachten!). In Rastatt und Umgebung übernehmen wir diese Arbeiten gerne für Sie, damit Sie Ihren Garten einfach nur genießen können.',
-      'Auch die Gehwegreinigung und Terrassenpflege gehört zu unserem Repertoire. Mit professionellen Hochdruckreinigern befreien wir Ihre Pflastersteine von Algen und Schmutz, sodass Ihre Einfahrt wie neu aussieht.'
+      'Ein schöner Garten macht Arbeit – oder er wird von Luan Allround Service gepflegt. Das milde Klima in der Rheinebene rund um Kuppenheim begünstigt üppiges Wachstum, erfordert aber auch regelmäßige, fachgerechte Pflege. Unser Gartenpflege-Jahresabo sorgt dafür, dass Ihr Garten zu jeder Jahreszeit perfekt aussieht – ohne dass Sie selbst Hand anlegen müssen.',
+      'Besonders im Frühjahr steht viel an: Der Rasen muss vertikutiert und gedüngt werden, um Moos zu verdrängen und kräftiges Wurzelwachstum zu fördern. Wir verwenden speziellen Langzeitdünger mit Eisen-Anteil für sattes Grün bis in den Herbst. Hecken benötigen einen Formschnitt, bevor die Brutzeit der Vögel beginnt (Bundesnaturschutzgesetz beachten!). Thuja, Kirschlorbeer und Liguster schneiden wir fachgerecht zurück, damit sie dicht und gesund nachwachsen. In Rastatt und Umgebung übernehmen wir diese Frühjahrsarbeiten gerne für Sie.',
+      'Im Sommer liegt der Fokus auf regelmäßigem Rasenmähen (alle 7-10 Tage bei optimaler Wuchshöhe von 4-5cm), Bewässerung und Unkrautbekämpfung. Wir bieten auch Rollrasen-Verlegung an – ideal für schnelle Ergebnisse bei Neuanlagen oder kahlen Stellen. Der Herbst ist die perfekte Zeit für Pflanzarbeiten, Bodenverbesserung und das letzte Vertikutieren vor dem Winter. Laub entfernen wir gründlich von Rasenflächen, um Faulstellen zu vermeiden.',
+      'Auch die Gehwegreinigung und Terrassenpflege gehört zu unserem Repertoire. Mit professionellen Hochdruckreinigern (bis 200 bar) befreien wir Ihre Pflastersteine, Terrassenplatten und Einfahrten von Algen, Moos und hartnäckigem Schmutz, sodass alles wie neu aussieht. Auf Wunsch versiegeln wir die Flächen anschließend, um langfristigen Schutz zu gewährleisten. Viele unserer Kunden in Kuppenheim und Baden-Baden nutzen unser "Sorglos-Paket" – ein Jahresvertrag für regelmäßige Gartenpflege zu planbaren Kosten.'
     ],
     tips: [
       {
@@ -210,13 +216,15 @@ const blogPosts: BlogPost[] = [
     id: '3',
     slug: 'pflasterarbeiten-terrassenbau-baden',
     title: 'Pflasterarbeiten & Terrassenbau: Gestalten Sie Ihr Outdoor-Wohnzimmer',
-    excerpt: 'Ob Einfahrt oder Terrasse – wir pflastern Ihre Träume. Hochwertige Steinsetzarbeiten in Kuppenheim und Umgebung.',
+    excerpt: 'Ob Naturstein-Terrasse oder gepflasterte Einfahrt – wir setzen Ihre Träume in Stein um. Entdecken Sie hochwertige Pflasterarbeiten und Terrassenbau in Kuppenheim mit Granit, Basalt, Sandstein, Betonpflaster und modernen Keramikplatten. Professionelle Verlegung mit perfektem Gefälle und dauerhafter Drainage.',
     date: '2024-05-10',
     image: afterImg,
     story: [
-      'Die Terrasse ist im Sommer das zweite Wohnzimmer. Egal ob Sie Naturstein, Betonwerkstein oder moderne Keramikplatten bevorzugen – wir verlegen Ihren Traumboden in Kuppenheim fachgerecht und dauerhaft.',
-      'Bei Pflasterarbeiten für Einfahrten achten wir besonders auf den Unterbau. In unserer Region kann der Boden stark variieren, daher ist eine solide Schottertragschicht essenziell, um Absackungen zu vermeiden. Wir sanieren auch alte Pflasterflächen und bringen sie wieder auf Vordermann.',
-      'Lassen Sie sich von uns beraten, welche Steine am besten zu Ihrem Hausstil passen. Von mediterranem Flair bis zu modernem Minimalismus setzen wir Ihre Wünsche in Stein um.'
+      'Die Terrasse ist im Sommer das zweite Wohnzimmer. Egal ob Sie Naturstein wie Granit oder Basalt, Betonwerkstein oder moderne Keramikplatten bevorzugen – wir verlegen Ihren Traumboden in Kuppenheim fachgerecht und dauerhaft. Die Materialwahl hängt von Ihrem Budget, der gewünschten Optik und der späteren Nutzung ab. Natursteine wie Sandstein oder Travertin strahlen mediterrane Wärme aus, während anthrazitfarbene Betonpflaster modern und pflegeleicht sind.',
+      'Bei Pflasterarbeiten für Einfahrten achten wir besonders auf den Unterbau. In unserer Region kann der Boden stark variieren – von lehmigen Böden bis zu sandigem Untergrund. Daher ist eine solide Schottertragschicht (mindestens 30cm bei befahrbaren Flächen) essenziell, um Absackungen und Frostschäden zu vermeiden. Wir verwenden frostsicheren Schotter der Körnung 0/32 oder 0/45, verdichten diesen lagenweise mit einer Rüttelplatte und bringen darauf ein 3-5cm starkes Pflasterbett aus Brechsand oder Splitt auf.',
+      'Das richtige Gefälle ist entscheidend für die Entwässerung: Terrassen benötigen mindestens 2% Gefälle vom Haus weg, Einfahrten sollten zur Straße oder zu Entwässerungsrinnen hin abfallen. Wir setzen Randsteine fachgerecht in Beton, damit die Pflasterfläche dauerhaft stabil bleibt. Nach dem Verlegen wird die Fläche gerüttelt und mit feinem Fugensand eingekehrt – alternativ bieten wir auch Fugenverguss mit Harz an, der Unkrautwuchs dauerhaft verhindert.',
+      'Die Kosten für Pflasterarbeiten in Kuppenheim und Rastatt liegen je nach Material zwischen 40€ und 120€ pro Quadratmeter inklusive Unterbau und Verlegung. Einfache Betonpflastersteine beginnen bei 40-60€/m², während hochwertige Natursteinplatten aus Granit oder Basalt 80-120€/m² kosten. Großformatige Terrassenplatten (60x60cm oder 80x80cm) liegen preislich dazwischen. Wir sanieren auch alte Pflasterflächen, bessern Absackungen aus und bringen sie wieder auf Vordermann.',
+      'Lassen Sie sich von uns beraten, welche Steine am besten zu Ihrem Hausstil passen. Von mediterranem Flair mit Travertin-Platten bis zu modernem Minimalismus mit anthrazitfarbenen Betonsteinen setzen wir Ihre Wünsche in Stein um. Auch Kombinationen aus verschiedenen Materialien – etwa Pflaster mit Naturstein-Einfassungen – realisieren wir gerne.'
     ],
     tips: [
       {
@@ -243,13 +251,14 @@ const blogPosts: BlogPost[] = [
     id: '4',
     slug: 'sichtschutz-und-privatsphaere',
     title: 'Der Garten als Rückzugsort: Sichtschutz & Privatsphäre in Kuppenheim',
-    excerpt: 'Entdecken Sie, wie wir einen modernen Garten mit schwarzem Sichtschutz, perfektem Rasen und stimmungsvoller Beleuchtung in eine private Wohlfühloase verwandelten.',
+    excerpt: 'Entdecken Sie, wie wir einen modernen Garten mit schwarzem Sichtschutz, perfektem Rasen und stimmungsvoller Beleuchtung in eine private Wohlfühloase verwandelten. Erfahren Sie alles über Sichtschutzzaun-Höhen, Materialien (WPC, Holz, Aluminium), Lärmschutz und Nachbarschaftsrecht in Baden-Württemberg.',
     date: '2024-06-15',
     image: img9,
     story: [
-      'Privatsphäre ist im eigenen Garten ein hohes Gut. Besonders in dichter bebauten Gebieten von Kuppenheim und Rastatt ist der Wunsch nach einem geschützten Rückzugsort groß. Bei diesem Projekt zeigen wir, wie man Sichtschutz effektiv und ästhetisch ansprechend gestaltet.',
-      'Wir haben uns für eine Kombination aus schwarzem, modernem Holzsichtschutz und lebendiger Bepflanzung entschieden. Die dunklen Elemente bilden einen edlen Kontrast zum satten Grün des Rasens und der Pflanzen. Durch die Integration von Beleuchtungselementen entsteht am Abend eine gemütliche Lounge-Atmosphäre.',
-      'Ein wichtiger Aspekt war die Langlebigkeit. Wir verwenden ausschließlich wetterfeste Materialien und sorgen durch fachgerechte Montage für Stabilität auch bei Sturm. Der Sichtschutz dient dabei nicht nur der Abgrenzung, sondern auch als Gestaltungselement, das dem Garten Struktur verleiht.'
+      'Privatsphäre ist im eigenen Garten ein hohes Gut. Besonders in dichter bebauten Gebieten von Kuppenheim und Rastatt ist der Wunsch nach einem geschützten Rückzugsort groß. Bei diesem Projekt zeigen wir, wie man Sichtschutz effektiv und ästhetisch ansprechend gestaltet – unter Berücksichtigung der rechtlichen Vorgaben in Baden-Württemberg. Gemäß Landesbauordnung sind Sichtschutzzäune an der Grundstücksgrenze in der Regel bis 1,80 Meter Höhe genehmigungsfrei, höhere Zäune bedürfen einer Baugenehmigung oder Zustimmung des Nachbarn.',
+      'Wir haben uns für eine Kombination aus schwarzem, modernem Holzsichtschutz und lebendiger Bepflanzung entschieden. Die dunklen Elemente bilden einen edlen Kontrast zum satten Grün des Rasens und der Pflanzen. Durch die Integration von LED-Beleuchtungselementen entsteht am Abend eine gemütliche Lounge-Atmosphäre. Für die Materialwahl standen WPC (Wood-Plastic-Composite), Thermoholz und Aluminium-Lamellen zur Auswahl. WPC ist besonders pflegeleicht und formstabil, benötigt keine Nachbehandlung und ist in vielen Farben erhältlich – allerdings etwas teurer als Holz.',
+      'Thermisch behandeltes Holz wie Thermokiefer oder Thermoesche ist eine nachhaltige Alternative mit natürlicher Optik. Es ist deutlich beständiger gegen Verrottung als unbehandeltes Holz, sollte aber alle 2-3 Jahre mit Öl oder Lasur gepflegt werden, um die Farbe zu erhalten. Aluminium-Sichtschutzzäune sind die langlebigste, aber auch kostenintensivste Lösung – ideal für moderne Architektur und absolut wartungsfrei. Die Kosten liegen bei 120-250€ pro laufendem Meter je nach Material und Höhe.',
+      'Ein wichtiger Aspekt war die Langlebigkeit und der Lärmschutz. Wir verwenden ausschließlich wetterfeste Materialien und sorgen durch fachgerechte Montage mit einbetonierten Pfosten (80cm Tiefe) für Stabilität auch bei Sturm. Massive Sichtschutzwände aus WPC oder gefüllte Gabionen können auch Straßenlärm um bis zu 10 Dezibel reduzieren – ein willkommener Nebeneffekt für Grundstücke an vielbefahrenen Straßen. Der Sichtschutz dient dabei nicht nur der Abgrenzung, sondern auch als Gestaltungselement, das dem Garten Struktur und Tiefe verleiht.'
     ],
     tips: [
       {
@@ -280,13 +289,14 @@ const blogPosts: BlogPost[] = [
     id: '5',
     slug: 'farbe-form-funktionalitaet-kuppenheim',
     title: 'Farbe, Form & Funktionalität: Gartengestaltung mit Azaleen & Mulch',
-    excerpt: 'Wie man mit einfachen Mitteln wie Rindenmulch, farbenfrohen Azaleen und Formschnitt-Hecken große Wirkung erzielt. Ein Praxisbeispiel.',
+    excerpt: 'Wie man mit einfachen Mitteln wie Rindenmulch, farbenfrohen Azaleen und Formschnitt-Hecken große Wirkung erzielt. Ein Praxisbeispiel für pflegeleichte Gartengestaltung in Kuppenheim mit Rhododendron, Moorbeetpflanzen und Bodendecker. Erfahren Sie alles über sauren Boden, Mulcharten und farbliche Gartenplanung.',
     date: '2024-07-20',
     image: img10,
     story: [
-      'Ein Garten lebt von Kontrasten. In diesem Projekt in der Nähe von Kuppenheim haben wir gezeigt, wie man mit Farbe und Form spielt. Die leuchtenden Blüten der Azaleen stehen im wunderschönen Kontrast zum tiefen Grün der Hecken und dem natürlichen Braun des Rindenmulchs.',
-      'Rindenmulch ist dabei weit mehr als nur Dekoration. Er hält die Feuchtigkeit im Boden – gerade im heißen Oberrheingraben ein wichtiger Faktor für die Pflanzengesundheit. Zudem unterdrückt er Unkrautwuchs auf natürliche Weise und spart Ihnen so wertvolle Zeit bei der Gartenpflege.',
-      'Die strukturierte Anordnung der Beete sorgt für Ruhe und Ordnung, während die Pflanzen selbst für Lebendigkeit sorgen. Ein pflegeleichtes Konzept, das das ganze Jahr über gut aussieht.'
+      'Kontraste machen den Garten lebendig. In diesem Projekt in der Nähe von Kuppenheim haben wir gezeigt, wie man mit Farbe und Form spielt. Die leuchtenden Blüten der Azaleen (botanisch Rhododendron) stehen im wunderschönen Kontrast zum tiefen Grün der Hecken und dem natürlichen Braun des Rindenmulchs. Azaleen gehören zu den Moorbeetpflanzen und benötigen sauren Boden mit einem pH-Wert zwischen 4,5 und 5,5. In unserer Region mit eher neutralen bis leicht alkalischen Böden ist daher spezielle Rhododendron-Erde oder eine Bodenvorbereitung mit Torf und Nadelkompost notwendig.',
+      'Rindenmulch ist dabei weit mehr als nur Dekoration. Er hält die Feuchtigkeit im Boden – gerade im heißen Oberrheingraben ein wichtiger Faktor für die Pflanzengesundheit, besonders für feuchtigkeitsliebende Azaleen. Zudem unterdrückt er Unkrautwuchs auf natürliche Weise und spart Ihnen so wertvolle Zeit bei der Gartenpflege. Beim Verrotten gibt Rindenmulch organische Säuren ab, die den pH-Wert senken – ideal für Moorbeetpflanzen. Allerdings entzieht frischer Mulch dem Boden Stickstoff, weshalb wir vor dem Auftragen immer eine Grunddüngung mit Hornspänen oder speziellem Rhododendrondünger empfehlen.',
+      'Alternativ zu Rindenmulch bieten sich Pinienmulch (edler, länger haltbar, aber teurer), Hackschnitzel (günstig, aber grobkörniger) oder anorganische Mulchmaterialien wie Lavamulch und Kies an. Lavamulch ist besonders langlebig, speichert Wärme und gibt sie nachts ab, wirkt aber optisch kühler. Für moderne Gärten mit klaren Linien ist anthrazitfarbener Basaltsplitt eine elegante Lösung. Unter dem Mulch verlegen wir auf Wunsch ein Unkrautvlies (Gartenvlies), das die Unkrautunterdrückung noch verstärkt, aber wasserdurchlässig bleibt.',
+      'Die strukturierte Anordnung der Beete sorgt für Ruhe und Ordnung, während die Pflanzen selbst für Lebendigkeit sorgen. Ein pflegeleichtes Konzept, das das ganze Jahr über gut aussieht. Im Frühjahr begeistern die Azaleen mit ihrer Blütenpracht in Weiß, Rosa, Rot oder Violett. Im Sommer bieten die immergrünen Rhododendron-Blätter einen satten grünen Hintergrund für Stauden und Gräser. Im Herbst setzen wir gezielt Herbstfärber wie Fothergilla oder Enkianthus ein, um auch in dieser Jahreszeit Farbakzente zu schaffen.'
     ],
     tips: [
       {
@@ -313,13 +323,14 @@ const blogPosts: BlogPost[] = [
     id: '6',
     slug: 'kuppenheim-stadion-zaun',
     title: 'Objekteschutz für Vereine: Der neue Stadionzaun in Kuppenheim',
-    excerpt: 'Sicherheit für Sport und Spiel: Installation eines robusten grünen Maschendrahtzauns für die lokale Sportanlage. Funktional und langlebig.',
+    excerpt: 'Sicherheit für Sport und Spiel: Installation eines robusten grünen Maschendrahtzauns für die lokale Sportanlage in Kuppenheim. Erfahren Sie alles über Ballfangzäune, Gewerbezäune, Objektschutz und DIN-Normen für Sportstätten. Funktional, langlebig und wartungsarm.',
     date: '2024-08-01',
     image: img18,
     story: [
-      'Nicht nur Privatgärten, auch öffentliche Einrichtungen vertrauen auf Luan Allround Service. Für das Sportgelände in Kuppenheim durften wir einen neuen Ballfang- und Begrenzungszaun installieren. Hier standen Sicherheit und Robustheit an erster Stelle.',
-      'Wir haben uns für einen klassischen, grünen Maschendrahtzaun mit verstärkten Pfosten entschieden. Diese Lösung ist kosteneffizient, extrem langlebig und fügt sich durch die grüne Farbe harmonisch in die Umgebung ein. Der Zaun hält auch harten Ballkontakten stand und sichert das Gelände zuverlässig ab.',
-      'Besondere Herausforderung war die Montage im Gefälle und die Integration von Toren für die Pflegefahrzeuge. Dank unserer Erfahrung im Zaunbau konnten wir das Projekt fristgerecht vor Saisonbeginn fertigstellen.'
+      'Nicht nur Privatgärten, auch öffentliche Einrichtungen und Gewerbeobjekte vertrauen auf Luan Allround Service. Für das Sportgelände in Kuppenheim durften wir einen neuen Ballfang- und Begrenzungszaun installieren. Hier standen Sicherheit, Robustheit und Langlebigkeit an erster Stelle. Im Gegensatz zu privaten Gartenzäunen müssen Sportplatzzäune deutlich höheren Belastungen standhalten – sowohl durch Ballkontakte als auch durch Witterungseinflüsse bei ganzjähriger Nutzung.',
+      'Wir haben uns für einen klassischen, grünen Maschendrahtzaun mit verstärkten Pfosten (Durchmesser 60mm statt Standard 48mm) entschieden. Diese Lösung ist kosteneffizient, extrem langlebig und fügt sich durch die grüne RAL 6005 Moosgrün-Beschichtung harmonisch in die Umgebung ein. Der Zaun hält auch harten Ballkontakten stand und sichert das Gelände zuverlässig ab. Die Maschenweite von 50x50mm verhindert das Durchgreifen und entspricht den Sicherheitsanforderungen für Sportanlagen gemäß DIN 18034 (Spielplätze und Freiräume zum Spielen).',
+      'Für Ballfangzäune hinter den Toren haben wir eine Höhe von 4 Metern gewählt, während die seitlichen Begrenzungszäune 2 Meter hoch sind. Die Pfosten wurden 100cm tief in Beton eingelassen (statt 80cm bei Privatgärten), um der erhöhten Belastung standzuhalten. Zusätzlich haben wir Eckpfosten und Torpfosten mit Streben verstärkt. Die Kosten für solche Gewerbezäune liegen bei 35-60€ pro laufendem Meter für 2m Höhe und 60-90€/m für 4m Ballfangzäune inklusive Montage.',
+      'Besondere Herausforderung war die Montage im Gefälle und die Integration von Toren für die Pflegefahrzeuge. Wir haben zwei Flügeltore mit 4 Metern Breite eingebaut, die auch für Traktoren und kleine LKW passierbar sind. Dank unserer Erfahrung im gewerblichen Zaunbau konnten wir das Projekt fristgerecht vor Saisonbeginn fertigstellen. Auf Wunsch bieten wir auch Wartungsverträge für Vereine und Gemeinden an – regelmäßige Inspektionen und schnelle Reparaturen bei Beschädigungen inklusive.'
     ],
     tips: [
       {
@@ -428,7 +439,7 @@ const ContactForm = () => {
     <>
       <div className="bg-black p-6 md:p-8 rounded-xl shadow-2xl w-full max-w-md mx-auto lg:mx-0">
         <h3 className="text-2xl md:text-3xl font-black text-white text-center mb-6 md:mb-8 uppercase font-sans">
-          Kostenlose Beratung
+          Kostenfreie Beratung
         </h3>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -436,7 +447,7 @@ const ContactForm = () => {
           {/* Name Field */}
           <div>
             <label htmlFor="name" className="block text-white font-bold text-sm mb-1">
-              Vollständiger Name *
+              Ihr Name *
             </label>
             <input
               id="name"
@@ -466,7 +477,7 @@ const ContactForm = () => {
           {/* City Field */}
           <div>
             <label htmlFor="city" className="block text-white font-bold text-sm mb-1">
-              Deine Stadt *
+              Ihre Stadt *
             </label>
             <input
               id="city"
@@ -481,7 +492,7 @@ const ContactForm = () => {
           {/* Message Field */}
           <div>
             <label htmlFor="message" className="block text-white font-bold text-sm mb-1">
-              Kurze Beschreibung Ihrer Vorstellungen *
+              Was können wir für Sie tun? *
             </label>
             <textarea
               id="message"
@@ -599,7 +610,7 @@ const ContactFormMobile = () => {
     <div className="w-full">
       <form onSubmit={handleSubmit} className="space-y-4 text-left">
         <div>
-          <label className="block text-[#1a1c1d] font-bold text-xs mb-2 pl-1">Vollständiger Name *</label>
+          <label className="block text-[#1a1c1d] font-bold text-xs mb-2 pl-1">Ihr Name *</label>
           <input
             type="text"
             name="name"
@@ -621,7 +632,7 @@ const ContactFormMobile = () => {
         </div>
 
         <div>
-          <label className="block text-[#1a1c1d] font-bold text-xs mb-2 pl-1">Deine Stadt *</label>
+          <label className="block text-[#1a1c1d] font-bold text-xs mb-2 pl-1">Ihre Stadt *</label>
           <input
             type="text"
             name="city"
@@ -632,7 +643,7 @@ const ContactFormMobile = () => {
         </div>
 
         <div>
-          <label className="block text-[#1a1c1d] font-bold text-xs mb-2 pl-1">Kurze Beschreibung Ihrer Vorstellungen *</label>
+          <label className="block text-[#1a1c1d] font-bold text-xs mb-2 pl-1">Was können wir für Sie tun? *</label>
           <textarea
             name="message"
             placeholder="Ihre Nachricht..."
@@ -692,7 +703,7 @@ const Hero = () => {
           <div
             className="absolute inset-0 bg-cover bg-center animate-slow-zoom"
             style={{
-              backgroundImage: `url(${img22})`,
+              backgroundImage: `url("${img23}")`,
               backgroundPosition: 'center',
               backgroundSize: 'cover'
             }}
@@ -713,7 +724,7 @@ const Hero = () => {
 
 
             <p className="text-white text-lg leading-relaxed max-w-[340px] mx-auto my-8 animate-[fadeInUp_1.3s_ease-out] font-medium drop-shadow-md">
-              Professioneller Zaunbau, Rasenpflege & Gartengestaltung in Kuppenheim, Rastatt und Karlsruhe. Qualität, die man sieht.
+              Als Ihr Gartenbau-Fachbetrieb in Kuppenheim übernehmen wir Doppelstabmatten-Zaunbau, Rasenpflege und Komplett-Gestaltung Ihrer Außenanlage — in Kuppenheim, Rastatt, Karlsruhe sowie im Umkreis von 150 km.
             </p>
 
             {/* Action Buttons */}
@@ -734,8 +745,8 @@ const Hero = () => {
           </div>
 
           {/* Scroll Arrows - img21 */}
- 
-          <div className=" bottom-10 left-1/.5 -translate-x-1/.5 ">
+
+          <div className=" bottom-10 left-1/2 -translate-x-2.5">
             <img
               src={img21}
               alt="Scroll down"
@@ -747,16 +758,20 @@ const Hero = () => {
         {/* Mobile Contact Form Section (Card style under hero) */}
         <div className="relative z-30 -mt-8 bg-white rounded-t-[40px] px-6 pt-16 pb-16 shadow-[0_-10px_40px_rgba(0,0,0,0.1)]">
           {/* Circular Logo Indicator */}
-          <div className="absolute -top-12 left-1/2 -translate-x-1/2 bg-white rounded-full p-3 shadow-xl">
-            <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center p-1">
-              <img src={img20} alt="Luan Logo" className="w-full h-full object-contain" />
-              
+          <div className="absolute -top-12 left-1/2 -translate-x-1/2">
+            <div className="relative group">
+              <div className="absolute -inset-1 bg-gradient-to-r from-gold-400 to-earth-800 rounded-full blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
+              <img
+                src={img20}
+                alt="Logo Luan Allround Service"
+                className="relative w-32 h-32 rounded-full object-cover border-4 border-white shadow-2xl"
+              />
             </div>
           </div>
 
-          <div className="text-center">
-            <h2 className="text-2xl md:text-3xl font-black ${textColor} text-center mb-6 md:mb-8 uppercase font-sans">
-              KOSTENLOSE BERATUNG
+          <div className="text-center"><br /><br />
+            <h2 className="text-2xl md:text-3xl font-black text-earth-900 text-center mb-6 md:mb-8 uppercase font-sans">
+              KOSTENFREIE BERATUNG
             </h2>
             <ContactFormMobile />
           </div>
@@ -768,7 +783,7 @@ const Hero = () => {
         {/* Hintergrundbild mit langsamer Zoom-Effekt */}
         <div
           className="absolute inset-0 bg-cover bg-center animate-slow-zoom"
-          style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1723208757257-3e71cf4c5040?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")' }}
+          style={{ backgroundImage: `url("${img22}")` }}
         >
           <div className="absolute inset-0 bg-black/40"></div>
           <div className="absolute inset-0 bg-gradient-to-t from-earth-900/80 via-transparent to-black/20"></div>
@@ -790,7 +805,7 @@ const Hero = () => {
               </h1>
 
               <p className="text-lg md:text-xl text-gray-200 font-light max-w-2xl border-l-2 border-gold-500 pl-4 md:pl-6 mb-8 md:mb-10 animate-[fadeInUp_1.4s_ease-out_forwards] mx-auto lg:mx-0">
-                Professioneller Zaunbau, Rasenpflege & Gartengestaltung in Kuppenheim, Rastatt und Karlsruhe. Qualität, die man sieht.
+                Als Ihr Gartenbau-Fachbetrieb in Kuppenheim übernehmen wir Doppelstabmatten-Zaunbau, Rasenpflege und Komplett-Gestaltung Ihrer Außenanlage — in Kuppenheim, Rastatt, Karlsruhe sowie im Umkreis von 150 km.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 md:gap-5 animate-[fadeInUp_1.6s_ease-out_forwards] justify-center lg:justify-start">
@@ -833,22 +848,22 @@ const ServicesSection = () => {
     {
       icon: <PencilRuler className="w-6 h-6 md:w-8 md:h-8" />,
       title: "Zaunmontage",
-      desc: "Stabile, saubere und fachgerechte Montage von Zäunen und Sichtschutzanlagen."
+      desc: "Wir montieren robuste Doppelstabmatten-, Holz- und Sichtschutzzäune – passgenau nach Ihrem Grundstücksplan."
     },
     {
       icon: <Shovel className="w-6 h-6 md:w-8 md:h-8" />,
       title: "Gartenpflege",
-      desc: "Rasen- und Heckenschnitt, Laubentfernung und saisonale Pflege für einen gepflegten Garten."
+      desc: "Rasen mähen, Heckenschnitt, Unkrautentfernung – für gepflegte Grünflächen ohne Aufwand für Sie."
     },
     {
       icon: <Leaf className="w-6 h-6 md:w-8 md:h-8" />,
       title: "Reinigung",
-      desc: "Hof-, Terrassen- und Objektreinigung für saubere Außenbereiche."
+      desc: "Hochdruckreinigung für Terrassen, Pflastersteine und Einfahrten – Algen und Moos verschwinden spurlos."
     },
     {
       icon: <Leaf className="w-6 h-6 md:w-8 md:h-8" />,
       title: "Allround-Service",
-      desc: "Unterstützung bei allen Arbeiten rund ums Haus und den Garten."
+      desc: "Von Pflasterarbeiten bis Rollrasen-Verlegung – wir packen an, wo Handwerker-Qualität gefragt ist."
     }
   ];
 
@@ -909,7 +924,7 @@ const AboutPreview = () => (
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif mt-4 leading-tight">Handwerkliche <span className="text-gold-500 italic">Tradition</span></h2>
 
             <p className="text-gray-300 text-base md:text-lg font-light leading-relaxed mt-4 md:mt-6">
-              Ich bin Memedali Limani, Ihr zuverlässiger Landschaftsgärtner. Ich übernehme Zaunmontage, Gartenpflege, Terrassen- und Hofreinigung sowie alle anfallenden Arbeiten rund ums Haus — sauber, pünktlich und professionell.
+              Ich bin Memedali Limani, seit Jahren Ihr Ansprechpartner für Garten- und Landschaftsbau in Kuppenheim. Von der Zaunmontage mit Doppelstabmatten über Rasenpflege bis zur Terrassenreinigung – wir arbeiten sauber, termingerecht und mit Handwerker-Erfahrung, die man sieht. In Kuppenheim, Rastatt, Karlsruhe sowie im Umkreis von 150 km.
             </p>
 
             {/* Unternehmensteil */}
@@ -928,9 +943,9 @@ const AboutPreview = () => (
 
             <div className="space-y-4 md:space-y-6 mt-6 md:mt-8">
               {[
-                { title: "Fachgerechte Ausführung", desc: "Sorgfältige Arbeit mit langlebigen Materialien." },
-                { title: "Schnelle Umsetzung", desc: "Zuverlässige Termine und saubere Baustellen." },
-                { title: "Maßgeschneiderte Lösungen", desc: "Individuelle Konzepte für Ihren Außenbereich." }
+                { title: "Fachgerechte Ausführung", desc: "Fundamente frostsicher, Materialien langlebig – Arbeit mit Qualität." },
+                { title: "Termine einhalten", desc: "Zuverlässige Termine und saubere Baustellen – wie vereinbart." },
+                { title: "Individuelle Lösungen", desc: "Angepasst an Bodenverhältnisse, Hanglage und Ihre Wünsche." }
               ].map((item, i) => (
                 <div key={i} className="flex">
                   <div className="mt-1 mr-3 md:mr-4 text-gold-500 shrink-0"><CheckCircle size={20} className="md:w-6 md:h-6" /></div>
@@ -1020,16 +1035,18 @@ const AnimationStyles = () => (
 
 const Testimonials = () => {
   const [currentPage, setCurrentPage] = useState(0);
+  const [isFirstExpanded, setIsFirstExpanded] = useState(false);
 
   const googleMapsUrl = "https://www.google.com/maps/place/Luan+Allround+Service/@49.1195743,9.1717969,1768539a,35y,350.44h/data=!3m1!1e3!4m18!1m9!3m8!1s0x47971d9ddc21dc61:0x8b73b203f70f96b!2sLuan+Allround+Service!8m2!3d48.8264987!4d8.2535412!9m1!1b1!16s%2Fg%2F11rr2yqn18!3m7!1s0x47971d9ddc21dc61:0x8b73b203f70f96b!8m2!3d48.8264987!4d8.2535412!9m1!1b1!16s%2Fg%2F11rr2yqn18?entry=ttu&g_ep=EgoyMDI1MTIwMi4wIKXMDSoASAFQAw%3D%3D";
 
   const allReviews = [
-    { name: "Toni D'Agostino", time: "vor 6 Monaten", text: "Ein Super-Team, Vorab wird ein Vor-Ort-Termin vereinbart um sich die Situation einen Überblick zu verschaffen. Gleichzeitig wird man beraten was besser gemacht werden kann. Am Einbautag wird alles Sauber, Präzise und mit Erfahrung eingebaut. Mit dem Ergebnis bin ich sehr zufrieden und kann die Firma sehr empfehlen!" },
-    { name: "Gerhard Gerschner", time: "vor 6 Monaten", text: "Qualitativ sehr gute Arbeit. Super freundliches Team. Die Jungs wissen was sie tun. Immer hilfsbereit und sehr schnell. Wer einen Zaun braucht sollte sich bei Luan Allround Service melden!!!" },
-    { name: "Tanja M", time: "vor 6 Monaten", text: "Der Zaunbau bei meinem Vater hat super geklappt…tolle Arbeit, sehr gute Kommunikation. Wir danken dem ganzen Team und können die Firma nur weiterempfehlen." },
-    { name: "Katrin Schindler", time: "vor 5 Monaten", text: "Sehr schnelle und sehr günstige Firma. Innerhalb weniger Tage wurde der Zaun gestellt. Super nette Leute. Absolut vertrauenswürdig. Kann ich jedem empfehlen!!" },
-    { name: "Marcus Bräuning", time: "vor 10 Monaten", text: "Danke nochmals für eure gute Arbeit, obwohl es geregnet hat wie aus Eimern. Die Bäume habt ihr wieder top in Form geschnitten wie es auch gewünscht war. Danke für eure schnelle Unterstützung und ihr seid ein tolles Team!" },
-    { name: "UGI Performance", time: "vor 11 Monaten", text: "Super Kompetenz. Fixer Aufbau. Tolles Design. Vielen Dank. Nur weiter zu empfehlen Top Qualität." },
+    { name: "Rhina Pross", rating: 4, time: "vor 1 monat", text: "Die Terminabsprache verlief sehr angenehm und mein Wunsch nach einem früheren Termin wurde berücksichtigt, sobald es möglich war. Das Team aus drei freundlichen und hilfsbereiten Mitarbeitern arbeitete zügig und setzte die rund 50 m Zaun mit Gefälle sauber und zuverlässig um. Positiv hervorzuheben ist, dass alle sehr höflich und zuvorkommend waren und auf Fragen direkt eingegangen wurde. Etwas enttäuschend war jedoch, dass nach Abschluss der Arbeiten einige Materialreste wie abgeschnittene Zaunteile, leere Kartuschen, Bohrer sowie Essens Verpackungen und Trinkflaschen liegen geblieben sind. Außerdem waren zwei kleine Nachbesserungen nötig, die nach Rückmeldung erledigt wurden. Besonders hervorheben möchte ich den freundlichen, erreichbaren und engagierten Kontakt zum Chef, der stets bemüht war, eine gute Lösung zu finden. Insgesamt bin ich mit der Leistung zufrieden und würde die Firma trotz kleinerer Punkte wieder beauftragen." },
+    { name: "Toni D'Agostino", time: "vor 8 Monaten", text: "Ein Super-Team, Vorab wird ein Vor-Ort-Termin vereinbart um sich die Situation einen Überblick zu verschaffen. Gleichzeitig wird man beraten was besser gemacht werden kann. Am Einbautag wird alles Sauber, Präzise und mit Erfahrung eingebaut. Mit dem Ergebnis bin ich sehr zufrieden und kann die Firma sehr empfehlen!" },
+    { name: "Gerhard Gerschner", time: "vor 7 Monaten", text: "Qualitativ sehr gute Arbeit. Super freundliches Team. Die Jungs wissen was sie tun. Immer hilfsbereit und sehr schnell. Wer einen Zaun braucht sollte sich bei Luan Allround Service melden!!!" },
+    { name: "Tanja M", time: "vor 7 Monaten", text: "Der Zaunbau bei meinem Vater hat super geklappt…tolle Arbeit, sehr gute Kommunikation. Wir danken dem ganzen Team und können die Firma nur weiterempfehlen." },
+    { name: "Katrin Schindler", time: "vor 7 Monaten", text: "Sehr schnelle und sehr günstige Firma. Innerhalb weniger Tage wurde der Zaun gestellt. Super nette Leute. Absolut vertrauenswürdig. Kann ich jedem empfehlen!!" },
+    { name: "Marcus Bräuning", time: "vor 11 Monaten", text: "Danke nochmals für eure gute Arbeit, obwohl es geregnet hat wie aus Eimern. Die Bäume habt ihr wieder top in Form geschnitten wie es auch gewünscht war. Danke für eure schnelle Unterstützung und ihr seid ein tolles Team!" },
+    { name: "UGI Performance", time: "vor 1 jahr", text: "Super Kompetenz. Fixer Aufbau. Tolles Design. Vielen Dank. Nur weiter zu empfehlen Top Qualität." },
     { name: "Sebastian Morina", time: "vor 2 Jahren", text: "Sehr kompetente, Zuverlässige sowie preiswerte Firma. Empfehlenswert also holt euch gerne mal ein Angebot rein und überzeugt euch gerne selbst von meiner Zufriedenheit." },
     { name: "Florim Sinani", time: "vor 2 Jahren", text: "Guten Tag, bin mit der Arbeit sehr zufrieden und kann nur gutes berichten. Freundliche Arbeiter und saubere Arbeit." },
     { name: "Tanja Möhrmann", time: "vor 3 Jahren", text: "Sehr zu empfehlen! Hochwertiges Material, sehr freundlicher Kontakt und guter hilfsbereiter Service" }
@@ -1099,11 +1116,33 @@ const Testimonials = () => {
 
                 {/* Stars */}
                 <div className="flex text-gold-500 mb-4">
-                  {[...Array(5)].map((_, j) => <Star key={j} size={16} fill="currentColor" />)}
+                  {[...Array(5)].map((_, j) => {
+                    const rating = (review as any).rating || 5;
+                    return (
+                      <Star
+                        key={j}
+                        size={16}
+                        fill={j < rating ? "currentColor" : "none"}
+                        className={j < rating ? "text-gold-500" : "text-gray-300"}
+                      />
+                    );
+                  })}
                 </div>
 
                 {/* Review Text */}
-                <p className="text-gray-700 text-sm md:text-base leading-relaxed flex-grow">{review.text}</p>
+                <div className="flex-grow">
+                  <p className={`text-gray-700 text-sm md:text-base leading-relaxed ${review.name === "Rhina Pross" && !isFirstExpanded ? 'line-clamp-5' : ''}`}>
+                    {review.text}
+                  </p>
+                  {review.name === "Rhina Pross" && !isFirstExpanded && (
+                    <button
+                      onClick={() => setIsFirstExpanded(true)}
+                      className="text-gold-500 text-sm font-bold mt-1 hover:underline focus:outline-none"
+                    >
+                      (mehr sehen)
+                    </button>
+                  )}
+                </div>
               </div>
             </RevealOnScroll>
           ))}
@@ -1207,7 +1246,7 @@ const ServicesPage = () => (
   <>
     <SEOHead
       title="Unsere Leistungen – Zaunbau, Gartenpflege & Reinigung in Kuppenheim | Luan Allround Service"
-      description="Professionelle Garten- und Landschaftsbau Dienstleistungen in Kuppenheim: ✓ Zaunmontage ✓ Rasenpflege ✓ Heckenschnitt ✓ Terrassenreinigung ✓ Pflasterarbeiten. Faire Preise, schnelle Umsetzung. Jetzt anfragen!"
+      description="Professionelle Garten- und Landschaftsbau Dienstleistungen in Kuppenheim und im Umkreis von 150 km: ✓ Zaunmontage ✓ Rasenpflege ✓ Heckenschnitt ✓ Terrassenreinigung ✓ Pflasterarbeiten. Faire Preise, schnelle Umsetzung. Jetzt anfragen!"
       keywords="Zaunbau Kuppenheim, Gartenpflege Kuppenheim, Rasenmähen Rastatt, Heckenschnitt Baden-Baden, Terrassenreinigung Karlsruhe, Pflasterarbeiten Kuppenheim, Hochdruckreinigung, Gartenbau Dienstleistungen"
     />
     <PageHeader
@@ -1233,7 +1272,7 @@ const ProjectsPage = () => (
   <>
     <SEOHead
       title="Projekte & Referenzen – Garten- & Zaunbau in Kuppenheim | Luan Allround Service"
-      description="Entdecken Sie unsere erfolgreich abgeschlossenen Gartenbau-Projekte in Kuppenheim, Rastatt und Baden-Baden. ✓ Vorher-Nachher-Vergleiche ✓ Zaunbau ✓ Gartenanlagen ✓ Pflasterarbeiten. Überzeugen Sie sich von unserer Qualität!"
+      description="Entdecken Sie unsere erfolgreich abgeschlossenen Gartenbau-Projekte in Kuppenheim, Rastatt, Baden-Baden und im Umkreis von 150 km. ✓ Vorher-Nachher-Vergleiche ✓ Zaunbau ✓ Gartenanlagen ✓ Pflasterarbeiten. Überzeugen Sie sich von unserer Qualität!"
       keywords="Gartenbau Projekte Kuppenheim, Zaunbau Referenzen, Landschaftsbau Beispiele, Vorher Nachher Garten, Gartenprojekte Rastatt, Referenzen Gartenbau Baden-Baden"
     />
     <PageHeader
@@ -1254,7 +1293,7 @@ const AboutPage = () => (
   <>
     <SEOHead
       title="Über Uns – Ihr Landschaftsgärtner in Kuppenheim | Memedali Limani | Luan Allround Service"
-      description="Erfahren Sie mehr über Luan Allround Service. Ihr zuverlässiger Partner für Gartenbau in Kuppenheim mit über 5 Jahren Erfahrung, 100+ realisierten Projekten und 100% Kundenzufriedenheit. Professionell, pünktlich, fair."
+      description="Erfahren Sie mehr über Luan Allround Service. Ihr zuverlässiger Partner für Gartenbau in Kuppenheim und 150 km Umkreis mit über 5 Jahren Erfahrung, 100+ realisierten Projekten und 100% Kundenzufriedenheit. Professionell, pünktlich, fair."
       keywords="Landschaftsgärtner Kuppenheim, Memedali Limani, Luan Allround Service Team, Gartenbau Erfahrung, Gärtner Rastatt, Landschaftsbau Firma Baden-Württemberg"
     />
     <PageHeader
@@ -1289,7 +1328,7 @@ const AboutPage = () => (
 
           <h3 className="text-2xl md:text-3xl font-serif text-earth-900 mb-4 md:mb-6 text-center">Handwerk mit Herz und regionaler Expertise</h3>
           <p className="leading-loose text-gray-600 mb-4 md:mb-6 text-sm md:text-base">
-            Als Ihr lokaler Landschaftsgärtner für den Raum Kuppenheim, Rastatt, Baden-Baden und Karlsruhe bringe ich Erfahrung, Zuverlässigkeit und ein Auge fürs Detail in jedes Projekt. Ob Gartenpflege, professioneller Zaunbau oder gründliche Reinigungsarbeiten – mein Ziel ist es, Ihre Außenbereiche in gepflegte und funktionale Wohlfühlorte zu verwandeln.
+            Als Ihr lokaler Landschaftsgärtner für den Raum Kuppenheim, Rastatt, Baden-Baden, Karlsruhe und im gesamten Umkreis von 150 km bringe ich Erfahrung, Zuverlässigkeit und ein Auge fürs Detail in jedes Projekt. Ob Gartenpflege, professioneller Zaunbau oder gründliche Reinigungsarbeiten – mein Ziel ist es, Ihre Außenbereiche in gepflegte und funktionale Wohlfühlorte zu verwandeln.
           </p>
           <p className="leading-loose text-gray-600 mb-4 md:mb-6 text-sm md:text-base">
             Wir verstehen, dass jeder Garten einzigartig ist. Deshalb setzen wir auf eine persönliche Beratung und maßgeschneiderte Konzepte, die genau auf Ihre Wünsche und die Gegebenheiten vor Ort abgestimmt sind. Wir verbinden traditionelle Handwerkskunst mit modernen Techniken, um nachhaltige und ästhetisch ansprechende Ergebnisse zu schaffen, an denen Sie lange Freude haben werden.
@@ -1358,7 +1397,7 @@ const ContactPage = () => (
                 <MapPin className="text-gold-500 mt-1 mr-4 shrink-0" size={24} />
                 <div>
                   <h4 className="font-serif text-lg text-earth-900 mb-2">Unser Standort</h4>
-                  <p className="text-gray-600">Deutschland (regional tätig)<br />Anfahrt bundesweit auf Anfrage</p>
+                  <p className="text-gray-600">Deutschland (Tätig im Umkreis von 150 km)<br />Anfahrt bundesweit auf Anfrage</p>
                 </div>
               </div>
 
@@ -1958,15 +1997,51 @@ const LocationPageRouter = () => {
 };
 
 const App = () => {
-  // Initialize analytics on app mount
+  // Initialize analytics and Lenis smooth scroll on app mount
   useEffect(() => {
     analytics.init();
+
+    // Initialize Lenis for smooth scrolling
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      touchMultiplier: 2,
+    });
+
+    function raf(time: number) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
+    return () => {
+      lenis.destroy();
+    };
   }, []);
 
   return (
     <Router>
       <ScrollToTop />
+      <SnowEffect />
       <div className="flex flex-col min-h-screen overflow-x-hidden font-sans text-earth-900 selection:bg-gold-500 selection:text-white bg-stone-50">
+        <style>{`
+          html.lenis, html.lenis body {
+            height: auto;
+          }
+          .lenis.lenis-smooth {
+            scroll-behavior: auto !important;
+          }
+          .lenis.lenis-smooth [data-lenis-prevent] {
+            overscroll-behavior: contain;
+          }
+          .lenis.lenis-stopped {
+            overflow: hidden;
+          }
+          .lenis.lenis-scrolling iframe {
+            pointer-events: none;
+          }
+        `}</style>
         <AnimationStyles />
         <Navbar />
         <main className="flex-grow">

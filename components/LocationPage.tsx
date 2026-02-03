@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { MapPin, Phone, Clock, CheckCircle, ArrowRight } from 'lucide-react';
+import SEOHead from './SEOHead';
+import BreadcrumbSchema from './BreadcrumbSchema';
 
 interface LocationData {
     city: string;
+    slug: string;
     postalCode: string;
     region: string;
     description: string;
@@ -15,6 +18,8 @@ interface LocationData {
         service: string;
     };
     mapUrl: string;
+    latitude?: number;
+    longitude?: number;
 }
 
 interface LocationPageProps {
@@ -22,8 +27,110 @@ interface LocationPageProps {
 }
 
 const LocationPage: React.FC<LocationPageProps> = ({ location }) => {
+    // Inject location-specific LocalBusiness schema
+    useEffect(() => {
+        const locationSchema = {
+            "@context": "https://schema.org",
+            "@type": "LocalBusiness",
+            "@id": `https://www.luan-allround-service.de/standorte/${location.slug || location.city.toLowerCase()}#localbusiness`,
+            "name": `Luan Allround Service - Gartenbau ${location.city}`,
+            "description": `Professioneller Garten- und Landschaftsbau in ${location.city}. Zaunbau, Gartenpflege, Pflasterarbeiten und mehr. Ihr lokaler Partner für Außenanlagen.`,
+            "image": "https://www.luan-allround-service.de/images/logo.png",
+            "telephone": "+4917647999118",
+            "email": "luanallroundservice@gmail.com",
+            "url": `https://www.luan-allround-service.de/standorte/${location.slug || location.city.toLowerCase()}`,
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "Friedrichstraße 100",
+                "addressLocality": location.city,
+                "postalCode": location.postalCode,
+                "addressRegion": location.region,
+                "addressCountry": "DE"
+            },
+            "geo": location.latitude && location.longitude ? {
+                "@type": "GeoCoordinates",
+                "latitude": location.latitude,
+                "longitude": location.longitude
+            } : undefined,
+            "areaServed": {
+                "@type": "City",
+                "name": location.city
+            },
+            "openingHoursSpecification": [
+                {
+                    "@type": "OpeningHoursSpecification",
+                    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                    "opens": "08:00",
+                    "closes": "18:00"
+                },
+                {
+                    "@type": "OpeningHoursSpecification",
+                    "dayOfWeek": "Saturday",
+                    "opens": "08:00",
+                    "closes": "14:00"
+                }
+            ],
+            "priceRange": "€€",
+            "hasOfferCatalog": {
+                "@type": "OfferCatalog",
+                "name": `Gartenbau-Dienstleistungen in ${location.city}`,
+                "itemListElement": location.services.slice(0, 4).map((service, index) => ({
+                    "@type": "Offer",
+                    "itemOffered": {
+                        "@type": "Service",
+                        "name": service,
+                        "areaServed": location.city
+                    }
+                }))
+            },
+            "parentOrganization": {
+                "@type": "Organization",
+                "@id": "https://www.luan-allround-service.de/#organization",
+                "name": "Luan Allround Service"
+            }
+        };
+
+        // Remove undefined values
+        const cleanSchema = JSON.parse(JSON.stringify(locationSchema));
+
+        let schemaScript = document.querySelector('script[data-schema="location"]');
+        if (!schemaScript) {
+            schemaScript = document.createElement('script');
+            schemaScript.setAttribute('type', 'application/ld+json');
+            schemaScript.setAttribute('data-schema', 'location');
+            document.head.appendChild(schemaScript);
+        }
+        schemaScript.textContent = JSON.stringify(cleanSchema);
+
+        return () => {
+            const script = document.querySelector('script[data-schema="location"]');
+            if (script) {
+                script.remove();
+            }
+        };
+    }, [location]);
+
+    const citySlug = location.slug || location.city.toLowerCase().replace(/\s+/g, '-');
+
     return (
         <div className="min-h-screen bg-stone-50">
+            {/* SEO Head */}
+            <SEOHead
+                title={`Zaunbau & Gartenbau ${location.city} | Luan Allround Service ⭐ Ihr Meisterbetrieb`}
+                description={`Professioneller Zaunbau & Gartenbau in ${location.city} ✓ Doppelstabmattenzäune ✓ Sichtschutz ✓ Gartenpflege ✓ Pflasterarbeiten. Kostenlose Beratung: 0176 47999118. ${location.description}`}
+                keywords={`Zaunbau ${location.city}, Gartenbau ${location.city}, Doppelstabmattenzaun ${location.city}, Gartenpflege ${location.city}, Landschaftsbau ${location.region}, Sichtschutz ${location.city}, Pflasterarbeiten ${location.city}`}
+                canonical={`https://www.luan-allround-service.de/standorte/${citySlug}`}
+            />
+
+            {/* Breadcrumb Schema */}
+            <BreadcrumbSchema
+                items={[
+                    { name: 'Home', url: '/' },
+                    { name: 'Standorte', url: '/standorte' },
+                    { name: location.city, url: `/standorte/${citySlug}` }
+                ]}
+            />
+
             {/* Hero Section */}
             <section className="relative py-20 md:py-32 bg-earth-900 text-white overflow-hidden">
                 <div className="absolute inset-0 opacity-10">
@@ -44,7 +151,7 @@ const LocationPage: React.FC<LocationPageProps> = ({ location }) => {
                             </span>
                         </div>
                         <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif mb-6">
-                            Garten- & Landschaftsbau in{' '}
+                            Zaunbau & Gartenbau in{' '}
                             <span className="text-gold-400 italic">{location.city}</span>
                         </h1>
                         <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
@@ -78,7 +185,7 @@ const LocationPage: React.FC<LocationPageProps> = ({ location }) => {
                             Unsere Leistungen
                         </span>
                         <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-earth-900">
-                            Gartenbau-Service in {location.city}
+                            Zaunbau & Gartenbau-Service in {location.city}
                         </h2>
                     </div>
 
@@ -117,12 +224,13 @@ const LocationPage: React.FC<LocationPageProps> = ({ location }) => {
                                 Lokales Know-How
                             </span>
                             <h2 className="text-3xl md:text-4xl font-serif text-earth-900 mb-6">
-                                Wir kennen {location.city}
+                                Ihr Zaunbau-Experte in {location.city}
                             </h2>
                             <p className="text-gray-700 text-lg leading-relaxed mb-6">
                                 Als Ihr lokaler Gartenbau-Partner in {location.city} und {location.region}{' '}
                                 kennen wir die Besonderheiten der Region. Von den Bodenverhältnissen bis zu
-                                den klimatischen Bedingungen – wir wissen, was Ihr Garten braucht.
+                                den klimatischen Bedingungen – wir wissen, was Ihr Garten braucht. Ob <strong>Doppelstabmattenzaun</strong>,
+                                <strong> Sichtschutz</strong> oder <strong>Gartenpflege</strong> – wir liefern Qualität.
                             </p>
 
                             {location.landmarks.length > 0 && (
@@ -165,7 +273,7 @@ const LocationPage: React.FC<LocationPageProps> = ({ location }) => {
                                     loading="lazy"
                                     referrerPolicy="no-referrer-when-downgrade"
                                     className="w-full h-full"
-                                    title={`Karte von ${location.city}`}
+                                    title={`Karte von ${location.city} - Luan Allround Service Einsatzgebiet`}
                                 ></iframe>
                             </div>
                         </div>
@@ -199,7 +307,7 @@ const LocationPage: React.FC<LocationPageProps> = ({ location }) => {
                         Bereit für Ihren Traumgarten in {location.city}?
                     </h2>
                     <p className="text-xl text-gray-300 mb-10">
-                        Kontaktieren Sie uns für eine kostenlose Beratung und ein unverbindliches Angebot.
+                        Kontaktieren Sie uns für eine kostenlose Beratung und ein unverbindliches Angebot. Wir freuen uns auf Ihr Projekt!
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <a
@@ -218,31 +326,6 @@ const LocationPage: React.FC<LocationPageProps> = ({ location }) => {
                     </div>
                 </div>
             </section>
-
-            {/* Schema Markup for Location */}
-            <script type="application/ld+json">
-                {JSON.stringify({
-                    '@context': 'https://schema.org',
-                    '@type': 'Service',
-                    'serviceType': 'Garten- und Landschaftsbau',
-                    'provider': {
-                        '@type': 'LocalBusiness',
-                        'name': 'Luan Allround Service',
-                        'address': {
-                            '@type': 'PostalAddress',
-                            'addressLocality': location.city,
-                            'postalCode': location.postalCode,
-                            'addressRegion': location.region,
-                            'addressCountry': 'DE',
-                        },
-                        'telephone': '+4917647999118',
-                    },
-                    'areaServed': {
-                        '@type': 'City',
-                        'name': location.city,
-                    },
-                })}
-            </script>
         </div>
     );
 };

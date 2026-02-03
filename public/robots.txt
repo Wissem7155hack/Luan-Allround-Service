@@ -36,3 +36,11 @@ Crawl-delay: 10
 
 User-agent: SemrushBot
 Crawl-delay: 10
+
+# Sitemaps - Essential for indexing
+Sitemap: https://wissem7155hack.github.io/Luan-Allround-Service/sitemap.xml
+Sitemap: https://wissem7155hack.github.io/Luan-Allround-Service/sitemap-images.xml
+
+# Host directive
+Host: https://wissem7155hack.github.io/Luan-Allround-Service
+
