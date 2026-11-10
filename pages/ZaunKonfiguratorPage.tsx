@@ -5,9 +5,10 @@ import SEOHead from '../components/SEOHead';
 
 const ZaunKonfiguratorPage: React.FC = () => {
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   return (
-    <div className="min-h-screen bg-slate-900 flex flex-col text-white">
+    <div className={`min-h-screen bg-slate-900 flex flex-col text-white ${isFullscreen ? 'fixed inset-0 z-50' : ''}`}>
       <SEOHead
         title="3D Zaunkonfigurator Kuppenheim & Rastatt | Luan Allround Service"
         description="Planen Sie Ihren Doppelstabmattenzaun online in 3D: Maße, Farben (Anthrazit, Moosgrün, Verzinkt), Gartentore & Sichtschutzstreifen konfigurieren. Kostenloses Aufmaß vor Ort in Kuppenheim & Rastatt!"
@@ -70,10 +71,20 @@ const ZaunKonfiguratorPage: React.FC = () => {
 
       {/* Main 3D Viewport iframe */}
       <main className="flex-1 relative w-full h-[calc(100vh-3.5rem)] bg-slate-900 overflow-hidden">
+        {isLoading && (
+          <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-slate-950 text-white gap-4">
+            <div className="w-12 h-12 border-4 border-emerald-500/20 border-t-emerald-500 rounded-full animate-spin" />
+            <div className="text-center">
+              <p className="text-sm font-bold text-white">3D-Zaunplaner wird initialisiert...</p>
+              <p className="text-xs text-gray-400 mt-1">Laden der photorealistischen 3D-Gartenansicht</p>
+            </div>
+          </div>
+        )}
         <iframe
           src="/zaun-konfigurator/index.html"
           title="Luan Allround Service 3D Zaunkonfigurator"
           className="w-full h-full border-0 select-none"
+          onLoad={() => setIsLoading(false)}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         />
       </main>

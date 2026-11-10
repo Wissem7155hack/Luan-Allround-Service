@@ -93,7 +93,7 @@ const ZaunKonfiguratorSection: React.FC = () => {
           <div className="lg:col-span-5">
             <div className="relative group">
               <div className="absolute -inset-1.5 bg-gradient-to-r from-emerald-500 to-amber-500 rounded-3xl blur opacity-30 group-hover:opacity-60 transition duration-500" />
-              
+
               <div className="relative rounded-2xl bg-stone-900 border border-white/20 p-5 shadow-2xl overflow-hidden">
                 {/* Simulated 3D Viewport Header */}
                 <div className="flex items-center justify-between pb-3 mb-3 border-b border-white/10 text-xs">
