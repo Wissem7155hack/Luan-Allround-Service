@@ -32,13 +32,13 @@ const LocationPage: React.FC<LocationPageProps> = ({ location }) => {
         const locationSchema = {
             "@context": "https://schema.org",
             "@type": "LocalBusiness",
-            "@id": `https://www.luan-allround-service.de/standorte/${location.slug || location.city.toLowerCase()}#localbusiness`,
+            "@id": `https://luan-allround-service.de/standorte/${location.slug || location.city.toLowerCase()}#localbusiness`,
             "name": `Luan Allround Service - Gartenbau ${location.city}`,
             "description": `Professioneller Garten- und Landschaftsbau in ${location.city}. Zaunbau, Gartenpflege, Pflasterarbeiten und mehr. Ihr lokaler Partner für Außenanlagen.`,
-            "image": "https://www.luan-allround-service.de/images/logo.png",
+            "image": "https://luan-allround-service.de/images/logo.png",
             "telephone": "+4917647999118",
             "email": "luanallroundservice@gmail.com",
-            "url": `https://www.luan-allround-service.de/standorte/${location.slug || location.city.toLowerCase()}`,
+            "url": `https://luan-allround-service.de/standorte/${location.slug || location.city.toLowerCase()}`,
             "address": {
                 "@type": "PostalAddress",
                 "streetAddress": "Friedrichstraße 100",
@@ -85,7 +85,7 @@ const LocationPage: React.FC<LocationPageProps> = ({ location }) => {
             },
             "parentOrganization": {
                 "@type": "Organization",
-                "@id": "https://www.luan-allround-service.de/#organization",
+                "@id": "https://luan-allround-service.de/#organization",
                 "name": "Luan Allround Service"
             }
         };
@@ -119,7 +119,7 @@ const LocationPage: React.FC<LocationPageProps> = ({ location }) => {
                 title={`Zaunbau & Gartenbau ${location.city} | Luan Allround Service ⭐ Ihr Meisterbetrieb`}
                 description={`Professioneller Zaunbau & Gartenbau in ${location.city} ✓ Doppelstabmattenzäune ✓ Sichtschutz ✓ Gartenpflege ✓ Pflasterarbeiten. Kostenlose Beratung: 0176 47999118. ${location.description}`}
                 keywords={`Zaunbau ${location.city}, Gartenbau ${location.city}, Doppelstabmattenzaun ${location.city}, Gartenpflege ${location.city}, Landschaftsbau ${location.region}, Sichtschutz ${location.city}, Pflasterarbeiten ${location.city}`}
-                canonical={`https://www.luan-allround-service.de/standorte/${citySlug}`}
+                canonical={`https://luan-allround-service.de/standorte/${citySlug}`}
             />
 
             {/* Breadcrumb Schema */}

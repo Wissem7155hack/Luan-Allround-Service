@@ -5,7 +5,7 @@ export const GardenerSchema: React.FC = () => {
     const schema = {
         "@context": "https://schema.org",
         "@type": "Gardener",
-        "@id": "https://www.luan-allround-service.de/#gardener",
+        "@id": "https://luan-allround-service.de/#gardener",
         "name": "Luan Allround Service",
         "description": "Professioneller Garten- und Landschaftsbau mit Spezialisierung auf Zaunmontage, Doppelstabmattenzäune und Gartenpflege in Kuppenheim, Rastatt und Karlsruhe",
         "founder": {
@@ -51,7 +51,7 @@ export const GardenerSchema: React.FC = () => {
                         "name": "Doppelstabmattenzaun Montage",
                         "description": "Professionelle Montage von Doppelstabmattenzäunen 6/5/6 und 8/6/8 in anthrazit, grün oder verzinkt. Fachgerechte Installation mit Betonfundamenten.",
                         "provider": {
-                            "@id": "https://www.luan-allround-service.de/#organization"
+                            "@id": "https://luan-allround-service.de/#organization"
                         },
                         "areaServed": ["Kuppenheim", "Rastatt", "Karlsruhe", "Baden-Baden"],
                         "category": "Zaunbau"
@@ -65,7 +65,7 @@ export const GardenerSchema: React.FC = () => {
                         "name": "Sichtschutz & Gabionen",
                         "description": "Installation von Sichtschutzzäunen aus Holz, WPC und Kunststoff sowie Gabionenwänden und Gabionenzäunen",
                         "provider": {
-                            "@id": "https://www.luan-allround-service.de/#organization"
+                            "@id": "https://luan-allround-service.de/#organization"
                         },
                         "category": "Sichtschutz"
                     }
@@ -102,7 +102,7 @@ export const GardenerSchema: React.FC = () => {
                 }
             ]
         },
-        "url": "https://www.luan-allround-service.de/",
+        "url": "https://luan-allround-service.de/",
         "telephone": "+4917647999118",
         "email": "luanallroundservice@gmail.com",
         "priceRange": "€€",

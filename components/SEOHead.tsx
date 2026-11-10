@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useLocation } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 interface SEOHeadProps {
     title?: string;
@@ -15,11 +16,11 @@ interface SEOHeadProps {
 }
 
 const SEOHead: React.FC<SEOHeadProps> = ({
-    title = 'Zaunbau & Gartenbau Kuppenheim | Luan Allround Service ⭐ Meisterbetrieb',
-    description = 'Professioneller Zaunbau & Gartenbau in Kuppenheim, Rastatt, Karlsruhe & im Umkreis von 150 km ✓ Doppelstabmattenzäune ✓ Sichtschutz ✓ Pflasterarbeiten ✓ Über 10 Jahre Erfahrung in Rastatt, Karlsruhe & Baden-Baden. Kostenlose Beratung: 0176 47999118',
-    keywords = 'Zaunbau Kuppenheim, Gartenbau Kuppenheim, Doppelstabmattenzaun, Zaunmontage Rastatt, Sichtschutz Karlsruhe, Gartenpflege Baden-Baden, Pflasterarbeiten, Terrassenbau, Luan Allround Service',
+    title = 'Garten- & Landschaftsbau Kuppenheim | Pflasterarbeiten Rastatt | Luan Allround Service',
+    description = 'Luan Allround Service: Ihr Fachbetrieb für Garten- & Landschaftsbau in Kuppenheim, Pflasterarbeiten in Rastatt, Zaunbau & Terrassenbau. ⭐ 4.9/5 (31 Google Bewertungen). Jetzt anfragen: 0176 47999118',
+    keywords = 'Gartenbau Kuppenheim, Garten- & Landschaftsbau Kuppenheim, Pflasterarbeiten Rastatt, Zaunbau Kuppenheim, Terrassenbau Rastatt, Doppelstabmattenzaun Rastatt, Gartenpflege Kuppenheim, Luan Allround Service',
     canonical,
-    ogImage = 'https://www.luan-allround-service.de/images/logo.png',
+    ogImage = 'https://luan-allround-service.de/images/logo_resized.png',
     schema,
     noindex = false,
     articleDate,
@@ -27,121 +28,98 @@ const SEOHead: React.FC<SEOHeadProps> = ({
     articleAuthor
 }) => {
     const location = useLocation();
-    const baseUrl = 'https://www.luan-allround-service.de';
+    const baseUrl = 'https://luan-allround-service.de';
     const fullUrl = canonical || `${baseUrl}${location.pathname}`;
 
-    useEffect(() => {
-        // Update document title
-        document.title = title;
+    const pathnames = location.pathname.split('/').filter(x => x);
+    const breadcrumbList = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": baseUrl
+            },
+            ...pathnames.map((path, index) => {
+                const url = `${baseUrl}/${pathnames.slice(0, index + 1).join('/')}`;
+                return {
+                    "@type": "ListItem",
+                    "position": index + 2,
+                    "name": path.charAt(0).toUpperCase() + path.slice(1).replace(/-/g, ' '),
+                    "item": url
+                };
+            })
+        ]
+    };
 
-        // Update meta tags
-        const updateMetaTag = (name: string, content: string, isProperty = false) => {
-            const attribute = isProperty ? 'property' : 'name';
-            let meta = document.querySelector(`meta[${attribute}="${name}"]`);
-            if (!meta) {
-                meta = document.createElement('meta');
-                meta.setAttribute(attribute, name);
-                document.head.appendChild(meta);
-            }
-            meta.setAttribute('content', content);
-        };
+    return (
+        <Helmet>
+            <title>{title}</title>
+            <meta name="description" content={description} />
+            <meta name="keywords" content={keywords} />
 
-        // Remove meta tag if exists
-        const removeMetaTag = (name: string, isProperty = false) => {
-            const attribute = isProperty ? 'property' : 'name';
-            const meta = document.querySelector(`meta[${attribute}="${name}"]`);
-            if (meta) {
-                meta.remove();
-            }
-        };
+            <link rel="canonical" href={fullUrl} />
 
-        // Basic meta tags
-        updateMetaTag('description', description);
-        updateMetaTag('keywords', keywords);
+            {/* Robots */}
+            {noindex ? (
+                <>
+                    <meta name="robots" content="noindex, nofollow" />
+                    <meta name="googlebot" content="noindex, nofollow" />
+                </>
+            ) : (
+                <>
+                    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+                    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+                </>
+            )}
 
-        // Robots tag
-        if (noindex) {
-            updateMetaTag('robots', 'noindex, nofollow');
-        } else {
-            updateMetaTag('robots', 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1');
-        }
+            {/* Open Graph */}
+            <meta property="og:title" content={title} />
+            <meta property="og:description" content={description} />
+            <meta property="og:url" content={fullUrl} />
+            <meta property="og:image" content={ogImage} />
+            <meta property="og:type" content={articleDate ? 'article' : 'website'} />
+            <meta property="og:locale" content="de_DE" />
+            <meta property="og:site_name" content="Luan Allround Service" />
+            <meta property="og:image:width" content="1200" />
+            <meta property="og:image:height" content="630" />
+            <meta property="og:image:alt" content="Luan Allround Service - Zaunbau und Gartenbau in Kuppenheim" />
 
-        // Googlebot specific
-        updateMetaTag('googlebot', noindex ? 'noindex, nofollow' : 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1');
+            {/* Article Specific Open Graph */}
+            {articleDate && <meta property="article:published_time" content={articleDate} />}
+            {articleDate && <meta property="article:author" content={articleAuthor || 'Memedali Limani'} />}
+            {articleDate && <meta property="article:section" content="Gartenbau" />}
+            {articleModified && <meta property="article:modified_time" content={articleModified} />}
 
-        // Open Graph tags
-        updateMetaTag('og:title', title, true);
-        updateMetaTag('og:description', description, true);
-        updateMetaTag('og:url', fullUrl, true);
-        updateMetaTag('og:image', ogImage, true);
-        updateMetaTag('og:type', articleDate ? 'article' : 'website', true);
-        updateMetaTag('og:locale', 'de_DE', true);
-        updateMetaTag('og:site_name', 'Luan Allround Service', true);
-        updateMetaTag('og:image:width', '1200', true);
-        updateMetaTag('og:image:height', '630', true);
-        updateMetaTag('og:image:alt', 'Luan Allround Service - Zaunbau und Gartenbau in Kuppenheim', true);
+            {/* Twitter */}
+            <meta name="twitter:card" content="summary_large_image" />
+            <meta name="twitter:title" content={title} />
+            <meta name="twitter:description" content={description} />
+            <meta name="twitter:image" content={ogImage} />
+            <meta name="twitter:site" content="@luanservice" />
+            <meta name="twitter:creator" content="@luanservice" />
 
-        // Article-specific Open Graph tags
-        if (articleDate) {
-            updateMetaTag('article:published_time', articleDate, true);
-            updateMetaTag('article:author', articleAuthor || 'Memedali Limani', true);
-            updateMetaTag('article:section', 'Gartenbau', true);
-            if (articleModified) {
-                updateMetaTag('article:modified_time', articleModified, true);
-            }
-        } else {
-            removeMetaTag('article:published_time', true);
-            removeMetaTag('article:modified_time', true);
-            removeMetaTag('article:author', true);
-            removeMetaTag('article:section', true);
-        }
+            {/* Geo tags (for local SEO) */}
+            <meta name="geo.region" content="DE-BW" />
+            <meta name="geo.placename" content="Kuppenheim, Baden-Württemberg" />
+            <meta name="geo.position" content="48.8265;8.2535" />
+            <meta name="ICBM" content="48.8265, 8.2535" />
 
-        // Twitter tags
-        updateMetaTag('twitter:card', 'summary_large_image');
-        updateMetaTag('twitter:title', title);
-        updateMetaTag('twitter:description', description);
-        updateMetaTag('twitter:image', ogImage);
-        updateMetaTag('twitter:site', '@luanservice');
-        updateMetaTag('twitter:creator', '@luanservice');
+            {/* Schema Markup */}
+            {schema && (
+                <script type="application/ld+json" data-schema="page">
+                    {JSON.stringify(schema)}
+                </script>
+            )}
 
-        // Geo tags (for local SEO)
-        updateMetaTag('geo.region', 'DE-BW');
-        updateMetaTag('geo.placename', 'Kuppenheim, Baden-Württemberg');
-        updateMetaTag('geo.position', '48.8265;8.2535');
-        updateMetaTag('ICBM', '48.8265, 8.2535');
-
-        // Update canonical link
-        let canonicalLink = document.querySelector('link[rel="canonical"]');
-        if (!canonicalLink) {
-            canonicalLink = document.createElement('link');
-            canonicalLink.setAttribute('rel', 'canonical');
-            document.head.appendChild(canonicalLink);
-        }
-        canonicalLink.setAttribute('href', fullUrl);
-
-        // Add schema markup if provided
-        if (schema) {
-            let schemaScript = document.querySelector('script[data-schema="page"]');
-            if (!schemaScript) {
-                schemaScript = document.createElement('script');
-                schemaScript.setAttribute('type', 'application/ld+json');
-                schemaScript.setAttribute('data-schema', 'page');
-                document.head.appendChild(schemaScript);
-            }
-            schemaScript.textContent = JSON.stringify(schema);
-        }
-
-        // Cleanup on unmount
-        return () => {
-            // Remove page-specific schema on route change
-            const schemaScript = document.querySelector('script[data-schema="page"]');
-            if (schemaScript) {
-                schemaScript.remove();
-            }
-        };
-    }, [title, description, keywords, fullUrl, ogImage, schema, noindex, articleDate, articleModified, articleAuthor]);
-
-    return null;
+            {/* Auto-generated Breadcrumb Schema */}
+            <script type="application/ld+json" data-schema="breadcrumb">
+                {JSON.stringify(breadcrumbList)}
+            </script>
+        </Helmet>
+    );
 };
 
 export default SEOHead;

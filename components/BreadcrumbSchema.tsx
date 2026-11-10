@@ -16,7 +16,7 @@ interface BreadcrumbSchemaProps {
  */
 export const BreadcrumbSchema: React.FC<BreadcrumbSchemaProps> = ({ items }) => {
     useEffect(() => {
-        const baseUrl = 'https://www.luan-allround-service.de';
+        const baseUrl = 'https://luan-allround-service.de';
 
         // Build breadcrumb schema with absolute URLs
         const breadcrumbSchema = {

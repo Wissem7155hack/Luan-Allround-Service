@@ -25,6 +25,7 @@ const Navbar: React.FC = () => {
 
   const navLinks = [
     { name: 'Startseite', path: NavigationLinks.HOME },
+    { name: '3D-Zaunplaner', path: '/zaun-konfigurator', isNew: true },
     { name: 'Leistungen', path: NavigationLinks.SERVICES },
     { name: 'Projekte', path: NavigationLinks.PROJECTS },
     { name: 'Galerie', path: NavigationLinks.GALLERY },
@@ -48,15 +49,20 @@ const Navbar: React.FC = () => {
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-8">
+            <div className="hidden md:flex items-center space-x-7">
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
                   to={link.path}
-                  className={`text-xs uppercase tracking-[0.15em] font-bold transition-all duration-300 border-b-2 border-transparent hover:border-gold-500 pb-1 ${location.pathname === link.path ? 'text-gold-500 border-gold-500' : `${textColor} hover:text-gold-500`
+                  className={`text-xs uppercase tracking-[0.15em] font-bold transition-all duration-300 border-b-2 border-transparent hover:border-gold-500 pb-1 flex items-center gap-1.5 ${location.pathname === link.path ? 'text-gold-500 border-gold-500' : `${textColor} hover:text-gold-500`
                     }`}
                 >
-                  {link.name}
+                  <span>{link.name}</span>
+                  {link.isNew && (
+                    <span className="px-1.5 py-0.5 rounded-full text-[9px] font-extrabold bg-emerald-500 text-white tracking-normal shadow-sm animate-pulse">
+                      3D
+                    </span>
+                  )}
                 </Link>
               ))}
             </div>
@@ -90,9 +96,14 @@ const Navbar: React.FC = () => {
                 key={link.name}
                 to={link.path}
                 onClick={() => setIsOpen(false)}
-                className="text-2xl font-serif text-white hover:text-gold-500 transition-colors"
+                className="text-2xl font-serif text-white hover:text-gold-500 transition-colors flex items-center gap-2.5"
               >
-                {link.name}
+                <span>{link.name}</span>
+                {link.isNew && (
+                  <span className="px-2 py-0.5 rounded-full text-xs font-bold bg-emerald-500 text-white shadow-sm">
+                    3D
+                  </span>
+                )}
               </Link>
             ))}
 

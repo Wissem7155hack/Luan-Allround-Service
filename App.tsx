@@ -4,8 +4,16 @@ import { BrowserRouter as Router, Routes, Route, Link, useLocation, useParams, N
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import LocationPage from './components/LocationPage';
+import SchemaMarkup from './components/SchemaMarkup';
 import SEOHead from './components/SEOHead';
-import SnowEffect from './components/SnowEffect';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
+import ScrollToTop from './components/ScrollToTop';
+import LocalServicePage from './pages/LocalServicePage';
+import ImpressumPage from './pages/ImpressumPage';
+import DatenschutzPage from './pages/DatenschutzPage';
+import ZaunKonfiguratorSection from './components/ZaunKonfiguratorSection';
+import ZaunKonfiguratorPage from './pages/ZaunKonfiguratorPage';
+
 import { locations, getLocationBySlug } from './data/locations';
 import analytics from './services/analytics';
 import {
@@ -38,6 +46,7 @@ import img20 from './images/logo_resized.png';
 import img21 from './images/arrows.png';
 import img22 from './images/grasshero2.png';
 import img23 from './images/beautifully-maintained-green-lawn.jpg';
+import img24 from './images/wir_machen_auch.jfif';
 
 import beforeImg from './images/before.jpeg';
 import afterImg from './images/after.jpeg';
@@ -46,6 +55,34 @@ import { url } from 'inspector';
 
 
 
+
+
+// AI Summary Component (SEO Optimized)
+const AISummary = () => (
+  <section
+    style={{
+      position: 'absolute',
+      width: '1px',
+      height: '1px',
+      padding: '0',
+      margin: '-1px',
+      overflow: 'hidden',
+      clip: 'rect(0, 0, 0, 0)',
+      whiteSpace: 'nowrap',
+      border: '0'
+    }}
+    aria-hidden="false"
+  >
+    <h2>Luan Allround Service Unternehmensprofil</h2>
+    <p>
+      Luan Allround Service ist Ihr spezialisierter Fachbetrieb für Garten- und Landschaftsbau in Kuppenheim (PLZ 76456), Rastatt und der TechnologieRegion Karlsruhe.
+      Unter der Leitung von Geschäftsführer Memedali Limani bieten wir maßgeschneiderte Lösungen für Zaunbau (Doppelstabmatten, Sichtschutz, Gabionen), professionelle Gartenpflege und Pflasterarbeiten.
+      Mit über 10 Jahren Erfahrung und einem Einsatzradius von 150 km garantieren wir höchste Qualität bei der Montage von Zäunen in Anthrazit (RAL 7016) und Moosgrün (RAL 6005).
+      Unsere Dienstleistungen umfassen auch Rollrasenverlegung, Heckenschnitt, Baumpflege und Terrassenbau mit Naturstein.
+      Wir stehen für zuverlässige Handwerkskunst, transparente Festpreise und persönliche Beratung vor Ort. Kontakt: 0176 47999118.
+    </p>
+  </section>
+);
 
 // BeforeAfterSlider Component
 const BeforeAfterSlider: React.FC<{ beforeImage: string | Record<string, unknown>; afterImage: string | Record<string, unknown>; }> = ({ beforeImage, afterImage }) => {
@@ -150,7 +187,7 @@ const blogPosts: BlogPost[] = [
       'Ein Zaun macht mehr als Grundstücksgrenzen sichtbar – er schützt, verschönert und wertet Ihr Grundstück auf. Als erfahrener Partner für Zaunbau in Kuppenheim und Umgebung wissen wir, worauf es ankommt. Ob Doppelstabmattenzaun, Maschendrahtzaun oder exklusive Gabionenwand – die richtige Wahl hängt von Ihren individuellen Anforderungen, dem Budget und den örtlichen Gegebenheiten ab.',
       'In den Neubaugebieten von Kuppenheim und Rastatt sehen wir einen klaren Trend: Moderne Doppelstabmattenzäune in Anthrazit RAL 7016 oder Moosgrün sind besonders beliebt. Sie sind langlebig, pflegeleicht und bieten ein hervorragendes Preis-Leistungs-Verhältnis. Die Qualitätsunterschiede liegen vor allem in der Drahtstärke: Ein 8/6/8 Doppelstabmattenzaun (8mm horizontale Drähte, 6mm vertikale Drähte) ist deutlich stabiler als die Standard-Variante 6/5/6 und eignet sich besonders für höhere Zäune ab 1,60 Meter oder windexponierte Lagen.',
       'Bei der Oberflächenbehandlung empfehlen wir feuerverzinkte und pulverbeschichtete Zäune für maximale Langlebigkeit. Diese Kombination schützt vor Rost und Witterungseinflüssen über Jahrzehnte hinweg. Rein verzinkte Zäune sind günstiger, entwickeln aber mit der Zeit eine charakteristische Patina. Für Sichtschutz lassen sich Doppelstabmatten hervorragend mit PVC-Sichtschutzstreifen in verschiedenen Farben oder mit Holzelementen kombinieren.',
-      'Die Kosten für einen Doppelstabmattenzaun in Kuppenheim liegen je nach Höhe, Qualität und Bodenbeschaffenheit zwischen 50€ und 120€ pro laufendem Meter inklusive fachgerechter Montage. Gabionenzäune beginnen bei etwa 80€ pro Meter, während hochwertige Holzsichtschutzzäune aus Lärche oder WPC zwischen 100€ und 180€ pro Meter kosten. Diese Preise beinhalten bereits die Pfosten, Betonfundamente und die komplette Installation durch unser erfahrenes Team.',
+      'Wir beraten Sie umfassend zur Materialwahl und übernehmen die fachgerechte Montage. Auch Gabionenzäune oder hochwertige Holzsichtschutzzäune aus Lärche oder WPC realisieren wir gerne für Sie. Unsere Leistungen beinhalten bereits die Pfosten, Betonfundamente und die komplette Installation durch unser erfahrenes Team.',
       'Unser Team von Luan Allround Service berät Sie nicht nur zur Materialwahl, sondern übernimmt auch die fachgerechte Montage. Von der Fundamentierung mit frostsicheren Betonfundamenten (mindestens 80cm Tiefe) bis zum letzten Handgriff sorgen wir dafür, dass Ihr Zaun jahrzehntelang sicher steht – auch bei badischem Wind und Wetter. Wir kennen die lokalen Bauvorschriften in Kuppenheim, Rastatt und Baden-Baden und beraten Sie zu Grenzabständen und maximalen Zaunhöhen gemäß der Landesbauordnung Baden-Württemberg.'
     ],
     tips: [
@@ -223,7 +260,6 @@ const blogPosts: BlogPost[] = [
       'Die Terrasse ist im Sommer das zweite Wohnzimmer. Egal ob Sie Naturstein wie Granit oder Basalt, Betonwerkstein oder moderne Keramikplatten bevorzugen – wir verlegen Ihren Traumboden in Kuppenheim fachgerecht und dauerhaft. Die Materialwahl hängt von Ihrem Budget, der gewünschten Optik und der späteren Nutzung ab. Natursteine wie Sandstein oder Travertin strahlen mediterrane Wärme aus, während anthrazitfarbene Betonpflaster modern und pflegeleicht sind.',
       'Bei Pflasterarbeiten für Einfahrten achten wir besonders auf den Unterbau. In unserer Region kann der Boden stark variieren – von lehmigen Böden bis zu sandigem Untergrund. Daher ist eine solide Schottertragschicht (mindestens 30cm bei befahrbaren Flächen) essenziell, um Absackungen und Frostschäden zu vermeiden. Wir verwenden frostsicheren Schotter der Körnung 0/32 oder 0/45, verdichten diesen lagenweise mit einer Rüttelplatte und bringen darauf ein 3-5cm starkes Pflasterbett aus Brechsand oder Splitt auf.',
       'Das richtige Gefälle ist entscheidend für die Entwässerung: Terrassen benötigen mindestens 2% Gefälle vom Haus weg, Einfahrten sollten zur Straße oder zu Entwässerungsrinnen hin abfallen. Wir setzen Randsteine fachgerecht in Beton, damit die Pflasterfläche dauerhaft stabil bleibt. Nach dem Verlegen wird die Fläche gerüttelt und mit feinem Fugensand eingekehrt – alternativ bieten wir auch Fugenverguss mit Harz an, der Unkrautwuchs dauerhaft verhindert.',
-      'Die Kosten für Pflasterarbeiten in Kuppenheim und Rastatt liegen je nach Material zwischen 40€ und 120€ pro Quadratmeter inklusive Unterbau und Verlegung. Einfache Betonpflastersteine beginnen bei 40-60€/m², während hochwertige Natursteinplatten aus Granit oder Basalt 80-120€/m² kosten. Großformatige Terrassenplatten (60x60cm oder 80x80cm) liegen preislich dazwischen. Wir sanieren auch alte Pflasterflächen, bessern Absackungen aus und bringen sie wieder auf Vordermann.',
       'Lassen Sie sich von uns beraten, welche Steine am besten zu Ihrem Hausstil passen. Von mediterranem Flair mit Travertin-Platten bis zu modernem Minimalismus mit anthrazitfarbenen Betonsteinen setzen wir Ihre Wünsche in Stein um. Auch Kombinationen aus verschiedenen Materialien – etwa Pflaster mit Naturstein-Einfassungen – realisieren wir gerne.'
     ],
     tips: [
@@ -257,7 +293,7 @@ const blogPosts: BlogPost[] = [
     story: [
       'Privatsphäre ist im eigenen Garten ein hohes Gut. Besonders in dichter bebauten Gebieten von Kuppenheim und Rastatt ist der Wunsch nach einem geschützten Rückzugsort groß. Bei diesem Projekt zeigen wir, wie man Sichtschutz effektiv und ästhetisch ansprechend gestaltet – unter Berücksichtigung der rechtlichen Vorgaben in Baden-Württemberg. Gemäß Landesbauordnung sind Sichtschutzzäune an der Grundstücksgrenze in der Regel bis 1,80 Meter Höhe genehmigungsfrei, höhere Zäune bedürfen einer Baugenehmigung oder Zustimmung des Nachbarn.',
       'Wir haben uns für eine Kombination aus schwarzem, modernem Holzsichtschutz und lebendiger Bepflanzung entschieden. Die dunklen Elemente bilden einen edlen Kontrast zum satten Grün des Rasens und der Pflanzen. Durch die Integration von LED-Beleuchtungselementen entsteht am Abend eine gemütliche Lounge-Atmosphäre. Für die Materialwahl standen WPC (Wood-Plastic-Composite), Thermoholz und Aluminium-Lamellen zur Auswahl. WPC ist besonders pflegeleicht und formstabil, benötigt keine Nachbehandlung und ist in vielen Farben erhältlich – allerdings etwas teurer als Holz.',
-      'Thermisch behandeltes Holz wie Thermokiefer oder Thermoesche ist eine nachhaltige Alternative mit natürlicher Optik. Es ist deutlich beständiger gegen Verrottung als unbehandeltes Holz, sollte aber alle 2-3 Jahre mit Öl oder Lasur gepflegt werden, um die Farbe zu erhalten. Aluminium-Sichtschutzzäune sind die langlebigste, aber auch kostenintensivste Lösung – ideal für moderne Architektur und absolut wartungsfrei. Die Kosten liegen bei 120-250€ pro laufendem Meter je nach Material und Höhe.',
+      'Thermisch behandeltes Holz wie Thermokiefer oder Thermoesche ist eine nachhaltige Alternative mit natürlicher Optik. Es ist deutlich beständiger gegen Verrottung als unbehandeltes Holz, sollte aber alle 2-3 Jahre mit Öl oder Lasur gepflegt werden, um die Farbe zu erhalten. Aluminium-Sichtschutzzäune sind die langlebigste, aber auch exklusivste Lösung – ideal für moderne Architektur und absolut wartungsfrei.',
       'Ein wichtiger Aspekt war die Langlebigkeit und der Lärmschutz. Wir verwenden ausschließlich wetterfeste Materialien und sorgen durch fachgerechte Montage mit einbetonierten Pfosten (80cm Tiefe) für Stabilität auch bei Sturm. Massive Sichtschutzwände aus WPC oder gefüllte Gabionen können auch Straßenlärm um bis zu 10 Dezibel reduzieren – ein willkommener Nebeneffekt für Grundstücke an vielbefahrenen Straßen. Der Sichtschutz dient dabei nicht nur der Abgrenzung, sondern auch als Gestaltungselement, das dem Garten Struktur und Tiefe verleiht.'
     ],
     tips: [
@@ -321,15 +357,15 @@ const blogPosts: BlogPost[] = [
   },
   {
     id: '6',
-    slug: 'kuppenheim-stadion-zaun',
-    title: 'Objekteschutz für Vereine: Der neue Stadionzaun in Kuppenheim',
-    excerpt: 'Sicherheit für Sport und Spiel: Installation eines robusten grünen Maschendrahtzauns für die lokale Sportanlage in Kuppenheim. Erfahren Sie alles über Ballfangzäune, Gewerbezäune, Objektschutz und DIN-Normen für Sportstätten. Funktional, langlebig und wartungsarm.',
+    slug: 'sportanlage-stadion-zaun',
+    title: 'Objekteschutz für Vereine: Professioneller Stadionzaun für Sportanlagen',
+    excerpt: 'Sicherheit für Sport und Spiel: Installation eines robusten grünen Maschendrahtzauns für Sportanlagen. Erfahren Sie alles über Ballfangzäune, Gewerbezäune, Objektschutz und DIN-Normen für Sportstätten. Funktional, langlebig und wartungsarm.',
     date: '2024-08-01',
     image: img18,
     story: [
-      'Nicht nur Privatgärten, auch öffentliche Einrichtungen und Gewerbeobjekte vertrauen auf Luan Allround Service. Für das Sportgelände in Kuppenheim durften wir einen neuen Ballfang- und Begrenzungszaun installieren. Hier standen Sicherheit, Robustheit und Langlebigkeit an erster Stelle. Im Gegensatz zu privaten Gartenzäunen müssen Sportplatzzäune deutlich höheren Belastungen standhalten – sowohl durch Ballkontakte als auch durch Witterungseinflüsse bei ganzjähriger Nutzung.',
+      'Nicht nur Privatgärten, auch öffentliche Einrichtungen und Gewerbeobjekte vertrauen auf Luan Allround Service. Für ein Sportgelände durften wir einen neuen Ballfang- und Begrenzungszaun installieren. Hier standen Sicherheit, Robustheit und Langlebigkeit an erster Stelle. Im Gegensatz zu privaten Gartenzäunen müssen Sportplatzzäune deutlich höheren Belastungen standhalten – sowohl durch Ballkontakte als auch durch Witterungseinflüsse bei ganzjähriger Nutzung.',
       'Wir haben uns für einen klassischen, grünen Maschendrahtzaun mit verstärkten Pfosten (Durchmesser 60mm statt Standard 48mm) entschieden. Diese Lösung ist kosteneffizient, extrem langlebig und fügt sich durch die grüne RAL 6005 Moosgrün-Beschichtung harmonisch in die Umgebung ein. Der Zaun hält auch harten Ballkontakten stand und sichert das Gelände zuverlässig ab. Die Maschenweite von 50x50mm verhindert das Durchgreifen und entspricht den Sicherheitsanforderungen für Sportanlagen gemäß DIN 18034 (Spielplätze und Freiräume zum Spielen).',
-      'Für Ballfangzäune hinter den Toren haben wir eine Höhe von 4 Metern gewählt, während die seitlichen Begrenzungszäune 2 Meter hoch sind. Die Pfosten wurden 100cm tief in Beton eingelassen (statt 80cm bei Privatgärten), um der erhöhten Belastung standzuhalten. Zusätzlich haben wir Eckpfosten und Torpfosten mit Streben verstärkt. Die Kosten für solche Gewerbezäune liegen bei 35-60€ pro laufendem Meter für 2m Höhe und 60-90€/m für 4m Ballfangzäune inklusive Montage.',
+      'Für Ballfangzäune hinter den Toren haben wir eine Höhe von 4 Metern gewählt, während die seitlichen Begrenzungszäune 2 Meter hoch sind. Die Pfosten wurden 100cm tief in Beton eingelassen (statt 80cm bei Privatgärten), um der erhöhten Belastung standzuhalten. Zusätzlich haben wir Eckpfosten und Torpfosten mit Streben verstärkt.',
       'Besondere Herausforderung war die Montage im Gefälle und die Integration von Toren für die Pflegefahrzeuge. Wir haben zwei Flügeltore mit 4 Metern Breite eingebaut, die auch für Traktoren und kleine LKW passierbar sind. Dank unserer Erfahrung im gewerblichen Zaunbau konnten wir das Projekt fristgerecht vor Saisonbeginn fertigstellen. Auf Wunsch bieten wir auch Wartungsverträge für Vereine und Gemeinden an – regelmäßige Inspektionen und schnelle Reparaturen bei Beschädigungen inklusive.'
     ],
     tips: [
@@ -459,6 +495,21 @@ const ContactForm = () => {
             />
           </div>
 
+          {/* Email Field */}
+          <div>
+            <label htmlFor="email" className="block text-white font-bold text-sm mb-1">
+              E-Mail *
+            </label>
+            <input
+              id="email"
+              type="email"
+              name="email"
+              placeholder="max@beispiel.de"
+              className="w-full p-3 rounded-md text-gray-900 focus:outline-none focus:ring-2 focus:ring-green-500 text-base"
+              required
+            />
+          </div>
+
           {/* Phone Field */}
           <div>
             <label htmlFor="phone" className="block text-white font-bold text-sm mb-1">
@@ -474,25 +525,30 @@ const ContactForm = () => {
             />
           </div>
 
-          {/* City Field */}
+          {/* Service Dropdown */}
           <div>
-            <label htmlFor="city" className="block text-white font-bold text-sm mb-1">
-              Ihre Stadt *
+            <label htmlFor="service" className="block text-white font-bold text-sm mb-1">
+              Gewünschte Leistung *
             </label>
-            <input
-              id="city"
-              type="text"
-              name="city"
-              placeholder="Kuppenheim"
-              className="w-full p-3 rounded-md text-gray-900 focus:outline-none focus:ring-2 focus:ring-green-500 text-base"
+            <select
+              id="service"
+              name="service"
+              className="w-full p-3 rounded-md text-gray-900 focus:outline-none focus:ring-2 focus:ring-green-500 text-base bg-white"
               required
-            />
+            >
+              <option value="" disabled selected>Bitte wählen...</option>
+              <option value="Zaunbau">Zaunbau / Sichtschutz</option>
+              <option value="Pflasterarbeiten">Pflasterarbeiten</option>
+              <option value="Gartenpflege">Gartenpflege / Heckenschnitt</option>
+              <option value="Rollrasen">Rollrasen</option>
+              <option value="Sonstiges">Sonstiges</option>
+            </select>
           </div>
 
           {/* Message Field */}
           <div>
             <label htmlFor="message" className="block text-white font-bold text-sm mb-1">
-              Was können wir für Sie tun? *
+              Ihre Nachricht *
             </label>
             <textarea
               id="message"
@@ -632,18 +688,34 @@ const ContactFormMobile = () => {
         </div>
 
         <div>
-          <label className="block text-[#1a1c1d] font-bold text-xs mb-2 pl-1">Ihre Stadt *</label>
+          <label className="block text-[#1a1c1d] font-bold text-xs mb-2 pl-1">E-Mail *</label>
           <input
-            type="text"
-            name="city"
-            placeholder="Kuppenheim"
+            type="email"
+            name="email"
+            placeholder="max@beispiel.de"
             className="w-full px-4 py-4 rounded-xl bg-[#f8f9fa] border-none text-[#1a1c1d] placeholder:text-gray-400 focus:ring-2 focus:ring-[#4a7c59] text-sm font-medium"
             required
           />
         </div>
 
         <div>
-          <label className="block text-[#1a1c1d] font-bold text-xs mb-2 pl-1">Was können wir für Sie tun? *</label>
+          <label className="block text-[#1a1c1d] font-bold text-xs mb-2 pl-1">Gewünschte Leistung *</label>
+          <select
+            name="service"
+            className="w-full px-4 py-4 rounded-xl bg-[#f8f9fa] border-none text-[#1a1c1d] focus:ring-2 focus:ring-[#4a7c59] text-sm font-medium bg-white"
+            required
+          >
+            <option value="" disabled selected>Bitte wählen...</option>
+            <option value="Zaunbau">Zaunbau / Sichtschutz</option>
+            <option value="Pflasterarbeiten">Pflasterarbeiten</option>
+            <option value="Gartenpflege">Gartenpflege / Heckenschnitt</option>
+            <option value="Rollrasen">Rollrasen</option>
+            <option value="Sonstiges">Sonstiges</option>
+          </select>
+        </div>
+
+        <div>
+          <label className="block text-[#1a1c1d] font-bold text-xs mb-2 pl-1">Ihre Nachricht *</label>
           <textarea
             name="message"
             placeholder="Ihre Nachricht..."
@@ -695,151 +767,101 @@ const ContactFormMobile = () => {
 
 const Hero = () => {
   return (
-    <>
-      {/* Mobile-Only Hero Layout (Visible on lg:hidden) */}
-      <div className="lg:hidden flex flex-col bg-stone-100">
-        <div className="relative h-screen w-full flex flex-col justify-center items-center px-6 overflow-hidden">
-          {/* Background Image - img22 (grasshero2.png) */}
-          <div
-            className="absolute inset-0 bg-cover bg-center animate-slow-zoom"
-            style={{
-              backgroundImage: `url("${img23}")`,
-              backgroundPosition: 'center',
-              backgroundSize: 'cover'
-            }}
-          >
-            {/* Subtle Overlay */}
-            <div className="absolute inset-0 bg-black/50"></div>
-          </div>
+    <div className="relative w-full bg-stone-100 flex flex-col lg:block">
+      {/* Background Images - swapped via CSS for mobile/desktop */}
+      <div
+        className="absolute inset-0 bg-cover bg-center animate-slow-zoom lg:hidden h-screen"
+        style={{ backgroundImage: `url("${img23}")` }}
+      >
+        <div className="absolute inset-0 bg-black/50"></div>
+      </div>
+      <div
+        className="absolute inset-0 bg-cover bg-center animate-slow-zoom hidden lg:block"
+        style={{ backgroundImage: `url("${img22}")` }}
+      >
+        <div className="absolute inset-0 bg-black/40"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-earth-900/80 via-transparent to-black/20"></div>
+      </div>
 
-          {/* Content */}
-          <div className="relative z-10 text-center flex flex-col items-center top-[-40px]">
-            <span className="text-[#c5a26a] font-bold tracking-[0.4em] text-[10px] uppercase mb-4 animate-[fadeInUp_0.8s_ease-out]">
+      {/* Unified Hero Content */}
+      <div className="relative h-screen lg:min-h-screen w-full max-w-7xl mx-auto flex flex-col justify-center items-center lg:flex-row lg:justify-between px-4 sm:px-6 lg:px-8 z-10 pt-10 pb-20 lg:pb-12 lg:pt-20">
+
+        {/* Text Section */}
+        <div className="text-center lg:text-left flex flex-col items-center lg:items-start max-w-2xl mt-[-40px] lg:mt-0">
+          <div className="overflow-hidden mb-2">
+            <p className="text-[#c5a26a] lg:text-gold-500 font-bold tracking-[0.4em] lg:tracking-[0.3em] uppercase text-[10px] md:text-sm animate-[fadeInUp_0.8s_ease-out_forwards] lg:animate-[fadeInUp_1s_ease-out_forwards]">
               Ihr Gärtner in Kuppenheim & Umgebung
-            </span>
-            <h1 className="text-6xl font-serif text-white leading-[1.1] animate-[fadeInUp_1s_ease-out] drop-shadow-lg">
-              Gartenbau <br />
-              <span className="text-[#c5a26a] italic font-light block mt-2">mit Leidenschaft</span>
-            </h1>
-
-
-            <p className="text-white text-lg leading-relaxed max-w-[340px] mx-auto my-8 animate-[fadeInUp_1.3s_ease-out] font-medium drop-shadow-md">
-              Als Ihr Gartenbau-Fachbetrieb in Kuppenheim übernehmen wir Doppelstabmatten-Zaunbau, Rasenpflege und Komplett-Gestaltung Ihrer Außenanlage — in Kuppenheim, Rastatt, Karlsruhe sowie im Umkreis von 150 km.
             </p>
-
-            {/* Action Buttons */}
-            <div className="flex flex-col gap-4 w-full max-w-[280px] animate-[fadeInUp_1.4s_ease-out]">
-              <Link
-                to={NavigationLinks.SERVICES}
-                className="bg-[#c5a26a] text-white py-4 px-8 font-bold text-xs uppercase tracking-[0.2em] shadow-lg active:scale-95 transition-transform"
-              >
-                Unsere Leistungen
-              </Link>
-              <Link
-                to={NavigationLinks.PROJECTS}
-                className="border border-white/50 bg-white/5 backdrop-blur-sm text-white py-4 px-8 font-bold text-xs uppercase tracking-[0.2em] active:scale-95 transition-transform hover:bg-white/10"
-              >
-                Projekte ansehen
-              </Link>
-            </div>
           </div>
+          <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-serif text-white leading-[1.1] drop-shadow-lg lg:drop-shadow-2xl mb-6 lg:mb-8 animate-[fadeInUp_1s_ease-out_forwards] lg:animate-[fadeInUp_1.2s_ease-out_forwards]">
+            Garten- & Landschaftsbau Kuppenheim 
+          </h1>
 
-          {/* Scroll Arrows - img21 */}
+          <p className="text-white lg:text-gray-200 text-lg md:text-xl font-medium lg:font-light max-w-[340px] lg:max-w-2xl mx-auto lg:mx-0 lg:border-l-2 lg:border-gold-500 lg:pl-6 my-8 lg:mb-10 animate-[fadeInUp_1.3s_ease-out_forwards] lg:animate-[fadeInUp_1.4s_ease-out_forwards] drop-shadow-md">
+            <strong>Ihr Experte für Gartenbau in Kuppenheim und Umgebung</strong><br />
+            Wir sind Ihr lokaler Fachbetrieb für professionellen Zaunbau, Pflasterarbeiten und Gartenpflege direkt in Kuppenheim. Egal ob Doppelstabmattenzaun oder Rollrasen – wir arbeiten in einem Umkreis von 150 km und liefern höchste Qualität für Rastatt, Karlsruhe, Baden-Baden und darüber hinaus.
+          </p>
 
-          <div className=" bottom-10 left-1/2 -translate-x-2.5">
+          <div className="flex flex-col sm:flex-row flex-wrap gap-3 md:gap-4 animate-[fadeInUp_1.4s_ease-out_forwards] lg:animate-[fadeInUp_1.6s_ease-out_forwards] w-full max-w-[340px] lg:max-w-none justify-center lg:justify-start">
+            <Link
+              to="/zaun-konfigurator"
+              className="bg-emerald-600 hover:bg-emerald-500 text-white px-6 lg:px-8 py-3.5 lg:py-4 font-bold text-xs lg:text-sm uppercase tracking-[0.15em] shadow-xl transition-all duration-300 active:scale-95 hover:-translate-y-0.5 text-center flex items-center justify-center gap-2 border border-emerald-400/40 rounded-sm"
+            >
+              <span className="w-2 h-2 rounded-full bg-emerald-300 animate-pulse" />
+              <span>3D-Zaunplaner</span>
+            </Link>
+            <Link
+              to={NavigationLinks.SERVICES}
+              className="bg-[#c5a26a] lg:bg-gold-500 text-white lg:hover:bg-gold-600 px-6 lg:px-8 py-3.5 lg:py-4 font-bold text-xs lg:text-sm uppercase tracking-[0.15em] shadow-lg lg:shadow-xl transition-all duration-300 active:scale-95 lg:hover:-translate-y-0.5 text-center rounded-sm"
+            >
+              Leistungen
+            </Link>
+            <Link
+              to={NavigationLinks.PROJECTS}
+              className="border border-white/50 lg:border-white/30 bg-white/5 lg:bg-transparent backdrop-blur-sm text-white px-6 lg:px-8 py-3.5 lg:py-4 font-bold text-xs lg:text-sm uppercase tracking-[0.15em] transition-all duration-300 hover:bg-white/10 active:scale-95 lg:hover:-translate-y-0.5 text-center rounded-sm"
+            >
+              Projekte
+            </Link>
+          </div>
+        </div>
+
+        {/* Contact Form Desktop */}
+        <div className="hidden lg:block animate-[fadeInUp_1.6s_ease-out_forwards] z-20">
+          <ContactForm />
+        </div>
+
+        {/* Scroll Arrows Mobile */}
+        <div className="lg:hidden absolute bottom-10 left-1/2 -translate-x-1/2">
+          <img
+            src={img21}
+            alt="Scroll down"
+            className="w-44 h-auto opacity-100 drop-shadow-xl"
+          />
+        </div>
+      </div><br />
+
+
+
+      {/* Mobile Contact Form Section (Card style under hero) */}
+      <div className="lg:hidden relative z-30 -mt-8 bg-white rounded-t-[40px] px-6 pt-16 pb-16 shadow-[0_-10px_40px_rgba(0,0,0,0.1)] w-full">
+        <div className="absolute -top-12 left-1/2 -translate-x-1/2">
+          <div className="relative group">
+            <div className="absolute -inset-1 bg-gradient-to-r from-gold-400 to-earth-800 rounded-full blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
             <img
-              src={img21}
-              alt="Scroll down"
-              className="w-44 h-auto opacity-100 drop-shadow-xl"
+              src={img20}
+              alt="Logo Luan Allround Service"
+              className="relative w-32 h-32 rounded-full object-cover border-4 border-white shadow-2xl"
             />
           </div>
         </div>
-
-        {/* Mobile Contact Form Section (Card style under hero) */}
-        <div className="relative z-30 -mt-8 bg-white rounded-t-[40px] px-6 pt-16 pb-16 shadow-[0_-10px_40px_rgba(0,0,0,0.1)]">
-          {/* Circular Logo Indicator */}
-          <div className="absolute -top-12 left-1/2 -translate-x-1/2">
-            <div className="relative group">
-              <div className="absolute -inset-1 bg-gradient-to-r from-gold-400 to-earth-800 rounded-full blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
-              <img
-                src={img20}
-                alt="Logo Luan Allround Service"
-                className="relative w-32 h-32 rounded-full object-cover border-4 border-white shadow-2xl"
-              />
-            </div>
-          </div>
-
-          <div className="text-center"><br /><br />
-            <h2 className="text-2xl md:text-3xl font-black text-earth-900 text-center mb-6 md:mb-8 uppercase font-sans">
-              KOSTENFREIE BERATUNG
-            </h2>
-            <ContactFormMobile />
-          </div>
+        <div className="text-center mt-4">
+          <h2 className="text-2xl md:text-3xl font-black text-earth-900 mb-6 uppercase font-sans">
+            KOSTENFREIE BERATUNG
+          </h2>
+          <ContactFormMobile />
         </div>
       </div>
-
-      {/* Desktop-Only Hero Layout (Visible on hidden lg:block) */}
-      <div className="hidden lg:block relative min-h-screen w-full overflow-visible pb-12">
-        {/* Hintergrundbild mit langsamer Zoom-Effekt */}
-        <div
-          className="absolute inset-0 bg-cover bg-center animate-slow-zoom"
-          style={{ backgroundImage: `url("${img22}")` }}
-        >
-          <div className="absolute inset-0 bg-black/40"></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-earth-900/80 via-transparent to-black/20"></div>
-        </div>
-
-        {/* Inhalt */}
-        <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center z-10 pt-20 lg:pt-10">
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12">
-            <div className="max-w-2xl text-center lg:text-left">
-              <div className="overflow-hidden mb-2">
-                <p className="text-gold-500 font-bold tracking-[0.3em] uppercase text-xs md:text-sm animate-[fadeInUp_1s_ease-out_forwards]">
-                  Ihr Gärtner in Kuppenheim & Umgebung
-                </p>
-              </div>
-              <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-serif text-white leading-[1.1] drop-shadow-2xl mb-6 md:mb-8 animate-[fadeInUp_1.2s_ease-out_forwards]">
-                Gartenbau
-                <br />
-                <span className="italic font-light text-gold-400">mit Leidenschaft</span>
-              </h1>
-
-              <p className="text-lg md:text-xl text-gray-200 font-light max-w-2xl border-l-2 border-gold-500 pl-4 md:pl-6 mb-8 md:mb-10 animate-[fadeInUp_1.4s_ease-out_forwards] mx-auto lg:mx-0">
-                Als Ihr Gartenbau-Fachbetrieb in Kuppenheim übernehmen wir Doppelstabmatten-Zaunbau, Rasenpflege und Komplett-Gestaltung Ihrer Außenanlage — in Kuppenheim, Rastatt, Karlsruhe sowie im Umkreis von 150 km.
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-4 md:gap-5 animate-[fadeInUp_1.6s_ease-out_forwards] justify-center lg:justify-start">
-                <Link
-                  to={NavigationLinks.SERVICES}
-                  className="px-6 md:px-10 py-3 md:py-4 bg-gold-500 hover:bg-gold-600 text-white font-bold tracking-widest uppercase transition-all duration-300 text-center shadow-xl hover:-translate-y-1 text-sm md:text-base"
-                >
-                  Unsere Leistungen
-                </Link>
-                <Link
-                  to={NavigationLinks.PROJECTS}
-                  className="px-6 md:px-10 py-3 md:py-4 bg-transparent hover:bg-white/10 text-white border border-white/30 font-bold tracking-widest uppercase transition-all duration-300 text-center backdrop-blur-sm hover:-translate-y-1 text-sm md:text-base"
-                >
-                  Projekte ansehen
-                </Link>
-              </div>
-            </div>
-
-            {/* Kontaktformular rechts - für Desktop sichtbar */}
-            <div className="animate-[fadeInUp_1.6s_ease-out_forwards]">
-              <ContactForm />
-            </div>
-          </div>
-        </div>
-
-        {/* Scroll-Indikator */}
-        <div className="absolute bottom-6 md:bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-white/50">
-          <div className="flex flex-col items-center">
-            <span className="text-[10px] tracking-widest uppercase mb-2">Scrollen</span>
-            <div className="w-px h-8 md:h-12 bg-white/50"></div>
-          </div>
-        </div>
-      </div>
-    </>
+    </div>
   );
 };
 
@@ -848,22 +870,42 @@ const ServicesSection = () => {
     {
       icon: <PencilRuler className="w-6 h-6 md:w-8 md:h-8" />,
       title: "Zaunmontage",
-      desc: "Wir montieren robuste Doppelstabmatten-, Holz- und Sichtschutzzäune – passgenau nach Ihrem Grundstücksplan."
+      desc: (
+        <>
+          Wenn Sie auf der Suche nach einer stabilen und langlebigen Einfriedung sind, ist unsere professionelle Zaunmontage die ideale Lösung für Ihr Grundstück. Wir bieten Ihnen maßgeschneiderte Konzepte rund um den Sichtschutz und Montageservice, die nicht nur Sicherheit bieten, sondern auch optisch überzeugen. Egal ob robuste Doppelstabmatten, charmante Holzzäune oder moderne Kunststoffelemente – bei uns erhalten Sie alles aus einer Hand. Informieren Sie sich im Detail über unseren Service für <Link to="/zaunbau-kuppenheim" className="text-gold-500 underline font-bold">Zaunbau in Kuppenheim</Link> und lassen Sie sich von unseren Referenzen inspirieren.
+        </>
+      ),
+      link: "/zaunbau-kuppenheim"
     },
     {
       icon: <Shovel className="w-6 h-6 md:w-8 md:h-8" />,
       title: "Gartenpflege",
-      desc: "Rasen mähen, Heckenschnitt, Unkrautentfernung – für gepflegte Grünflächen ohne Aufwand für Sie."
+      desc: (
+        <>
+          Eine gepflegte Grünanlage erfordert Zeit, Fachwissen und regelmäßige Zuwendung – genau das bieten wir Ihnen mit unserer umfassenden Gartenpflege. Von der Rasenpflege mit Vertikutieren und Mähen bis hin zum fachmännischen Heckenschnitt, der das strukturierte Erscheinungsbild Ihrer Grünflächen bewahrt. Unser erfahrenes Team kümmert sich um jedes Detail, damit Ihr Garten das ganze Jahr über erstrahlt. Entdecken Sie unser Angebot zur professionellen <Link to="/gartenpflege-kuppenheim" className="text-gold-500 underline font-bold">Gartenpflege für Kuppenheim</Link> und genießen Sie eine echte Wohlfühloase ohne eigenen Arbeitsaufwand.
+        </>
+      ),
+      link: "/gartenpflege-kuppenheim"
     },
     {
       icon: <Leaf className="w-6 h-6 md:w-8 md:h-8" />,
-      title: "Reinigung",
-      desc: "Hochdruckreinigung für Terrassen, Pflastersteine und Einfahrten – Algen und Moos verschwinden spurlos."
+      title: "Pflasterarbeiten",
+      desc: (
+        <>
+          Ein stilvoll gestalteter Außenbereich beginnt oft mit robusten, ansprechenden Gehwegen und einer perfekt angelegten Terrasse. Durch präzise Pflasterarbeiten verleihen wir Einfahrten, Wegen und Innenhöfen nicht nur eine hohe Funktionalität und Langlebigkeit, sondern auch eine exklusive Optik, die zu Ihrem Haus passt. Von der Wahl des richtigen Natur- oder Betonsteins bis zur fachgerechten Drainageplanung sind wir Ihr starker Partner. Informieren Sie sich über unsere maßgeschneiderten Lösungen für <Link to="/pflasterarbeiten-kuppenheim" className="text-gold-500 underline font-bold">Pflasterarbeiten in Kuppenheim</Link> und starten Sie Ihr Gartenprojekt mit uns.
+        </>
+      ),
+      link: "/pflasterarbeiten-kuppenheim"
     },
     {
       icon: <Leaf className="w-6 h-6 md:w-8 md:h-8" />,
-      title: "Allround-Service",
-      desc: "Von Pflasterarbeiten bis Rollrasen-Verlegung – wir packen an, wo Handwerker-Qualität gefragt ist."
+      title: "Rollrasen & Rasenpflege",
+      desc: (
+        <>
+          Ein sattgrüner, dichter Rasen ist das Herzstück jedes schönen Gartens und verwandelt jede Außenanlage in einen echten Hingucker. Unser Service zur professionellen Rasenpflege und Neuverlegung sorgt dafür, dass Ihre Grünflächen gesund und widerstandsfähig bleiben. Durch den gezielten Einsatz hochwertiger Düngemittel und die Verlegung von Premium-Zuchtgras garantieren wir Ihnen sofort sichtbare Ergebnisse, die lange anhalten. Erfahren Sie mehr darüber, wie wir Sie bei der Verlegung von <Link to="/rollrasen-kuppenheim" className="text-gold-500 underline font-bold">Rollrasen in Kuppenheim</Link> unterstützen und Ihren Garten kurzfristig verwandeln können.
+        </>
+      ),
+      link: "/rollrasen-kuppenheim"
     }
   ];
 
@@ -879,15 +921,17 @@ const ServicesSection = () => {
           <SectionTitle subtitle="Unsere Leistungen" title="Handwerkliche Qualität" />
         </RevealOnScroll>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
           {services.map((s, i) => (
             <RevealOnScroll key={i} delay={i * 100}>
-              <div className="h-full p-6 md:p-8 bg-white hover:bg-earth-900 group transition-all duration-500 shadow-sm hover:shadow-xl border-b-2 border-transparent hover:border-gold-500">
-                <div className="w-12 h-12 md:w-16 md:h-16 bg-stone-100 group-hover:bg-white/10 rounded-full flex items-center justify-center text-earth-900 group-hover:text-gold-500 mb-4 md:mb-6 transition-colors">
-                  {s.icon}
+              <div className="block h-full">
+                <div className="h-full p-8 md:p-10 bg-white group transition-all duration-500 shadow-sm hover:shadow-xl border-b-2 border-transparent hover:border-gold-500">
+                  <div className="w-16 h-16 md:w-20 md:h-20 bg-stone-100 group-hover:bg-earth-900 rounded-full flex items-center justify-center text-earth-900 group-hover:text-gold-500 mb-6 transition-colors">
+                    {s.icon}
+                  </div>
+                  <h2 className="text-2xl md:text-3xl font-serif text-earth-900 mb-4 transition-colors">{s.title}</h2>
+                  <p className="text-gray-600 text-base leading-loose transition-colors">{s.desc}</p>
                 </div>
-                <h3 className="text-lg md:text-xl font-serif text-earth-900 group-hover:text-white mb-3 md:mb-4 transition-colors">{s.title}</h3>
-                <p className="text-gray-600 group-hover:text-gray-300 text-sm leading-relaxed transition-colors">{s.desc}</p>
               </div>
             </RevealOnScroll>
           ))}
@@ -909,6 +953,7 @@ const AboutPreview = () => (
             <img
               src="images/8.jpeg"
               alt="Arbeiten von Luan Allround Service"
+              loading="lazy"
               className="relative z-10 w-full h-[400px] md:h-[600px] object-cover shadow-2xl"
             />
             <div className="absolute -bottom-6 -right-6 md:-bottom-10 md:-right-10 bg-white text-earth-900 p-4 md:p-8 shadow-xl max-w-xs hidden lg:block z-20">
@@ -932,6 +977,7 @@ const AboutPreview = () => (
               <img
                 src="images/logo.png"
                 alt="Logo Luan Allround Service"
+                loading="lazy"
                 className="w-25 h-16 md:w-35 md:h-24 object-cover border-2 border-gold-500 shadow-md"
               />
               <div>
@@ -991,6 +1037,7 @@ const ProjectsGallery = () => {
                   <img
                     src={String(post.image)}
                     alt={post.title}
+                    loading="lazy"
                     className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-earth-900/70 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col items-center justify-center p-4 md:p-6 text-center">
@@ -1040,24 +1087,74 @@ const Testimonials = () => {
   const googleMapsUrl = "https://www.google.com/maps/place/Luan+Allround+Service/@49.1195743,9.1717969,1768539a,35y,350.44h/data=!3m1!1e3!4m18!1m9!3m8!1s0x47971d9ddc21dc61:0x8b73b203f70f96b!2sLuan+Allround+Service!8m2!3d48.8264987!4d8.2535412!9m1!1b1!16s%2Fg%2F11rr2yqn18!3m7!1s0x47971d9ddc21dc61:0x8b73b203f70f96b!8m2!3d48.8264987!4d8.2535412!9m1!1b1!16s%2Fg%2F11rr2yqn18?entry=ttu&g_ep=EgoyMDI1MTIwMi4wIKXMDSoASAFQAw%3D%3D";
 
   const allReviews = [
-    { name: "Rhina Pross", rating: 4, time: "vor 1 monat", text: "Die Terminabsprache verlief sehr angenehm und mein Wunsch nach einem früheren Termin wurde berücksichtigt, sobald es möglich war. Das Team aus drei freundlichen und hilfsbereiten Mitarbeitern arbeitete zügig und setzte die rund 50 m Zaun mit Gefälle sauber und zuverlässig um. Positiv hervorzuheben ist, dass alle sehr höflich und zuvorkommend waren und auf Fragen direkt eingegangen wurde. Etwas enttäuschend war jedoch, dass nach Abschluss der Arbeiten einige Materialreste wie abgeschnittene Zaunteile, leere Kartuschen, Bohrer sowie Essens Verpackungen und Trinkflaschen liegen geblieben sind. Außerdem waren zwei kleine Nachbesserungen nötig, die nach Rückmeldung erledigt wurden. Besonders hervorheben möchte ich den freundlichen, erreichbaren und engagierten Kontakt zum Chef, der stets bemüht war, eine gute Lösung zu finden. Insgesamt bin ich mit der Leistung zufrieden und würde die Firma trotz kleinerer Punkte wieder beauftragen." },
-    { name: "Toni D'Agostino", time: "vor 8 Monaten", text: "Ein Super-Team, Vorab wird ein Vor-Ort-Termin vereinbart um sich die Situation einen Überblick zu verschaffen. Gleichzeitig wird man beraten was besser gemacht werden kann. Am Einbautag wird alles Sauber, Präzise und mit Erfahrung eingebaut. Mit dem Ergebnis bin ich sehr zufrieden und kann die Firma sehr empfehlen!" },
-    { name: "Gerhard Gerschner", time: "vor 7 Monaten", text: "Qualitativ sehr gute Arbeit. Super freundliches Team. Die Jungs wissen was sie tun. Immer hilfsbereit und sehr schnell. Wer einen Zaun braucht sollte sich bei Luan Allround Service melden!!!" },
-    { name: "Tanja M", time: "vor 7 Monaten", text: "Der Zaunbau bei meinem Vater hat super geklappt…tolle Arbeit, sehr gute Kommunikation. Wir danken dem ganzen Team und können die Firma nur weiterempfehlen." },
-    { name: "Katrin Schindler", time: "vor 7 Monaten", text: "Sehr schnelle und sehr günstige Firma. Innerhalb weniger Tage wurde der Zaun gestellt. Super nette Leute. Absolut vertrauenswürdig. Kann ich jedem empfehlen!!" },
-    { name: "Marcus Bräuning", time: "vor 11 Monaten", text: "Danke nochmals für eure gute Arbeit, obwohl es geregnet hat wie aus Eimern. Die Bäume habt ihr wieder top in Form geschnitten wie es auch gewünscht war. Danke für eure schnelle Unterstützung und ihr seid ein tolles Team!" },
-    { name: "UGI Performance", time: "vor 1 jahr", text: "Super Kompetenz. Fixer Aufbau. Tolles Design. Vielen Dank. Nur weiter zu empfehlen Top Qualität." },
-    { name: "Sebastian Morina", time: "vor 2 Jahren", text: "Sehr kompetente, Zuverlässige sowie preiswerte Firma. Empfehlenswert also holt euch gerne mal ein Angebot rein und überzeugt euch gerne selbst von meiner Zufriedenheit." },
-    { name: "Florim Sinani", time: "vor 2 Jahren", text: "Guten Tag, bin mit der Arbeit sehr zufrieden und kann nur gutes berichten. Freundliche Arbeiter und saubere Arbeit." },
-    { name: "Tanja Möhrmann", time: "vor 3 Jahren", text: "Sehr zu empfehlen! Hochwertiges Material, sehr freundlicher Kontakt und guter hilfsbereiter Service" }
+    { name: "Matthias Schnepf", time: "vor 1 Monat", text: "Super nette Mitarbeiter und Chef. Machen Ihre Arbeiten sehr genau und professionell. Immer wieder gerne mit so einer super Firma. Haben uns einen Zaun machen lassen von 90 Metern – lief alles genau nach Plan!", rating: 5 },
+    { name: "Dieter Wolf", time: "vor 6 Monaten", text: "Die Firma erstellte um Teile unseres Vereinsgeländes einen 260 m Doppelstabmattenzaun in höchster Qualität incl. Rückbau und Entsorgung des alten Zauns. Der sehr faire Preis aus dem Angebot wurde trotz den unerwarteten Schwierigkeiten (teilweise unbekannte überwucherte Schwarzdecke, Wurzeln aus altem Baumbestand, …) eingehalten. Die Firma hielt alle zeitlichen Zusagen ein und stimmte jede Entscheidung mit uns ab. Tolle Kommunikation und fachgerechte Beratung. Wir können daher die Firma uneingeschränkt empfehlen.", rating: 5 },
+    { name: "Ralph K", time: "vor 6 Monaten", text: "Gute Firma, sehr zu empfehlen. Es wurden über 230 m Doppelstabmatten-Zaun nach Demontage des alten Zauns verbaut. Vom Angebot über Besprechungen vor Ort, der Durchführung bis zur Endabnahme alles schnell, akkurat und zur vollsten Zufriedenheit.", rating: 5 },
+    { name: "Michael K.", time: "vor 7 Monaten", text: "Unser Vorhaben, einen Doppelstabmattenzaun zu stellen wurde sehr schnell und unkompliziert umgesetzt. Sehr freundlicher Kontakt, fairer Preis und super Endergebnis. Ich kann die Firma Luan Allround Service uneingeschränkt weiterempfehlen!", rating: 5 },
+    { name: "Dennis Stoll", time: "vor 9 Monaten", text: "Die Firma ist nur zum empfehlen. Haben einen 18 Meter Zaun setzen lassen. Schnelle Terminvergabe, schnelles und sauberes Arbeiten. Top umgesetzt und super Qualität. Das 3-Mann-Team hat super zusammen gearbeitet. Jeder weiß was er zu tun hat.", rating: 5 },
+    { name: "Thomas Lindner", time: "vor 9 Monaten", text: "Einfach zusammengefasst: schnell, sauber, perfekt! Der Zaun, 35 m, wurde innerhalb von 5 Stunden gesetzt, sieht Top aus! Die Arbeiter waren sehr freundlich und höflich! Der Kontakt mit dem Chef, Herrn Limani, lief freundlich und kompetent! Danke für die schnelle Umsetzung👍😃 Das Team kann man qualitativ und preislich empfehlen!!!", rating: 5 },
+    { name: "Jana D", time: "vor 9 Monaten", text: "Schnelles Angebot erhalten, schnelle Terminvereinbarung. Alle Wünsche wurden erfüllt, schnelle, saubere und ordentliche Arbeit. Wir sind sehr zufrieden. Vielen Dank 👍", rating: 5 },
+    { name: "Rhina Pross", time: "vor 11 Monaten", text: "Die Terminabsprache verlief sehr angenehm und mein Wunsch nach einem früheren Termin wurde berücksichtigt, sobald es möglich war. Das Team aus drei freundlichen und hilfsbereiten Mitarbeitern arbeitete zügig und setzte die rund 50 m Zaun am Hang sauber und zuverlässig um. Die Kommunikation mit Herrn Limani war stets lösungsorientiert und professionell.", rating: 4 },
+    { name: "Toni D'Agostino", time: "vor 1 Jahr", text: "Ein Super-Team! Vorab wird ein Vor-Ort-Termin vereinbart, um sich über die Situation einen Überblick zu verschaffen. Gleichzeitig wird man beraten, was besser gemacht werden kann. Am Einbautag wird alles sauber, präzise und mit Erfahrung eingebaut. Mit dem Ergebnis bin ich sehr zufrieden und kann die Firma sehr empfehlen!", rating: 5 },
+    { name: "Vincenzo P", time: "vor 8 Monaten", text: "Super kompetente Jungs, die wissen was sie machen. Von Anfang bis Ende TOP!!! Nur zu Empfehlen!", rating: 5 },
+    { name: "Tanja M", time: "vor 1 Jahr", text: "Der Zaunbau bei meinem Vater hat super geklappt… tolle Arbeit, sehr gute Kommunikation. Wir danken dem ganzen Team und können die Firma nur weiterempfehlen.", rating: 5 },
+    { name: "Thomas Huber", time: "vor 6 Monaten", text: "Hochwertige Arbeitsleistung, einfache und freundliche Terminabstimmung. Absolut empfehlenswert!", rating: 5 },
+    { name: "Gerhard Gerschner", time: "vor 1 Jahr", text: "Qualitativ sehr gute Arbeit. Super freundliches Team. Die Jungs wissen was sie tun. Immer hilfsbereit und sehr schnell. Wer einen Zaun braucht, sollte sich bei Luan Allround Service melden!!!", rating: 5 },
+    { name: "Katrin Schindler", time: "vor 1 Jahr", text: "Sehr schnelle und sehr günstige Firma. Innerhalb weniger Tage wurde der Zaun gestellt. Super nette Leute. Absolut vertrauenswürdig. Kann ich jedem empfehlen!!!!!!!!", rating: 5 },
+    { name: "Marcus Bräuning", time: "vor 1 Jahr", text: "Danke nochmals für eure gute Arbeit, obwohl es geregnet hat wie aus Eimern! Die Bäume habt ihr wieder top in Form geschnitten, wie es gewünscht war – echt klasse. Danke für eure schnelle Unterstützung und ihr seid ein tolles Team!", rating: 5 },
+    { name: "D. H.", time: "vor 8 Monaten", text: "Super netter Kontakt, super Arbeit! Vielen Dank!", rating: 5 },
+    { name: "UGI Performance", time: "vor 7 Monaten", text: "Super Kompetenz. Fixer Aufbau. Tolles Design. Vielen Dank. Nur weiter zu empfehlen – Top Qualität.", rating: 5 },
+    { name: "Johann Haas", time: "vor 8 Monaten", text: "Super Team, nur zu empfehlen 👍", rating: 5 },
+    { name: "Nuriamet Limani", time: "vor 6 Monaten", text: "Hervorragende Arbeit beim Zaunbau und Pflastern. Absolut zuverlässig und pünktlich!", rating: 5 },
+    { name: "Xhemail Asllani", time: "vor 10 Monaten", text: "Sehr gute Arbeit und freundliches Auftreten. Immer wieder gerne!", rating: 5 },
+    { name: "Dennis Güttgemanns", time: "vor 1 Jahr", text: "Sehr gute Beratung und saubere Ausführung unseres Doppelstabmattenzauns. Absolute Empfehlung!", rating: 5 },
+    { name: "Zülfi Koc", time: "vor 1 Jahr", text: "Hervorragende Qualität, saubere Montage unseres Zauns und super Service.", rating: 5 },
+    { name: "Sebastian Morina", time: "vor 3 Jahren", text: "Sehr kompetente, zuverlässige sowie preiswerte Firma. Empfehlenswert, holt euch gerne mal ein Angebot rein und überzeugt euch selbst!", rating: 5 },
+    { name: "Florim Sinani", time: "vor 3 Jahren", text: "Guten Tag, bin mit der Arbeit sehr zufrieden und kann nur Gutes berichten. Freundliche Arbeiter und saubere Arbeit.", rating: 5 },
+    { name: "Tanja Möhrmann", time: "vor 4 Jahren", text: "Sehr zu empfehlen! Hochwertiges Material, sehr freundlicher Kontakt und guter, hilfsbereiter Service.", rating: 5 },
+    { name: "J4akob", time: "vor 3 Jahren", text: "Top Qualität, super Arbeit!", rating: 5 },
+    { name: "Suate Sinani", time: "vor 3 Jahren", text: "Sehr zu empfehlen 👍 Saubere und schnelle Arbeit.", rating: 5 },
+    { name: "Raphael Girrbach", time: "vor 3 Jahren", text: "Top Reaktionsfähigkeit, Pünktlichkeit, Qualität und fairer Preis.", rating: 5 },
+    { name: "KANAS KOMPANI", time: "vor 4 Jahren", text: "Top Partner im Bereich Gartenbau und Zaunanlagen.", rating: 5 },
+    { name: "Michael Bastian", time: "vor 4 Jahren", text: "Super Service, fairer Preis und erstklassige Arbeit.", rating: 5 },
+    { name: "Mehmet Yüksel", time: "vor 4 Jahren", text: "Sehr zuverlässig, fleißig und freundlich. Gerne wieder!", rating: 5 }
   ];
 
   const itemsPerPage = 3;
   const totalPages = Math.ceil(allReviews.length / itemsPerPage);
   const displayedReviews = allReviews.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage);
 
+  const reviewSchema = allReviews.map(review => ({
+    "@context": "https://schema.org",
+    "@type": "Review",
+    "itemReviewed": {
+      "@type": "LocalBusiness",
+      "name": "Luan Allround Service",
+      "image": "https://luan-allround-service.de/images/logo_resized.png"
+    },
+    "author": {
+      "@type": "Person",
+      "name": review.name
+    },
+    "reviewRating": {
+      "@type": "Rating",
+      "ratingValue": (review as any).rating || "5",
+      "bestRating": "5"
+    },
+    "reviewBody": review.text,
+    "publisher": {
+      "@type": "Organization",
+      "name": "Google"
+    }
+  }));
+
   return (
     <section className="py-16 md:py-24 bg-stone-100 relative overflow-hidden">
+      <Helmet>
+        <script type="application/ld+json" data-schema="reviews">
+          {JSON.stringify(reviewSchema)}
+        </script>
+      </Helmet>
       {/* Grid Background Pattern */}
       <div className="absolute inset-0 opacity-5 pointer-events-none" style={{
         backgroundImage: `url('./images/grid.png')`,
@@ -1066,7 +1163,7 @@ const Testimonials = () => {
       }}></div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <RevealOnScroll>
-          <SectionTitle subtitle="Google Bewertungen" title="Was unsere Kunden sagen" />
+          <SectionTitle subtitle="Google & MyHammer Bewertungen" title="Was unsere Kunden sagen" />
         </RevealOnScroll>
 
         {/* Reviews Grid */}
@@ -1092,7 +1189,7 @@ const Testimonials = () => {
                       <div className="relative group">
                         <img src="https://img.icons8.com/color/48/verified-account.png" alt="Verified Badge" className="w-4 h-4" />
                         <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 bg-black text-white text-xs px-2 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10">
-                          Verified Customer
+                          Verifizierte Bewertung
                         </div>
                       </div>
                     </div>
@@ -1182,11 +1279,28 @@ const Testimonials = () => {
           </button>
         </div>
 
-        {/* Google Badge */}
-        <div className="mt-12 text-center">
-          <p className="text-gray-600 text-sm md:text-base">
-            <span className="font-bold">Google</span> Bewertungen – Durchschnitt: ⭐⭐⭐⭐⭐
-          </p>
+        {/* Rating Trust Badges: Google & MyHammer */}
+        <div className="mt-12 text-center flex flex-col sm:flex-row justify-center items-center gap-6">
+          <a
+            href={googleMapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-5 py-3 bg-white rounded-lg shadow hover:shadow-md transition-shadow text-earth-900 hover:text-gold-600"
+          >
+            <span className="font-bold text-blue-600">Google</span>
+            <span className="text-sm font-semibold">4,9 / 5,0 ⭐⭐⭐⭐⭐</span>
+            <span className="text-xs text-gray-500 font-medium">(31 Bewertungen)</span>
+          </a>
+          <a
+            href="https://www.my-hammer.de/auftragnehmer/luan-allround-service"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-5 py-3 bg-white rounded-lg shadow hover:shadow-md transition-shadow text-earth-900 hover:text-gold-600"
+          >
+            <span className="font-bold text-orange-600">MyHammer</span>
+            <span className="text-sm font-semibold">4,8 / 5,0 ⭐⭐⭐⭐⭐</span>
+            <span className="text-xs text-gray-500 font-medium">(6 Bewertungen)</span>
+          </a>
         </div>
       </div>
     </section>
@@ -1196,14 +1310,14 @@ const Testimonials = () => {
 const InteractiveMap = () => (
   <div className="w-full h-[300px] md:h-[500px] relative">
     <iframe
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.991625996969!2d8.218991315674936!3d48.85822007928734!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47971d9ddc21dc61%3A0x8b73b203f70f96b!2sFriedrichstra%C3%9Fe%20100%2C%2076456%20Kuppenheim%2C%20Germany!5e0!3m2!1sen!2s!4v1733414400000!5m2!1sen!2s"
+      src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=de&amp;q=Luan%20Allround%20Service,%20Friedrichstra%C3%9Fe%20100,%2076456%20Kuppenheim+(Luan%20Allround%20Service)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
       width="100%"
       height="100%"
       style={{ border: 0 }}
       allowFullScreen
       loading="lazy"
       referrerPolicy="no-referrer-when-downgrade"
-      title="Standort in Kuppenheim"
+      title="Google Business Profile Luan Allround Service"
       className="transition-all duration-700"
     ></iframe>
   </div>
@@ -1226,21 +1340,152 @@ const PageHeader: React.FC<{ title: string; subtitle: string; image: string }> =
   </div>
 );
 
+const WirMachenAuchSection = () => (
+  <section className="py-16 md:py-24 bg-white relative flex justify-center text-center">
+    {/* Grid Background Pattern */}
+    <div className="absolute inset-0 opacity-5 pointer-events-none" style={{
+      backgroundImage: `url('./images/grid.png')`,
+      backgroundRepeat: 'repeat',
+      backgroundSize: '200px 200px'
+    }}></div>
+
+  </section>
+);
+
+const homePageSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Luan Allround Service",
+  "image": "https://luan-allround-service.de/images/logo_resized.png",
+  "@id": "https://luan-allround-service.de/#organization",
+  "url": "https://luan-allround-service.de",
+  "telephone": "+4917647999118",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Friedrichstraße 100",
+    "addressLocality": "Kuppenheim",
+    "postalCode": "76456",
+    "addressRegion": "Baden-Württemberg",
+    "addressCountry": "DE"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 48.8264987,
+    "longitude": 8.2535412
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "reviewCount": "32"
+  },
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday"],
+      "opens": "07:30",
+      "closes": "18:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": "Friday",
+      "opens": "07:30",
+      "closes": "13:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": "Saturday",
+      "opens": "08:00",
+      "closes": "12:00"
+    }
+  ],
+  "areaServed": {
+    "@type": "GeoCircle",
+    "geoMidpoint": {
+      "@type": "GeoCoordinates",
+      "latitude": 48.8265,
+      "longitude": 8.2535
+    },
+    "geoRadius": "150000" // 150 km
+  },
+  "department": [
+    {
+      "@type": "LocalBusiness",
+      "name": "Garten- und Landschaftsbau",
+      "telephone": "+4917647999118"
+    },
+    {
+      "@type": "LocalBusiness",
+      "name": "Zaunbau & 3D-Zaunkonfigurator",
+      "telephone": "+4917647999118"
+    }
+  ]
+};
+
 const HomePage = () => (
   <>
     <SEOHead
-      title="Luan Allround Service – Gartenbau, Zaunbau & Landschaftspflege in Kuppenheim"
-      description="Ihr Experte für Garten- und Landschaftsbau in Kuppenheim, Rastatt & Karlsruhe. Professioneller Zaunbau, Rasenpflege, Heckenschnitt und Gartenpflege. ✓ Kostenlose Beratung ✓ Faire Preise ✓ Schnelle Umsetzung. Jetzt Angebot anfordern!"
-      keywords="Gartenbau Kuppenheim, Landschaftsbau Kuppenheim, Zaunbau Kuppenheim, Gärtner Rastatt, Rasenpflege Kuppenheim, Heckenschnitt Kuppenheim, Gartenpflege Baden-Baden, Pflasterarbeiten Karlsruhe, Luan Allround Service, Gartenbau Rastatt, Zaunmontage Baden-Württemberg"
+      title="Garten- & Landschaftsbau in Kuppenheim | Zaunbau Rastatt | Luan Allround Service"
+      description="Ihr Experte für Garten- & Landschaftsbau in Kuppenheim, Zaunbau in Rastatt & 3D-Zaunplaner. Kostenloses Vor-Ort-Aufmaß & Festpreise: 0176 47999118."
+      keywords="Zaun in Kuppenheim, Zaun Kuppenheim, Zaunbau in Kuppenheim, Zaun Rastatt, Zaunbau in der Nähe, Allrounder, Zaun, Zaunbau Landau, Doppelstabmattenzaun, Zäune Rastatt 76437, Zaunbauer in der Nähe, Zäune Waldbronn 76337, Zaunbau"
+      canonical="https://luan-allround-service.de/"
     />
+    <SchemaMarkup type="LocalBusiness" data={{...homePageSchema, "@type": undefined, "@context": undefined}} />
     <Hero />
+    <ZaunKonfiguratorSection />
     <ServicesSection />
+    <WirMachenAuchSection />
     <AboutPreview />
     <ProjectsGallery />
     <Testimonials />
     <InteractiveMap />
   </>
 );
+
+const servicesPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Garten- und Landschaftsbau",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "Luan Allround Service"
+  },
+  "areaServed": {
+    "@type": "GeoCircle",
+    "geoMidpoint": {
+      "@type": "GeoCoordinates",
+      "latitude": 48.8265,
+      "longitude": 8.2535
+    },
+    "geoRadius": "150000"
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Unsere Leistungen",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Zaunmontage"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Gartenpflege"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Pflasterarbeiten"
+        }
+      }
+    ]
+  }
+};
 
 const ServicesPage = () => (
   <>
@@ -1249,6 +1494,7 @@ const ServicesPage = () => (
       description="Professionelle Garten- und Landschaftsbau Dienstleistungen in Kuppenheim und im Umkreis von 150 km: ✓ Zaunmontage ✓ Rasenpflege ✓ Heckenschnitt ✓ Terrassenreinigung ✓ Pflasterarbeiten. Faire Preise, schnelle Umsetzung. Jetzt anfragen!"
       keywords="Zaunbau Kuppenheim, Gartenpflege Kuppenheim, Rasenmähen Rastatt, Heckenschnitt Baden-Baden, Terrassenreinigung Karlsruhe, Pflasterarbeiten Kuppenheim, Hochdruckreinigung, Gartenbau Dienstleistungen"
     />
+    <SchemaMarkup type="Service" data={{...servicesPageSchema, "@type": undefined, "@context": undefined}} />
     <PageHeader
       title="Unsere Leistungen"
       subtitle="Handwerkskunst & Qualität"
@@ -1468,7 +1714,7 @@ const BlogListPage = () => (
     <section className="py-16 md:py-24 bg-white relative overflow-hidden">
       {/* Grid Background Pattern */}
       <div className="absolute inset-0 opacity-5 pointer-events-none" style={{
-        backgroundImage: `url('./images/grid.png')`,
+        backgroundImage: "url('./images/grid.png')" as string,
         backgroundRepeat: 'repeat',
         backgroundSize: '200px 200px'
       }}></div>
@@ -1484,7 +1730,7 @@ const BlogListPage = () => (
                 <div className="bg-white border border-stone-200 hover:shadow-2xl transition-all duration-500 overflow-hidden">
                   <div className="relative overflow-hidden aspect-[4/3]">
                     <img
-                      src={post.image}
+                      src={String(post.image)}
                       alt={post.title}
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     />
@@ -1831,7 +2077,7 @@ const FullGalleryPage = () => {
         }}></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <RevealOnScroll>
-            <SectionTitle subtitle="Vollständiges Portfolio" title="20+ Premium Saunenprojekte" align="center" />
+            <SectionTitle subtitle="Vollständiges Portfolio" title="20+ Premium Projekte" align="center" />
           </RevealOnScroll>
 
           {/* Masonry-Style Gallery Grid */}
@@ -1951,16 +2197,8 @@ const FullGalleryPage = () => {
   );
 };
 
-// Component to handle scroll to top on route change
-const ScrollToTop = () => {
-  const { pathname } = useLocation();
+// ScrollToTop imported from components
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
-
-  return null;
-};
 
 // Component for SEO Metadata
 const PageMeta: React.FC<{ title: string; description: string }> = ({ title, description }) => {
@@ -2021,11 +2259,12 @@ const App = () => {
   }, []);
 
   return (
-    <Router>
-      <ScrollToTop />
-      <SnowEffect />
-      <div className="flex flex-col min-h-screen overflow-x-hidden font-sans text-earth-900 selection:bg-gold-500 selection:text-white bg-stone-50">
-        <style>{`
+    <HelmetProvider>
+      <Router>
+        <ScrollToTop />
+
+        <div className="flex flex-col min-h-screen overflow-x-hidden font-sans text-earth-900 selection:bg-gold-500 selection:text-white bg-stone-50">
+          <style>{`
           html.lenis, html.lenis body {
             height: auto;
           }
@@ -2042,49 +2281,82 @@ const App = () => {
             pointer-events: none;
           }
         `}</style>
-        <AnimationStyles />
-        <Navbar />
-        <main className="flex-grow">
-          <Routes>
-            <Route path={NavigationLinks.HOME} element={<HomePage />} />
-            <Route path={NavigationLinks.SERVICES} element={<ServicesPage />} />
-            <Route path={NavigationLinks.PROJECTS} element={<ProjectsPage />} />
-            <Route path={NavigationLinks.GALLERY} element={<FullGalleryPage />} />
-            <Route path={NavigationLinks.BLOG} element={<BlogListPage />} />
-            <Route path="/blog/:slug" element={<BlogPostPage />} />
-            <Route path={NavigationLinks.ABOUT} element={<AboutPage />} />
-            <Route path={NavigationLinks.CONTACT} element={<ContactPage />} />
-            {/* Location-specific landing pages for SEO */}
-            <Route path="/standorte/:citySlug" element={<LocationPageRouter />} />
-          </Routes>
-        </main>
-        <Footer />
+          <AnimationStyles />
+          <Navbar />
+          <main className="flex-grow">
+            <Routes>
+              <Route path={NavigationLinks.HOME} element={<HomePage />} />
+              <Route path="/services" element={<ServicesPage />} />
+              <Route path="/leistungen" element={<ServicesPage />} />
+              <Route path="/projects" element={<ProjectsPage />} />
+              <Route path="/projekte" element={<ProjectsPage />} />
+              <Route path="/gallery" element={<FullGalleryPage />} />
+              <Route path="/galerie" element={<FullGalleryPage />} />
+              <Route path="/blog" element={<BlogListPage />} />
+              <Route path="/blog/:slug" element={<BlogPostPage />} />
+              <Route path="/about" element={<AboutPage />} />
+              <Route path="/ueber-uns" element={<AboutPage />} />
+              <Route path="/contact" element={<ContactPage />} />
+              <Route path="/kontakt" element={<ContactPage />} />
+              <Route path="/impressum" element={<ImpressumPage />} />
+              <Route path="/datenschutz" element={<DatenschutzPage />} />
 
-        {/* Global WhatsApp Button & CTA */}
-        <div className="fixed bottom-6 right-6 z-50 flex items-center justify-end pointer-events-none">
-          {/* CTA Text with Arrow - visible on all devices */}
-          <div className="flex items-center mr-3 md:mr-4 pointer-events-auto animate-[fadeIn_0.5s_ease-out_2s_forwards] opacity-0">
-            <div className="bg-white px-3 py-2 md:px-4 md:py-3 rounded-lg shadow-xl relative">
-              <span className="text-earth-900 font-bold text-xs md:text-sm whitespace-nowrap">Haben Sie Fragen? Schreiben Sie uns!</span>
-              {/* Arrow pointing to the button */}
-              <div className="absolute top-1/2 -right-2 transform -translate-y-1/2 w-0 h-0 border-t-[6px] border-t-transparent border-l-[8px] border-l-white border-b-[6px] border-b-transparent"></div>
+              {/* 3D Zaunkonfigurator Routes */}
+              <Route path="/zaun-konfigurator" element={<ZaunKonfiguratorPage />} />
+              <Route path="/konfigurator" element={<ZaunKonfiguratorPage />} />
+              <Route path="/zaun-planer" element={<ZaunKonfiguratorPage />} />
+
+              {/* Location-specific landing pages for SEO */}
+              <Route path="/standorte/:citySlug" element={<LocationPageRouter />} />
+
+              {/* Dynamic Service + City Landing Pages */}
+              <Route path="/leistungen/:slug" element={<LocalServicePage />} />
+
+              {/* Generate all Service × City SEO Landing Pages */}
+              {(() => {
+                const services = ['zaunbau', 'rasenpflege', 'gartenpflege', 'rollrasen', 'heckenschnitt', 'pflasterarbeiten', 'terrassenbau', 'sichtschutz', 'gabionen', 'baumpflege'];
+                const cities = ['kuppenheim', 'rastatt', 'baden-baden', 'karlsruhe', 'gaggenau', 'bischweier', 'waldbronn', 'landau'];
+
+                return services.flatMap(service =>
+                  cities.map(city => (
+                    <Route
+                      key={`${service}-${city}`}
+                      path={`/${service}-${city}`}
+                      element={<LocalServicePage service={service} city={city} />}
+                    />
+                  ))
+                );
+              })()}
+            </Routes>
+          </main>
+          <Footer />
+
+          {/* Global WhatsApp Button & CTA */}
+          <div className="fixed bottom-6 right-6 z-50 flex items-center justify-end pointer-events-none">
+            {/* CTA Text with Arrow - visible on all devices */}
+            <div className="flex items-center mr-3 md:mr-4 pointer-events-auto animate-[fadeIn_0.5s_ease-out_2s_forwards] opacity-0">
+              <div className="bg-white px-3 py-2 md:px-4 md:py-3 rounded-lg shadow-xl relative">
+                <span className="text-earth-900 font-bold text-xs md:text-sm whitespace-nowrap">Haben Sie Fragen? Schreiben Sie uns!</span>
+                {/* Arrow pointing to the button */}
+                <div className="absolute top-1/2 -right-2 transform -translate-y-1/2 w-0 h-0 border-t-[6px] border-t-transparent border-l-[8px] border-l-white border-b-[6px] border-b-transparent"></div>
+              </div>
             </div>
-          </div>
 
-          <a
-            href="https://wa.me/4917647999118"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-white p-3 rounded-full shadow-lg hover:scale-110 transition-transform pointer-events-auto relative group"
-            aria-label="Chat on WhatsApp"
-          >
-            <img src="https://img.icons8.com/color/48/whatsapp--v1.png" alt="WhatsApp" className="w-10 h-10 relative z-10 animate-wiggle" />
-            {/* Pulse Animation */}
-            <div className="absolute inset-0 rounded-full bg-green-400 opacity-20 animate-ping"></div>
-          </a>
+            <a
+              href="https://wa.me/4917647999118"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-white p-3 rounded-full shadow-lg hover:scale-110 transition-transform pointer-events-auto relative group"
+              aria-label="Chat on WhatsApp"
+            >
+              <img src="https://img.icons8.com/color/48/whatsapp--v1.png" alt="WhatsApp" className="w-10 h-10 relative z-10 animate-wiggle" />
+              {/* Pulse Animation */}
+              <div className="absolute inset-0 rounded-full bg-green-400 opacity-20 animate-ping"></div>
+            </a>
+          </div>
         </div>
-      </div>
-    </Router>
+      </Router>
+    </HelmetProvider>
   );
 };
 

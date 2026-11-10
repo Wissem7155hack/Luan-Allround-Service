@@ -20,7 +20,7 @@ export const PersonSchema: React.FC<PersonSchemaProps> = ({
         "name": name,
         "jobTitle": jobTitle,
         "worksFor": {
-            "@id": "https://www.luan-allround-service.de/#organization"
+            "@id": "https://luan-allround-service.de/#organization"
         },
         "address": {
             "@type": "PostalAddress",

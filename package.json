@@ -6,10 +6,28 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "postbuild": "react-snap || exit 0",
     "build:gh": "vite build",
     "preview": "vite preview",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
+  },
+  "reactSnap": {
+    "source": "dist",
+    "destination": "dist",
+    "include": [
+      "/",
+      "/leistungen",
+      "/projekte",
+      "/galerie",
+      "/blog",
+      "/ueber-uns",
+      "/kontakt"
+    ],
+    "puppeteerArgs": [
+      "--no-sandbox",
+      "--disable-setuid-sandbox"
+    ]
   },
   "dependencies": {
     "@google/genai": "^1.30.0",
@@ -19,13 +37,16 @@
     "react": "^19.2.1",
     "react-dom": "^19.2.1",
     "react-helmet": "^6.1.0",
+    "react-helmet-async": "^2.0.5",
     "react-router-dom": "^7.9.6",
-    "sweetalert2": "^11.26.4"
+    "sweetalert2": "^11.26.4",
+    "vite-plugin-sitemap": "^0.8.2"
   },
   "devDependencies": {
     "@types/node": "^22.14.0",
     "@vitejs/plugin-react": "^5.0.0",
     "gh-pages": "^6.3.0",
+    "react-snap": "^1.23.0",
     "typescript": "~5.8.2",
     "vite": "^6.2.0"
   }

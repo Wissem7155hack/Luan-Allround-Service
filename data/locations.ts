@@ -194,6 +194,57 @@ export const locations: LocationData[] = [
         mapUrl:
             'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10537.765!2d8.3167!3d48.8569!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4796f0f0f0f0f0f0%3A0x0!2sBischweier!5e0!3m2!1sde!2sde!4v1234567890',
     },
+    {
+        city: 'Waldbronn',
+        slug: 'waldbronn',
+        postalCode: '76337',
+        region: 'Baden-Württemberg',
+        description:
+            'Professioneller Zaunbau und Garten- & Landschaftsbau in Waldbronn (76337). Doppelstabmattenzäune, Sichtschutz, Terrassen- und Pflasterarbeiten mit kostenlosem Vor-Ort-Aufmaß.',
+        landmarks: [
+            'Waldbronn-Reichenbach',
+            'Waldbronn-Busenbach',
+            'Waldbronn-Etzenrot',
+            'Kurpark Waldbronn',
+            'Albtal-Region',
+        ],
+        services: [
+            'Zaunbau & Zaunmontage',
+            'Doppelstabmattenzaun 6/5/6 & 8/6/8',
+            'Sichtschutzzäune',
+            'Pflasterarbeiten',
+            'Terrassenbau',
+            'Gartenpflege',
+            'Rollrasen verlegen',
+        ],
+        mapUrl:
+            'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10537.765!2d8.4735!3d48.9264!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x479709f9f9f9f9f9%3A0x0!2sWaldbronn!5e0!3m2!1sde!2sde!4v1234567890',
+    },
+    {
+        city: 'Landau',
+        slug: 'landau',
+        postalCode: '76829',
+        region: 'Rheinland-Pfalz',
+        description:
+            'Zaunbau und Garten- & Landschaftsbau in Landau in der Pfalz und der gesamten Südpfalz. Hochwertige Doppelstabmattenzäune, Gabionen und Pflasterarbeiten zu fairen Festpreisen.',
+        landmarks: [
+            'Landau Innenstadt',
+            'Wollmesheimer Höhe',
+            'Horst-Siedlung',
+            'Queichheim',
+            'Südpfalz-Region',
+        ],
+        services: [
+            'Zaunbau Landau',
+            'Doppelstabmattenzäune',
+            'Industrie- & Gartenzäune',
+            'Pflasterarbeiten & Hofeinfahrten',
+            'Gartenumgestaltung',
+            'Sichtschutz & Tore',
+        ],
+        mapUrl:
+            'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10537.765!2d8.1167!3d49.1986!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x479659f9f9f9f9f9%3A0x0!2sLandau!5e0!3m2!1sde!2sde!4v1234567890',
+    },
 ];
 
 // Helper function to get location by slug
