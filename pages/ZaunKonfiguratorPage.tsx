@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Phone, Maximize2, Minimize2, ExternalLink, ShieldCheck } from 'lucide-react';
+import { ArrowLeft, Phone, Maximize2, Minimize2, ExternalLink } from 'lucide-react';
 import SEOHead from '../components/SEOHead';
 
 const ZaunKonfiguratorPage: React.FC = () => {
   const [isFullscreen, setIsFullscreen] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
 
   return (
-    <div className={`min-h-screen bg-slate-900 flex flex-col text-white ${isFullscreen ? 'fixed inset-0 z-50' : ''}`}>
+    <div className="fixed inset-0 z-50 w-screen h-screen flex flex-col bg-slate-100 overflow-hidden">
       <SEOHead
         title="3D Zaunkonfigurator Kuppenheim & Rastatt | Luan Allround Service"
         description="Planen Sie Ihren Doppelstabmattenzaun online in 3D: Maße, Farben (Anthrazit, Moosgrün, Verzinkt), Gartentore & Sichtschutzstreifen konfigurieren. Kostenloses Aufmaß vor Ort in Kuppenheim & Rastatt!"
@@ -17,74 +16,83 @@ const ZaunKonfiguratorPage: React.FC = () => {
       />
 
       {/* Top Header Bar */}
-      <header className="h-14 bg-stone-900 border-b border-stone-800 px-4 sm:px-6 flex items-center justify-between z-30 shrink-0">
-        <div className="flex items-center gap-3 sm:gap-4">
-          <Link
-            to="/"
-            className="flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-gray-300 hover:text-white transition px-2.5 py-1.5 rounded-lg hover:bg-stone-800"
-          >
-            <ArrowLeft size={16} />
-            <span className="hidden sm:inline">Zurück zur Startseite</span>
-            <span className="sm:hidden">Zurück</span>
-          </Link>
+      {!isFullscreen && (
+        <header className="h-12 bg-stone-900 border-b border-stone-800 px-4 sm:px-6 flex items-center justify-between z-30 shrink-0">
+          <div className="flex items-center gap-3 sm:gap-4">
+            <Link
+              to="/"
+              className="flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-gray-300 hover:text-white transition px-2.5 py-1 rounded-lg hover:bg-stone-800"
+            >
+              <ArrowLeft size={16} />
+              <span className="hidden sm:inline">Zurück zur Startseite</span>
+              <span className="sm:hidden">Zurück</span>
+            </Link>
 
-          <div className="h-4 w-px bg-stone-700 hidden sm:block" />
+            <div className="h-4 w-px bg-stone-700 hidden sm:block" />
 
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="text-xs sm:text-sm font-bold text-white tracking-wide">
-              Luan Allround Service • 3D-Zaunplaner
-            </span>
-          </div>
-        </div>
-
-        <div className="flex items-center gap-2 sm:gap-3">
-          <a
-            href="tel:+4917647999118"
-            className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-600/20 border border-emerald-500/40 text-emerald-300 hover:bg-emerald-600 hover:text-white text-xs font-bold transition"
-          >
-            <Phone size={13} />
-            <span>0176 47999118</span>
-          </a>
-
-          <a
-            href="/zaun-konfigurator/index.html"
-            target="_blank"
-            rel="noopener noreferrer"
-            title="In neuem Tab im Vollbild öffnen"
-            className="p-2 rounded-lg bg-stone-800 hover:bg-stone-700 text-gray-300 hover:text-white text-xs transition flex items-center gap-1"
-          >
-            <ExternalLink size={15} />
-            <span className="hidden lg:inline text-[11px] font-semibold">Vollbild Tab</span>
-          </a>
-
-          <button
-            type="button"
-            onClick={() => setIsFullscreen(!isFullscreen)}
-            title={isFullscreen ? 'Vollbild beenden' : 'Vollbildmodus'}
-            className="p-2 rounded-lg bg-stone-800 hover:bg-stone-700 text-gray-300 hover:text-white text-xs transition"
-          >
-            {isFullscreen ? <Minimize2 size={16} /> : <Maximize2 size={16} />}
-          </button>
-        </div>
-      </header>
-
-      {/* Main 3D Viewport iframe */}
-      <main className="flex-1 relative w-full h-[calc(100vh-3.5rem)] bg-slate-900 overflow-hidden">
-        {isLoading && (
-          <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-slate-950 text-white gap-4">
-            <div className="w-12 h-12 border-4 border-emerald-500/20 border-t-emerald-500 rounded-full animate-spin" />
-            <div className="text-center">
-              <p className="text-sm font-bold text-white">3D-Zaunplaner wird initialisiert...</p>
-              <p className="text-xs text-gray-400 mt-1">Laden der photorealistischen 3D-Gartenansicht</p>
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="text-xs sm:text-sm font-bold text-white tracking-wide">
+                Luan Allround Service • 3D-Zaunplaner
+              </span>
             </div>
           </div>
-        )}
+
+          <div className="flex items-center gap-2 sm:gap-3">
+            <a
+              href="tel:+4917647999118"
+              className="hidden md:flex items-center gap-1.5 px-3 py-1 rounded-lg bg-emerald-600/20 border border-emerald-500/40 text-emerald-300 hover:bg-emerald-600 hover:text-white text-xs font-bold transition"
+            >
+              <Phone size={13} />
+              <span>0176 47999118</span>
+            </a>
+
+            <a
+              href="/zaun-konfigurator/index.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="In neuem Tab öffnen"
+              className="p-1.5 rounded-lg bg-stone-800 hover:bg-stone-700 text-gray-300 hover:text-white text-xs transition flex items-center gap-1"
+            >
+              <ExternalLink size={14} />
+              <span className="hidden lg:inline text-[11px] font-semibold">Vollbild Tab</span>
+            </a>
+
+            <button
+              type="button"
+              onClick={() => setIsFullscreen(true)}
+              title="Vollbildmodus aktivieren"
+              className="p-1.5 rounded-lg bg-stone-800 hover:bg-stone-700 text-gray-300 hover:text-white text-xs transition"
+            >
+              <Maximize2 size={15} />
+            </button>
+          </div>
+        </header>
+      )}
+
+      {/* Floating Exit Fullscreen Button */}
+      {isFullscreen && (
+        <button
+          type="button"
+          onClick={() => setIsFullscreen(false)}
+          className="fixed top-3 right-3 z-50 flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900/90 text-white hover:bg-slate-900 text-xs font-bold shadow-2xl border border-white/20 transition cursor-pointer"
+        >
+          <Minimize2 size={14} />
+          <span>Vollbild beenden</span>
+        </button>
+      )}
+
+      {/* Main 3D Viewport iframe */}
+      <main className="flex-1 w-full h-full relative overflow-hidden bg-slate-100">
         <iframe
           src="/zaun-konfigurator/index.html"
           title="Luan Allround Service 3D Zaunkonfigurator"
-          className="w-full h-full border-0 select-none"
-          onLoad={() => setIsLoading(false)}
+          className="w-full border-0 select-none block"
+          style={{
+            width: '100%',
+            height: isFullscreen ? '100vh' : 'calc(100vh - 48px)',
+            border: 'none',
+          }}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         />
       </main>
